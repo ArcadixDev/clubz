@@ -1,10 +1,10 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { AuthProvider, ThemeProvider } from "@/components/primitives/Provider";
-import { ReactNode } from "react";
-import Navigation from "@/components/primitives/Navigation";
 import Footer from "@/components/primitives/Footer";
+import Navigation from "@/components/primitives/Navigation";
+import { AuthProvider, ThemeProvider } from "@/components/primitives/Provider";
+import type { Metadata } from "next";
+import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AuthProvider>
           <body>
             <ThemeProvider attribute="class" defaultTheme="dark">
-              <main className="flex h-full min-h-screen w-full flex-col">
+              <main className="flex h-full min-h-screen w-full flex-col relative">
                 <Navigation />
                 {children}
                 <Footer />

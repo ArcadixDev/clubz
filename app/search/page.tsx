@@ -1,12 +1,9 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import React from "react";
-import img from "@/public/background.png";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MdLocationPin } from "react-icons/md";
-import Navigation from "@/components/primitives/Navigation";
 
 const TrendingPlaceCard = () => {
   return (
@@ -50,8 +47,13 @@ const page = () => {
     <div className="container mx-auto flex-grow py-20">
       {/* <Navigation /> */}
       <div className="mb-20 space-y-10 px-5">
-        <div className="py-4">
+        <div className="flex items-center justify-between py-4">
           <div>Home / About / Contact</div>
+          <div>
+            <Badge variant={"secondary"} className="rounded-lg px-3 py-1.5">
+              Name
+            </Badge>
+          </div>
         </div>
         <div className="relative flex items-center">
           <Input

@@ -1,15 +1,13 @@
+import { Icons } from "@/components/icons/home";
 import {
   BookingCardLeft,
   BookingCardRight,
 } from "@/components/primitives/BookingCard";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth/config";
-import Image from "next/image";
-import Link from "next/link";
-import bgImage from "@/assets/Background Image.png";
-import { Icons } from "@/components/icons/home";
-import image0 from "@/public/assets/section1Image0.png";
 import image1 from "@/public/assets/section1Image.png";
+import image0 from "@/public/assets/section1Image0.png";
+import Image from "next/image";
 
 export default async function Home() {
   const session = await auth();
@@ -18,8 +16,9 @@ export default async function Home() {
     console.log("no session found!");
     return (
       <div className="flex-grow">
-        <div className="bg-design1 relative min-h-screen w-full bg-cover bg-bottom bg-no-repeat">
+        <div className="bg-waves relative min-h-screen w-full bg-cover bg-bottom bg-no-repeat">
           {/* <Image src={bgImage} alt={"background image"} /> */}
+          {/* <Navigation /> */}
 
           <div className="pl-72 pt-72">
             <div className="font-sans text-7xl font-bold tracking-widest">
