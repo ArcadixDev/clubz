@@ -22,8 +22,11 @@ module.exports = {
         aicon: "url('/assets/AIcon.svg')",
         design1: "url('/svg/design0.svg')",
         loginDesign: "url('/svg/logindesign.svg')",
+        waves: "url('/svg/waves.svg')",
+        homeLines: "url('/svg/homeLines.svg')",
         loginIllustration: "url('/svg/loginbg.svg')",
         signupllustration: "url('/svg/signupbg.svg')",
+        baseBackground: "url('/background.png')",
       },
       colors: {
         border: "hsl(var(--border))",
