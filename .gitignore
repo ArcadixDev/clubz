@@ -134,4 +134,4 @@ dist
 # Addons 
 pnpm-lock.yaml
 
-migrations/
+/migrations/*

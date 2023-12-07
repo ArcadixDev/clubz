@@ -4,10 +4,10 @@ import {
   BookingCardRight,
 } from "@/components/primitives/BookingCard";
 import { Button } from "@/components/ui/button";
-import { auth } from "@/lib/auth/config";
 import image1 from "@/public/assets/section1Image.png";
 import image0 from "@/public/assets/section1Image0.png";
 import Image from "next/image";
+import { auth } from "@/app/auth";
 
 export default async function Home() {
   const session = await auth();
@@ -16,7 +16,7 @@ export default async function Home() {
     console.log("no session found!");
     return (
       <div className="flex-grow">
-        <div className="bg-waves relative min-h-screen w-full bg-cover bg-bottom bg-no-repeat">
+        <div className="relative min-h-screen w-full bg-waves bg-cover bg-bottom bg-no-repeat">
           {/* <Image src={bgImage} alt={"background image"} /> */}
           {/* <Navigation /> */}
 
