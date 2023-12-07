@@ -13,7 +13,7 @@ import {
 import { CalendarIcon, ClockIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { About, Overview, Photos, Review } from "./tabs";
+import { Overview, Photos } from "./tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -56,18 +56,6 @@ const page = () => {
                   >
                     Photos
                   </TabsTrigger>
-                  <TabsTrigger
-                    value="about"
-                    className="flex-grow data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                  >
-                    About
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="review"
-                    className="flex-grow data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                  >
-                    Review
-                  </TabsTrigger>
                 </TabsList>
                 <hr className="h-0.5 bg-white text-white" />
                 <TabsContent value="overview">
@@ -75,12 +63,6 @@ const page = () => {
                 </TabsContent>
                 <TabsContent value="photos">
                   <Photos />
-                </TabsContent>
-                <TabsContent value="about">
-                  <About />
-                </TabsContent>
-                <TabsContent value="review">
-                  <Review />
                 </TabsContent>
               </Tabs>
             </div>
