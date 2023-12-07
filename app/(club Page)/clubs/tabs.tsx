@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { StarFilledIcon } from "@radix-ui/react-icons";
-import photoImage from "../../../public/assets/section1Image0.png";
+import photoImage from "@/public/assets/section1Image0.png";
 import Image from "next/image";
 
 const Overview = () => {
@@ -71,28 +71,28 @@ const Photos = () => {
           height={200}
           width={200}
           src={photoImage}
-          alt=""
+          alt="image alternative for photos"
         />
         <Image
           className="aspect-square rounded-full"
           height={200}
           width={200}
           src={photoImage}
-          alt=""
+          alt="image alternative for photos"
         />
         <Image
           className="aspect-square rounded-full"
           height={200}
           width={200}
           src={photoImage}
-          alt=""
+          alt="image alternative for photos"
         />
         <Image
           className="aspect-square rounded-full"
           height={200}
           width={200}
           src={photoImage}
-          alt=""
+          alt="image alternative for photos"
         />
       </div>
       <div className="my-5 h-[2px] w-full bg-white"></div>
@@ -104,14 +104,14 @@ const Photos = () => {
             height={500}
             width={1000}
             src={photoImage}
-            alt=""
+            alt="image alternative for photos"
           />
           <Image
             className="roudned-md"
             height={500}
             width={1000}
             src={photoImage}
-            alt=""
+            alt="image alternative for photos"
           />
         </div>
       </div>
