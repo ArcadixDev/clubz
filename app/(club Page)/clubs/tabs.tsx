@@ -1,6 +1,6 @@
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { StarFilledIcon } from "@radix-ui/react-icons";
-import React from "react";
 import photoImage from "@/public/assets/section1Image0.png";
 import Image from "next/image";
 
