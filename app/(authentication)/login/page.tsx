@@ -9,7 +9,7 @@ const page = () => {
         <div className="w-full">
           <LoginFormDemo />
         </div>
-        <div className="bg-loginIllustration hidden h-full w-full items-center justify-center bg-center bg-no-repeat lg:flex">
+        <div className="hidden h-full w-full items-center justify-center bg-loginIllustration bg-center bg-no-repeat lg:flex">
           {/* <Images.login /> */}
         </div>
       </div>

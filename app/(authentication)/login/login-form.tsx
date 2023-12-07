@@ -1,232 +1,216 @@
-'use client';
+"use client";
 
-import { Icons, Primitives } from '@/components/icons';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from '@prisma/client';
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { FaApple, FaGoogle } from 'react-icons/fa';
-import { Checkbox } from '@/components/ui/checkbox';
-import { FiEye, FiEyeOff, FiLock, FiMail } from 'react-icons/fi';
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaApple } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
+import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
+import { z } from "zod";
 
 export const LoginFormSchema = z.object({
-	email: z
-		.string()
-		.min(2, {
-			message: 'email must be at least 2 characters.',
-		})
-		.email({ message: 'Invalid email address' }),
-	password: z.string().min(8, {
-		message: 'Password should contain atleast 8 characters',
-	}),
+  email: z
+    .string()
+    .min(2, {
+      message: "email must be at least 2 characters.",
+    })
+    .email({ message: "Invalid email address" }),
+  password: z.string().min(8, {
+    message: "Password should contain atleast 8 characters",
+  }),
 });
 
 export function LoginFormDemo() {
-	const searchParams = useSearchParams();
-	const callback = searchParams.get('callbackUrl');
-	const error = searchParams.get('error');
+  const searchParams = useSearchParams();
+  const callback = searchParams.get("callbackUrl");
+  const error = searchParams.get("error");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isPassVisible, setIsPassVisible] = useState<boolean>(false);
 
-	const [isPassVisible, setIsPassVisible] = useState<boolean>(false);
+  if (error) {
+    console.log("error catched => ", error);
+  }
 
-	if (error) {
-		console.log('error catched => ', error);
-	}
+  if (error === "OAuthAccountNotLinked") {
+    console.log("error is OAuthAccountNotLinked");
+  }
 
-	if (error === 'OAuthAccountNotLinked') {
-		console.log('error is OAuthAccountNotLinked');
-	}
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof LoginFormSchema>>({
+    resolver: zodResolver(LoginFormSchema),
+    defaultValues: {
+      email: searchParams.get("email") ?? "",
+      password: "",
+    },
+  });
 
-	// 1. Define your form.
-	const form = useForm<z.infer<typeof LoginFormSchema>>({
-		resolver: zodResolver(LoginFormSchema),
-		defaultValues: {
-			email: searchParams.get('email') ?? '',
-			password: '',
-		},
-	});
+  const onSubmit = async (values: z.infer<typeof LoginFormSchema>) => {
+    try {
+      setIsSubmitting(true);
+      await signIn("credentials", {
+        ...values,
+        callbackUrl: callback ?? "/",
+        redirect: true,
+      });
+    } catch (error) {
+      console.log("Error signing in", error);
+      toast.error("Error occured!");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-	const onSubmit = async (values: z.infer<typeof LoginFormSchema>) => {
-		await signIn('credentials', {
-			...values,
-			callbackUrl: callback ?? '/',
-			redirect: true,
-		});
-	};
-
-	return (
-		<Card className="max-w-md mx-auto w-full shadow-none border-none">
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<CardHeader className="space-y-1">
-						<CardTitle className="text-4xl font-bold text-center mb-12">
-							Login
-						</CardTitle>
-					</CardHeader>
-					<CardContent className="grid gap-6 pl-14 pr-6">
-						<div className="grid gap-2">
-							<FormField
-								control={form.control}
-								name="email"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Email</FormLabel>
-										<FormControl>
-											<div className="relative">
-												<Primitives.mail
-													className={`absolute -left-12 m-2.5 h-6 w-6`}
-												/>
-												<Input
-													placeholder="user@example.com"
-													{...field}
-													className=" py-5 outline-none border-none bg-secondary"
-												/>
-											</div>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="grid gap-2">
-							<FormField
-								control={form.control}
-								name="password"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Password</FormLabel>
-										<FormControl>
-											<div className="relative">
-												<Primitives.lock
-													className={`absolute -left-12 m-2.5 h-6 w-6`}
-												/>
-												<Input
-													type={
-														isPassVisible
-															? 'text'
-															: 'password'
-													}
-													{...field}
-													className="pr-9 py-5 outline-none border-none bg-secondary"
-													placeholder="password"
-												/>
-												<button
-													type="button"
-													onClick={() =>
-														setIsPassVisible(
-															(ref) => !ref,
-														)
-													}
-													className="absolute inset-y-0 right-0 m-2.5 h-5 w-5"
-												>
-													{isPassVisible ? (
-														<FiEyeOff />
-													) : field.value ? (
-														<FiEye />
-													) : null}
-												</button>
-											</div>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-
-						<div className="my-3 flex items-center justify-between">
-							<div className="flex items-center space-x-2">
-								<Checkbox
-									id="rememberme"
-									defaultChecked
-									className="rounded-md"
-								/>
-								<label
-									htmlFor="rememberme"
-									className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 selection:bg-none"
-								>
-									Remember Me
-								</label>
-							</div>
-							<div className=" text-right">
-								<Link
-									href={'/forgot-password'}
-									className={`text-xs text-blue-600 font-semibold`}
-								>
-									forgot Password?
-								</Link>
-							</div>
-						</div>
-						<div className="flex justify-center">
-							<Button className="w-44 p-5" type="submit">
-								Login
-							</Button>
-						</div>
-						<div className=" text-center">
-							<Link
-								href={`/signup`}
-								className="text-xs text-blue-600 font-semibold"
-							>
-								Create An Account
-							</Link>
-						</div>
-					</CardContent>
-					<CardFooter className="grid gap-4">
-						{/* <div className="relative">
-							<div className="absolute inset-0 flex items-center">
-								<span className="w-full border-t" />
-							</div>
-							<div className="relative flex justify-center text-xs uppercase">
-								<span className="bg-background px-2 text-muted-foreground">
-									Or Login with
-								</span>
-							</div>
-						</div>
-						<div className="grid grid-cols-2 gap-6">
-							<Button
-								variant="outline"
-								onClick={() => signIn('google')}
-								type="button"
-								className="w-full"
-							>
-								<FaGoogle className="mr-2 h-4 w-4" />
-								Google
-							</Button>
-							<Button
-								variant="outline"
-								onClick={() => console.log('login with apple')}
-								type="button"
-								className="w-full"
-							>
-								<FaApple className="mr-2 h-4 w-4" />
-								Apple
-							</Button>
-						</div> */}
-					</CardFooter>
-				</form>
-			</Form>
-		</Card>
-	);
+  return (
+    <Card className="custom-card w-full max-w-lg border-none bg-white/60 p-5">
+      <div className="mb-5 flex flex-col items-center justify-center gap-1">
+        <h1 className="text-4xl font-semibold text-white underline underline-offset-4">
+          Login
+        </h1>
+        <span className="text-white">Welcome back!</span>
+      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <CardContent className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <div className="relative text-white">
+                          {/* <Primitives.mail
+                          className={`absolute -left-12 m-2.5 h-6 w-6`}
+                        /> */}
+                          <Input
+                            placeholder="user@example.com"
+                            {...field}
+                            className=" border-2 border-none border-white bg-white/60 py-5 outline-none"
+                          />
+                        </div>
+                      </FormControl>
+                      {/* <FormDescription>
+											This is your public display name.
+										</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          {/* <Primitives.lock
+                          className={`absolute -left-12 m-2.5 h-6 w-6`}
+                        /> */}
+                          <Input
+                            type={isPassVisible ? "text" : "password"}
+                            {...field}
+                            className="border-none bg-white/60 outline-none "
+                            placeholder="password"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setIsPassVisible((ref) => !ref)}
+                            className="absolute inset-y-0 right-0 m-2.5 h-5 w-5"
+                          >
+                            {isPassVisible ? (
+                              <FiEyeOff />
+                            ) : field.value ? (
+                              <FiEye />
+                            ) : null}
+                          </button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center">
+                <Button
+                  className="w-full bg-red-600 p-5 text-lg text-white"
+                  type="submit"
+                >
+                  {isSubmitting ? (
+                    <div className=" animate-spin">
+                      <span>Login In</span>
+                      <FiLoader />
+                    </div>
+                  ) : (
+                    "SIGN IN"
+                  )}
+                </Button>
+              </div>
+              <div className="">
+                <div className="flex items-center justify-center space-x-2 text-sm">
+                  <span>Don't have an account?</span>
+                  <Link
+                    href={"/signup"}
+                    className="font-bold text-white underline-offset-4 hover:underline"
+                  >
+                    Register <span className="font-light">Now</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-0">
+              <div className="flex flex-row items-center justify-center gap-2">
+                <span className="h-px w-full bg-white" />
+                <div className="flex justify-center text-lg font-semibold">
+                  <span className="text-white">or</span>
+                </div>
+                <span className="h-px w-full bg-white" />
+              </div>
+              <div className="flex items-center justify-center space-x-2 ">
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    signIn("google");
+                  }}
+                  type="button"
+                  className="w-fit"
+                >
+                  <FcGoogle className="h-6 w-6" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => console.log("login with apple")}
+                  type="button"
+                  className="w-fit"
+                >
+                  <FaApple className="h-6 w-6" />
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </form>
+      </Form>
+    </Card>
+  );
 }
