@@ -1,4 +1,3 @@
-import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import photoImage from "@/public/assets/section1Image0.png";
