@@ -1,8 +1,5 @@
 {
-  "editor.codeActionsOnSave": {
-	"source.fixAll": true,
-	"source.organizeImports": true
-  },
+  "editor.codeActionsOnSave": {},
   "prettier.useTabs": true,
   "prettier.tabWidth": 4
 }
