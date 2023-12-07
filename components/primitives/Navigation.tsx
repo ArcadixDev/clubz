@@ -49,7 +49,7 @@ const Navigation = () => {
   //     },
   //   };
 
-  if (session) {
+  if (session && session.user) {
     console.log("session from navigation -> ", session);
   }
 
@@ -79,7 +79,7 @@ const Navigation = () => {
             />
           </Link>
           <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
-            {!session?.user.id && (
+            {!session?.user!.id && (
               <Link
                 href={"/login?loginUserType=clubAdmin"}
                 className="flex items-center space-x-1"
@@ -99,9 +99,6 @@ const Navigation = () => {
             <Link className="p-3" href={"/search"}>
               Search
             </Link>
-            <Button variant={"ghost"} className="">
-              Filter
-            </Button>
             <Popover>
               <PopoverTrigger>Filter</PopoverTrigger>
               <PopoverContent className="">
@@ -218,14 +215,14 @@ const Navigation = () => {
                 />
               </div>
             </div>
-            {!session?.user.id && (
+            {!session?.user!.id && (
               <Link href={"/login"} className="shadow-custom">
                 <Button variant={"outline"} className="rounded-lg">
                   login
                 </Button>
               </Link>
             )}
-            {session?.user.id && (
+            {session?.user!.id && (
               <div>
                 <Avatar>
                   <AvatarImage src="https://github.com/shadcn.png" />
