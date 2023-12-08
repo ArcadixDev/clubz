@@ -1,10 +1,19 @@
 "use client";
 
+import { Icons, Primitives, Images } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,14 +23,23 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { redirect, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { FaApple } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 import * as z from "zod";
+import { toast, Toaster } from "react-hot-toast";
+import { FaApple, FaGoogle, FaUser } from "react-icons/fa";
+import {
+  FiEye,
+  FiEyeOff,
+  FiLoader,
+  FiLock,
+  FiMail,
+  FiUser,
+} from "react-icons/fi";
+import Password from "../Fields";
+import { useState } from "react";
+import { Router } from "next/router";
+import { FcGoogle } from "react-icons/fc";
 // import { Icons } from '@/components/icons';
 
 export const SignupFormSchema = z.object({
@@ -66,6 +84,7 @@ export function SignupFormDemo() {
       },
       body: JSON.stringify({ data: values }),
     });
+    console.log(response);
 
     const userInfo = await response.json();
     const { data, error, errorCode } = userInfo;
@@ -101,10 +120,9 @@ export function SignupFormDemo() {
     }
     setIsSubmitting(false);
   };
-
   return (
     //Todo: Glass effect needs to be implemented in the form card component.
-    <Card className="custom-card w-full max-w-md border-none p-5 backdrop-blur-md">
+    <Card className="custom-card to-tr w-full max-w-lg border-none bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 backdrop-blur-2xl py-20">
       <div className="mb-5 flex flex-col items-center justify-center gap-1">
         <h1 className="text-4xl font-semibold text-white underline underline-offset-4">
           Create Account
@@ -125,12 +143,12 @@ export function SignupFormDemo() {
                       <FormControl>
                         <div className="">
                           {/* <Primitives.person
-							className={`absolute -left-12 top-0 m-2.5 h-6 w-6`}
-						  /> */}
+                          className={`absolute -left-12 top-0 m-2.5 h-6 w-6`}
+                        /> */}
                           <Input
                             placeholder="name"
                             {...field}
-                            className="border-none bg-secondary outline-none"
+                            className="border-none bg-white/60 outline-none"
                           />
                         </div>
                       </FormControl>
@@ -149,18 +167,18 @@ export function SignupFormDemo() {
                       <FormControl>
                         <div className="relative text-white">
                           {/* <Primitives.mail
-							className={`absolute -left-12 m-2.5 h-6 w-6`}
-						  /> */}
+                          className={`absolute -left-12 m-2.5 h-6 w-6`}
+                        /> */}
                           <Input
                             placeholder="user@example.com"
                             {...field}
-                            className=" border-2 border-none border-white bg-secondary py-5 outline-none"
+                            className=" border-2 border-none border-white bg-white/60 py-5 outline-none"
                           />
                         </div>
                       </FormControl>
                       {/* <FormDescription>
-											  This is your public display name.
-										  </FormDescription> */}
+											This is your public display name.
+										</FormDescription> */}
                       <FormMessage />
                     </FormItem>
                   )}
@@ -176,12 +194,12 @@ export function SignupFormDemo() {
                       <FormControl>
                         <div className="relative">
                           {/* <Primitives.lock
-							className={`absolute -left-12 m-2.5 h-6 w-6`}
-						  /> */}
+                          className={`absolute -left-12 m-2.5 h-6 w-6`}
+                        /> */}
                           <Input
                             type={isPassVisible ? "text" : "password"}
                             {...field}
-                            className="border-none bg-secondary outline-none "
+                            className="border-none bg-white/60 outline-none "
                             placeholder="password"
                           />
                           <button
@@ -206,7 +224,7 @@ export function SignupFormDemo() {
             <div className="flex flex-col gap-3">
               <div className="flex justify-center">
                 <Button
-                  className="w-full bg-red-600 p-5 text-lg text-white"
+                  className="w-full bg-red-600 p-5 text-lg text-white hover:text-red-500"
                   type="submit"
                 >
                   {isSubmitting ? (
@@ -231,7 +249,7 @@ export function SignupFormDemo() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-0">
+            <div className="flex flex-col gap-5">
               <div className="flex flex-row items-center justify-center gap-2">
                 <span className="h-px w-full bg-white" />
                 <div className="flex justify-center text-lg font-semibold">

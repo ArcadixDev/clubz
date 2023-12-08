@@ -1,21 +1,61 @@
 import React from "react";
 import { LoginFormDemo } from "./login-form";
-import { Images } from "@/components/icons";
-import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
-const page = () => {
+const Page = () => {
   return (
-    <section className="flex flex-grow items-center rounded-lg bg-cover bg-no-repeat p-0 sm:p-5 xl:m-28 xl:my-10 xl:border-secondary xl:p-0 xl:shadow-custom">
-      <div className="grid min-h-[775px] w-full grid-cols-1 place-items-center justify-items-center gap-4 lg:grid-cols-2">
-        <div className="w-full">
-          <LoginFormDemo />
-        </div>
-        <div className="hidden h-full w-full items-center justify-center bg-loginIllustration bg-center bg-no-repeat lg:flex">
-          {/* <Images.login /> */}
-        </div>
+    <section className="relative flex h-screen w-full flex-row items-center justify-center">
+      <div className="relative hidden items-center justify-center md:flex md:w-1/2">
+        <Image
+          src="/assets/Smart People 1.png"
+          width={500}
+          height={500}
+          alt=""
+        />
       </div>
+      <div className="absolute -top-5 left-72 -z-10 hidden md:flex">
+        <Image src="/assets/Vector 14.png" alt="" width={800} height={800} />
+      </div>
+      <div className="absolute -top-5 left-0 -z-10 hidden md:flex">
+        <Image src="/assets/Vector 15.png" alt="" width={500} height={500} />
+      </div>
+      <div className="absolute bottom-60 left-0 hidden md:flex">
+        <Image src="/assets/Ellipse 2.png" alt="" width={250} height={250} />
+      </div>
+
+      <div className="w-full md:w-1/2">
+        <LoginFormDemo />
+      </div>
+      <Image
+        src="/assets/image 8.png"
+        alt=""
+        width={100}
+        height={100}
+        className="absolute bottom-0 right-0 -z-10"
+      />
+      <Image
+        src="/assets/Ellipse 3.png"
+        alt=""
+        width={200}
+        height={200}
+        className="absolute -top-5 right-0 -z-10"
+      />
+      <Image
+        src="/assets/note.png"
+        alt=""
+        width={50}
+        height={100}
+        className="absolute right-[400px] top-40"
+      />
+      <Image
+        src="/assets/Ellipse 1.png"
+        alt=""
+        width={250}
+        height={250}
+        className="absolute bottom-0 right-0 -z-10"
+      />
     </section>
   );
 };
 
-export default page;
+export default Page;
