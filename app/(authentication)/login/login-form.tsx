@@ -1,27 +1,39 @@
 "use client";
 
+import { Icons, Primitives } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { User } from "@prisma/client";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { FaApple } from "react-icons/fa6";
-import { FcGoogle } from "react-icons/fc";
-import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 import { z } from "zod";
+import { FaApple, FaGoogle } from "react-icons/fa";
+import { Checkbox } from "@/components/ui/checkbox";
+import { FiEye, FiEyeOff, FiLoader, FiLock, FiMail } from "react-icons/fi";
+import { FcGoogle } from "react-icons/fc";
+import toast from "react-hot-toast";
 
 export const LoginFormSchema = z.object({
   email: z
@@ -76,7 +88,8 @@ export function LoginFormDemo() {
   };
 
   return (
-    <Card className="custom-card w-full max-w-lg border-none bg-white/60 p-5">
+    //Todo: Glass effect needs to be implemented in the form card component.
+    <Card className="custom-card w-full max-w-lg border-none  bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 py-20 backdrop-blur-2xl">
       <div className="mb-5 flex flex-col items-center justify-center gap-1">
         <h1 className="text-4xl font-semibold text-white underline underline-offset-4">
           Login
@@ -154,12 +167,12 @@ export function LoginFormDemo() {
             <div className="flex flex-col gap-3">
               <div className="flex justify-center">
                 <Button
-                  className="w-full bg-red-600 p-5 text-lg text-white"
+                  className="w-full bg-red-600 p-5 text-lg text-white hover:text-red-500"
                   type="submit"
                 >
                   {isSubmitting ? (
                     <div className=" animate-spin">
-                      <span>Login In</span>
+                      <span>Login In....</span>
                       <FiLoader />
                     </div>
                   ) : (
