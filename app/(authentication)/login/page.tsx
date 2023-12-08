@@ -13,10 +13,10 @@ const Page = () => {
           alt=""
         />
       </div>
-      <div className="absolute left-72 -top-5 -z-10 hidden md:flex">
+      <div className="absolute -top-5 left-72 -z-10 hidden md:flex">
         <Image src="/assets/Vector 14.png" alt="" width={800} height={800} />
       </div>
-      <div className="absolute left-0 -top-5 -z-10 hidden md:flex">
+      <div className="absolute -top-5 left-0 -z-10 hidden md:flex">
         <Image src="/assets/Vector 15.png" alt="" width={500} height={500} />
       </div>
       <div className="absolute bottom-60 left-0 hidden md:flex">

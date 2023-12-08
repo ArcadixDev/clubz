@@ -59,7 +59,9 @@ export function LoginFormDemo() {
   }
 
   if (error === "OAuthAccountNotLinked") {
-    console.log("error is OAuthAccountNotLinked");
+    console.log(
+      "There is an account which has been signed up with credentials but has not yet linked from the OAuth account that the user is trying to signup with.",
+    );
   }
 
   // 1. Define your form.

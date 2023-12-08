@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useCallback } from "react";
 import img from "@/public/assets/section1Image.png";
 import map from "@/public/assets/map.png";
 import { format } from "date-fns";
@@ -41,6 +41,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   name: z
@@ -49,18 +50,30 @@ const formSchema = z.object({
     .max(255),
   email: z.string().email().min(1).max(255),
   phone: z.coerce.string().min(10).max(10),
-  people: z.coerce.number().gte(1).lte(100),
+  people: z.coerce.number().gte(1).lte(10).min(1).max(10),
   date: z.coerce.date(),
 });
 
-export default function page() {
+export default function page({ params }: { params: { clubId: string } }) {
   //   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const { data: session, status } = useSession();
+  let name = "",
+    email = "";
+
+  if (status === "loading") {
+    name = email = "";
+  }
+
+  console.log(session?.user.name);
+  if (status === "authenticated" || status === "unauthenticated") {
+    (name = session?.user.name ?? ""), (email = session?.user.email ?? "");
+  }
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
+      name,
+      email,
       people: 1,
     },
   });
@@ -164,7 +177,7 @@ export default function page() {
                       <FormLabel>Name</FormLabel>
                       <FormControl>
                         <Input
-                          className="border-transparent border-b-foreground px-0"
+                          className="border-transparent border-b-foreground focus-visible:ring-0"
                           placeholder="Name"
                           {...field}
                         />
@@ -183,7 +196,7 @@ export default function page() {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
-                          className="border-transparent border-b-foreground px-0"
+                          className="border-transparent border-b-foreground focus-visible:ring-0"
                           type="email"
                           placeholder="Email"
                           {...field}
@@ -203,7 +216,7 @@ export default function page() {
                       <FormLabel>Phone</FormLabel>
                       <FormControl>
                         <Input
-                          className="border-transparent border-b-foreground px-0"
+                          className="border-transparent border-b-foreground focus-visible:ring-0"
                           type="text"
                           placeholder=""
                           {...field}
@@ -223,10 +236,12 @@ export default function page() {
                       <FormLabel>Number of people</FormLabel>
                       <FormControl>
                         <Input
-                          className="border-transparent border-b-foreground px-0"
+                          className="border-transparent border-b-foreground focus-visible:ring-0"
                           type="number"
                           placeholder=""
                           {...field}
+                          min={1}
+                          max={10}
                         />
                       </FormControl>
                       <FormMessage />
