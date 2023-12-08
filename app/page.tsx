@@ -8,141 +8,173 @@ import image1 from "@/public/assets/section1Image.png";
 import image0 from "@/public/assets/section1Image0.png";
 import Image from "next/image";
 import { auth } from "@/app/auth";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 export default async function Home() {
   const session = await auth();
+  return (
+    <div className="mb-24 flex-grow">
+      <div className="relative min-h-screen w-full bg-waves bg-cover bg-bottom bg-no-repeat">
+        {/* <Image src={bgImage} alt={"background image"} /> */}
+        {/* <Navigation /> */}
 
-  if (!session) {
-    console.log("no session found!");
-    return (
-      <div className="flex-grow">
-        <div className="relative min-h-screen w-full bg-waves bg-cover bg-bottom bg-no-repeat">
-          {/* <Image src={bgImage} alt={"background image"} /> */}
-          {/* <Navigation /> */}
-
-          <div className="pl-72 pt-72">
-            <div className="font-sans text-7xl font-bold tracking-widest">
-              <div>Liquid</div>
-              <div>Artistry</div>
-            </div>
-            <div className="trakcing-wider mt-6 text-lg">
-              <div>Step into a world of</div>
-              <div>extraordinary flavors and</div>
-              <div>unrivaled mixology expertise</div>
-            </div>
+        <div className="pl-72 pt-72">
+          <div className="font-sans text-7xl font-bold tracking-widest">
+            <div>Liquid</div>
+            <div>Artistry</div>
           </div>
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-            <Button
-              variant={`outline`}
-              className="rounded-lg px-8 py-6 text-xl font-bold tracking-widest"
-            >
-              Explore
-            </Button>
+          <div className="trakcing-wider mt-6 text-lg">
+            <div>Step into a world of</div>
+            <div>extraordinary flavors and</div>
+            <div>unrivaled mixology expertise</div>
           </div>
         </div>
-        <div className="min-h-screen overflow-hidden bg-aicon bg-auto bg-left-bottom bg-no-repeat">
-          <div className="relative my-20">
-            <div className="clip-right absolute right-0 top-0 z-50 h-[600px] w-[450px] bg-zinc-900 text-white">
-              <div className="ml-auto mr-3 mt-10 h-[375px] w-[350px] overflow-hidden p-3 text-right">
-                <h1 className="text-4xl font-bold ">Upcoming Events.</h1>
-                <hr className="my-6 h-1 w-48 rounded-md bg-white text-right" />
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </div>
-              </div>
-            </div>
-            <div className="relative pt-16">
-              <div className="flex w-fit translate-x-96 overflow-x-auto rounded-md bg-zinc-800 scrollbar-default">
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
-                <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
-                  <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
-                    Disco Night
-                  </div>
-                </div>
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+          <Button
+            variant={`outline`}
+            className="rounded-lg px-8 py-6 text-xl font-bold tracking-widest"
+          >
+            Explore
+          </Button>
+        </div>
+      </div>
+      <div className="min-h-screen overflow-hidden bg-aicon bg-auto bg-left-bottom bg-no-repeat">
+        <div className="relative my-20">
+          <div className="clip-right absolute right-0 top-0 z-50 h-[600px] w-[450px] bg-zinc-900 text-white">
+            <div className="ml-auto mr-3 mt-10 h-[375px] w-[350px] overflow-hidden p-3 text-right">
+              <h1 className="text-4xl font-bold ">Upcoming Events.</h1>
+              <hr className="my-6 h-1 w-48 rounded-md bg-white text-right" />
+              <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </div>
             </div>
           </div>
-        </div>
-        <div className="bg- relative min-h-screen space-y-40 bg-cicon bg-auto bg-right bg-no-repeat">
-          <div className="">
-            {/* <div className="absolute right-0 top-0 z-0">
-              <Icons.OIcon />
-            </div> */}
-            <div className="flex w-full items-start">
-              <Image
-                src={image0}
-                alt={"image 0"}
-                className="z-50 h-auto w-full flex-grow"
-              />
-              <Image
-                src={image1}
-                alt={"image 1"}
-                className="z-50 h-auto w-full flex-grow"
-              />
+          <div className="relative pt-16">
+            <div className="mx-auto flex w-fit overflow-x-auto rounded-md bg-zinc-800/30 scrollbar-default">
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              {/* <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div>
+              <div className="box relative m-3 h-[300px] min-w-[300px] rounded-md bg-zinc-600">
+                <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
+                  Disco Night
+                </div>
+              </div> */}
             </div>
-            <div className="absolute left-10 translate-x-32 translate-y-32 -rotate-12">
-              <Icons.NoteIcon />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-x-10 gap-y-4">
-            <BookingCardLeft />
-            <BookingCardRight />
-            <BookingCardLeft />
-            <BookingCardRight />
-            <BookingCardLeft />
-            <BookingCardRight />
           </div>
         </div>
       </div>
-    );
-  }
+      <div className=" relative min-h-screen space-y-40 bg-cicon bg-auto bg-right bg-no-repeat">
+        <div className="">
+          {/* <div className="absolute right-0 top-0 z-0">
+              <Icons.OIcon />
+            </div> */}
+          <div className="felx-wrap flex w-full items-start">
+            <Image
+              src={image0}
+              alt={"image 0"}
+              className="z-50 h-auto flex-1"
+            />
+            <Image
+              src={image1}
+              alt={"image 1"}
+              className="z-50 h-auto flex-1"
+            />
+          </div>
+          <div className="absolute left-10 translate-x-32 translate-y-32 -rotate-12">
+            <Icons.NoteIcon />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-x-10 gap-y-4">
+          <BookingCardLeft />
+          <BookingCardRight />
+          <BookingCardLeft />
+          <BookingCardRight />
+          <BookingCardLeft />
+          <BookingCardRight />
+        </div>
+      </div>
+      <div className=" bg-bDesign relative min-h-screen space-y-40 bg-auto bg-left-top bg-no-repeat">
+        <div className="container my-24 flex items-center justify-center gap-10">
+          <div className="flex-grow text-left text-7xl font-bold capitalize">
+            <div className="mx-auto mb-4 w-full max-w-md">
+              We help you to find best
+            </div>
+            <div className="mx-auto h-1.5 w-32 translate-x-full rounded-md bg-white"></div>
+          </div>
+          <div className=" relative flex flex-grow items-end justify-start">
+            <div className="flex aspect-[9/16] h-[525px] w-[350px] items-start justify-start bg-gray-400"></div>
+            <div className="absolute left-48 top-20 flex aspect-[9/16] h-[525px] w-[350px] items-end justify-end bg-gray-400"></div>
+          </div>
+        </div>
+        <div className="container mx-auto my-24 flex items-center justify-center">
+          <div className="relative w-full max-w-xs space-y-14">
+            <div className="w-full text-6xl font-semibold">
+              <div className="mb-4">Light Your Night</div>
+              <div className="ml-auto h-1 w-28 rounded-md bg-white"></div>
+            </div>
+            <div className="text-md tracking-wide">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </div>
+            <div>
+              <Button variant={"secondary"} className="space-x-2">
+                <span>Get notify</span>
+                <FaArrowRightLong />
+              </Button>
+            </div>
+          </div>
 
-  return (
-    <div className="flex-grow">
-      <div className="flex-grow">
-        Hello {session && session.user ? session?.user.name : "world"}
+          <div className="mx-auto w-full flex-grow">
+            <div className="grid grid-cols-2 place-items-start content-center items-center gap-10">
+              <div className="h-[350px] w-[350px] place-self-end bg-zinc-800 shadow-custom"></div>
+              <div className="h-[350px] w-[350px] bg-zinc-800 shadow-custom"></div>
+              <div className="h-[350px] w-[350px] place-self-end bg-zinc-800 shadow-custom"></div>
+              <div className="h-[350px] w-[350px] bg-zinc-800 shadow-custom"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
