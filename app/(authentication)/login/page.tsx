@@ -1,6 +1,7 @@
 import React from "react";
 import { LoginFormDemo } from "./login-form";
 import { Images } from "@/components/icons";
+import { useSearchParams } from "next/navigation";
 
 const page = () => {
   return (

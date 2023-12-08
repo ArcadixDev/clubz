@@ -47,7 +47,9 @@ export function LoginFormDemo() {
   }
 
   if (error === "OAuthAccountNotLinked") {
-    console.log("error is OAuthAccountNotLinked");
+    console.log(
+      "There is an account which has been signed up with credentials but has not yet linked from the OAuth account that the user is trying to signup with.",
+    );
   }
 
   // 1. Define your form.
@@ -76,7 +78,7 @@ export function LoginFormDemo() {
   };
 
   return (
-    <Card className="custom-card w-full max-w-lg border-none bg-white/60 p-5">
+    <Card className="custom-card w-full max-w-lg border-none bg-zinc-800/30 p-5">
       <div className="mb-5 flex flex-col items-center justify-center gap-1">
         <h1 className="text-4xl font-semibold text-white underline underline-offset-4">
           Login

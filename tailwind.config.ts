@@ -21,6 +21,7 @@ module.exports = {
         cicon: "url('/assets/CIcon.svg')",
         aicon: "url('/assets/AIcon.svg')",
         design1: "url('/svg/design0.svg')",
+        bDesign: "url('/svg/BDesign.svg')",
         loginDesign: "url('/svg/logindesign.svg')",
         waves: "url('/svg/waves.svg')",
         homeLines: "url('/svg/homeLines.svg')",

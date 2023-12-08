@@ -7,6 +7,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { JWT } from "@auth/core/jwt";
 import prisma from "@/lib/prisma";
 import { User } from "@prisma/client";
+import { redirect } from "next/navigation";
 
 declare module "@auth/core" {
   /**
@@ -54,17 +55,22 @@ export const {
           return null;
         }
 
-        // const user = await db
-        //   .select()
-        //   .from(users)
-        //   .where(eq(users.email, email));
         const user = await prisma.user.findUnique({
           where: {
             email,
           },
         });
 
+        console.log("user is found . ", user);
+
+        if (!user?.password) {
+          throw new Error(
+            "Already signedup User is logged in with Google auth and should be logged",
+          );
+        }
+
         if (!user) {
+          throw new Error("IDK but user is somehow not truthy");
           return null;
         }
 
@@ -72,6 +78,7 @@ export const {
           password as string,
           user.password as string,
         );
+        console.log("password matches? ", passwordsMatch);
 
         if (!passwordsMatch) {
           return null;
@@ -83,30 +90,33 @@ export const {
     Google,
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log("signin from callbacks ... ");
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   console.log("signin from callbacks ... ");
 
-      //   const res = await db
-      //     .selectFrom("User")
-      //     .selectAll()
-      //     .where("User.email", "=", user?.email!);
+    //   //   const res = await db
+    //   //     .selectFrom("User")
+    //   //     .selectAll()
+    //   //     .where("User.email", "=", user?.email!);
 
-      const res = await prisma.user.findUnique({
-        where: {
-          email: user?.email!,
-        },
-      });
+    //   const res = await prisma.user.findUnique({
+    //     where: {
+    //       email: user?.email!,
+    //     },
+    //   });
 
-      console.log("user => ", user);
-      console.log("account => ", account);
-      console.log("profile => ", profile);
-      console.log("email => ", email);
-      console.log("credentials => ", credentials);
-      if (!res) {
-        return true;
-      }
-      return false;
-    },
+    //   console.log("user => ", user);
+    //   console.log("account => ", account);
+    //   console.log("profile => ", profile);
+    //   console.log("email => ", email);
+    //   console.log("credentials => ", credentials);
+    //   console.log("res => ", res);
+    //   if (res) {
+    //     redirect(`/login?error=OAuthAccountNotLinked&email=${user.email}`);
+    //   }
+
+    //   console.log("The user is not present...");
+    //   return true;
+    // },
     async jwt({ token, user, session }) {
       if (user) {
         return {
@@ -135,6 +145,7 @@ export const {
   },
   pages: {
     signIn: "/login",
+    error: "/login",
   },
   session: {
     strategy: "jwt",
