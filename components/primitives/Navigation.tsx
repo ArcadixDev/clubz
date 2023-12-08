@@ -21,7 +21,7 @@ const Navigation = async () => {
   }
 
   return (
-    <div className="relative h-fit bg-background/30">
+    <div className="relative h-fit bg-zinc-800/30">
       <div className="h-20"></div>
       <div className="absolute top-0 h-full w-full px-8 py-4">
         <div className="flex items-center justify-between">

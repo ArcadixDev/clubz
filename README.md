@@ -1,7 +1,3 @@
-Certainly! Below is a simple `README.md` template for your repository, including guidelines for installation, branching, and pushing. I've also included a note about environment variables from the `.env.example` file.
-
----
-
 # ClubZ Repository
 
 Welcome to the ClubZ repository! This project is designed to [brief description of the project].
@@ -30,9 +26,14 @@ To get started with ClubZ, follow these steps:
 
    Replace `<branch_name>` with the name of the branch you want to work on.
 
+4. **Run the preinstall script for intial project setup**
+   ```bash
+   pnpm ready
+   ```
+
 ## Environment Variables
 
-Make sure to set up your environment variables. The required variables can be found in the `.env.example` file. Create a new `.env` file and copy the variables from `.env.example`, updating them with your specific values.
+Make sure to set up your environment variables. The required variables can be found in the `.env.local` file. Create a new `.env` file and copy the variables from `.env.local`, updating them with your specific values.
 
 ## Branching and Pushing Changes
 
@@ -44,7 +45,7 @@ When working on ClubZ, follow these guidelines for branching and pushing changes
    git checkout -b feature/my-feature
    ```
 
-   Replace `my-feature` with a descriptive name for your feature or bug fix.
+   Replace `my-feature` with a descriptive name that approximately matches the feature or bug fix.
 
 2. **Make your changes and commit them:**
 
