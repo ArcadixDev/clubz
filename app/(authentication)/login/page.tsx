@@ -13,19 +13,27 @@ const Page = () => {
           alt=""
         />
       </div>
-      <div className="absolute -top-5 left-72 -z-10 hidden md:flex">
+      <div className="absolute left-72 top-0 -z-10 hidden md:flex">
         <Image src="/assets/Vector 14.png" alt="" width={800} height={800} />
       </div>
-      <div className="absolute -top-5 left-0 -z-10 hidden md:flex">
+      <div className="absolute left-0 top-0 -z-10 hidden md:flex">
         <Image src="/assets/Vector 15.png" alt="" width={500} height={500} />
       </div>
       <div className="absolute bottom-60 left-0 hidden md:flex">
         <Image src="/assets/Ellipse 2.png" alt="" width={250} height={250} />
       </div>
 
-      <div className="w-full md:w-1/2">
+      <div className="relative w-full md:w-1/2">
         <LoginFormDemo />
+        <Image
+          src="/assets/note.png"
+          alt=""
+          width={50}
+          height={100}
+          className="absolute right-[400px] top-0"
+        />
       </div>
+
       <Image
         src="/assets/image 8.png"
         alt=""
@@ -38,15 +46,9 @@ const Page = () => {
         alt=""
         width={200}
         height={200}
-        className="absolute -top-5 right-0 -z-10"
+        className="absolute right-0 top-0 -z-10"
       />
-      <Image
-        src="/assets/note.png"
-        alt=""
-        width={50}
-        height={100}
-        className="absolute right-[400px] top-40"
-      />
+
       <Image
         src="/assets/Ellipse 1.png"
         alt=""

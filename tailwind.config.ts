@@ -28,6 +28,8 @@ module.exports = {
         loginIllustration: "url('/svg/loginbg.svg')",
         signupllustration: "url('/svg/signupbg.svg')",
         baseBackground: "url('/background.png')",
+        loginBg: "url('/assets/bg.png')",
+        sidebarBg: "url('/assets/sideBg.jpg')",
       },
       colors: {
         border: "hsl(var(--border))",
