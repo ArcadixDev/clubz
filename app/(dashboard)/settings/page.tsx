@@ -50,19 +50,19 @@ const feedbackOptions = [
 
 const SettingsPage = () => {
   return (
-    <main className="h-screen  p-10 text-white w-full">
+    <main className="w-full p-10 text-white">
       <div className="mx-auto">
         <section className="mb-8">
           <h1 className="mb-4 text-3xl font-bold">General Settings</h1>
-          <div className="space-y-4 w-full">
+          <div className="w-full space-y-4">
             {generalOptions.map((option) => (
               <Link
                 href={option.href}
                 key={option.id}
                 className="flex items-center justify-between rounded-lg bg-zinc-800 p-3 transition duration-300 ease-in-out hover:bg-zinc-900"
               >
-                  {option.label}
-                  <IoIosArrowForward />
+                {option.label}
+                <IoIosArrowForward />
               </Link>
             ))}
           </div>
@@ -77,8 +77,8 @@ const SettingsPage = () => {
                 key={option.id}
                 className="flex items-center justify-between rounded-lg bg-zinc-800 p-3 transition duration-300 ease-in-out hover:bg-zinc-900"
               >
-                  {option.label}
-                  <IoIosArrowForward />
+                {option.label}
+                <IoIosArrowForward />
               </Link>
             ))}
           </div>
