@@ -1,86 +1,31 @@
-"use client";
-
 import Image from "next/image";
-import React, { useCallback } from "react";
+import React from "react";
 import img from "@/public/assets/section1Image.png";
 import map from "@/public/assets/map.png";
-import { format } from "date-fns";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CalendarIcon, ClockIcon, StarFilledIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview, Photos } from "../tabs";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import Link from "next/link";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
+import BookingForm from "./booking-form";
+import { auth } from "@/app/auth";
+import { Session } from "next-auth/types";
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(1, { message: "Seriously?! Write your full name" })
-    .max(255),
-  email: z.string().email().min(1).max(255),
-  phone: z.coerce.string().min(10).max(10),
-  people: z.coerce.number().gte(1).lte(10).min(1).max(10),
-  date: z.coerce.date(),
-});
-
-export default function page({ params }: { params: { clubId: string } }) {
+export default async function page({ params }: { params: { clubId: string } }) {
   //   const [date, setDate] = React.useState<Date | undefined>(new Date());
-  const { data: session, status } = useSession();
-  let name = "",
-    email = "";
+  const session = await auth();
+  const { name, email } = session?.user as Session["user"];
 
-  if (status === "loading") {
-    name = email = "";
-  }
-
-  console.log(session?.user.name);
-  if (status === "authenticated" || status === "unauthenticated") {
-    (name = session?.user.name ?? ""), (email = session?.user.email ?? "");
-  }
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name,
-      email,
-      people: 1,
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
   return (
     <div className="w-full flex-grow py-20">
       <div className="container mx-auto ">
@@ -163,169 +108,7 @@ export default function page({ params }: { params: { clubId: string } }) {
             <h1 className="mb-10 font-serif text-4xl text-red-500">
               <span className="font-bold">Bookings</span> & Contact
             </h1>
-            <Form {...form}>
-              <form
-                noValidate
-                onSubmit={form.handleSubmit(onSubmit)}
-                className=""
-              >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="border-transparent border-b-foreground focus-visible:ring-0"
-                          placeholder="Name"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription></FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="border-transparent border-b-foreground focus-visible:ring-0"
-                          type="email"
-                          placeholder="Email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription></FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="border-transparent border-b-foreground focus-visible:ring-0"
-                          type="text"
-                          placeholder=""
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription></FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="people"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Number of people</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="border-transparent border-b-foreground focus-visible:ring-0"
-                          type="number"
-                          placeholder=""
-                          {...field}
-                          min={1}
-                          max={10}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {/* <FormField
-                  control={form.control}
-                  name="date"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Dete & Time</FormLabel>
-                      <FormControl>
-                        <Calendar
-                          className="w-full"
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) => date < new Date()}
-                          {...field}
-                          classNames={{
-                            table: "w-full",
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
-
-                {/* <FormField
-                  control={form.control}
-                  name="date"
-                  render={({ field }) => (
-                    <FormItem className="relative flex flex-col">
-                      <FormLabel>Date of birth</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground",
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        Your date of birth is used to calculate your age.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
-
-                <Button
-                  className="w-1full mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize"
-                  type="submit"
-                >
-                  Book ticket
-                </Button>
-              </form>
-            </Form>
+            <BookingForm name={name} email={email} />
 
             {/* Contact Info */}
             <div>

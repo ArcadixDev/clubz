@@ -16,12 +16,12 @@ const Navigation = async () => {
   //     },
   //   };
 
-  if (session && session.user) {
-    console.log("session from navigation -> ", session);
-  }
+  //   if (session && session.user) {
+  //     console.log("session from navigation -> ", session);
+  //   }
 
   return (
-    <div className="relative h-fit bg-zinc-800/30">
+    <div className="relative h-fit bg-transparent/30">
       <div className="h-20"></div>
       <div className="absolute top-0 h-full w-full px-8 py-4">
         <div className="flex items-center justify-between">

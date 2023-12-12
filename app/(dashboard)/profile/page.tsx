@@ -1,7 +1,10 @@
-import { Separator } from "@/components/ui/separator";
 import { ProfileForm } from "./profile-form";
+import { Separator } from "@/components/ui/separator";
+import React from "react";
 
-export default function page() {
+type Props = {};
+
+const page = (props: Props) => {
   return (
     <div className="space-y-6">
       <div>
@@ -14,4 +17,6 @@ export default function page() {
       <ProfileForm />
     </div>
   );
-}
+};
+
+export default page;

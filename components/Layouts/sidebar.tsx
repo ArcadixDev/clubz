@@ -15,13 +15,13 @@ const options = [
     id: 1,
     label: "My Profile",
     icon: <FaUser />,
-    path: "/myprofile",
+    path: "/profile",
   },
   {
     id: 2,
     label: "My Bookings",
     icon: <HiMiniTicket />,
-    path: "/mybookings",
+    path: "/bookings",
   },
   {
     id: 3,
@@ -38,10 +38,10 @@ const options = [
 ];
 
 const Sidebar = (props: Props) => {
-     const pathName = usePathname();
+  const pathName = usePathname();
   return (
-    <main className="flex w-full flex-col items-center gap-5 py-10">
-      <Avatar className="h-32 w-32">
+    <main className="flex w-full flex-col items-center gap-5 pb-10">
+      <Avatar className=" h-32 w-32 -translate-y-1/2 transform">
         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
@@ -53,12 +53,12 @@ const Sidebar = (props: Props) => {
               href={item.path}
               key={item.id}
               className={cn(
-                "group flex flex-row gap-2 items-center w-full cursor-pointer justify-start rounded-lg p-3 font-medium transition hover:bg-white/10 hover:text-white",
+                "group flex w-full cursor-pointer flex-row items-center justify-start gap-2 rounded-lg p-3 font-medium transition hover:bg-white/10 hover:text-white",
                 pathName === item.path
                   ? "bg-white/20 text-white"
                   : "text-zinc-400",
               )}
-              >
+            >
               {item.icon}
               {item.label}
             </Link>
