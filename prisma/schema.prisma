@@ -41,9 +41,13 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
+  phone         String?   @unique
   emailVerified DateTime?
   password      String?
   image         String?
+  pincode       String?
+  city          String?
+  state         String?
   accounts      Account[]
   sessions      Session[]
 }

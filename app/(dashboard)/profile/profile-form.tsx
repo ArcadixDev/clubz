@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
+import React, { useEffect } from "react";
 
-import { cn } from "@/lib/utils";
+import { MdOutlineModeEdit } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -24,55 +23,41 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
+import { useForm } from "react-hook-form";
+import {User} from "@prisma/client";
 
 const profileFormSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    }),
   email: z
     .string({
       required_error: "Please select an email to display.",
     })
     .email(),
-  bio: z.string().max(160).min(4),
-  urls: z
-    .array(
-      z.object({
-        value: z.string().url({ message: "Please enter a valid URL." }),
-      }),
-    )
-    .optional(),
+  phone: z.string().regex(/^\d{10}$/),
+  name: z.string().min(2).max(20),
+  dob: z.string(),
+  gender: z.string().min(2).max(20),
+  pincode: z.string().regex(/^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/),
+  city: z.string().min(2).max(20),
+  state: z.string().min(2).max(20),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  bio: "I own a computer.",
-  urls: [
-    { value: "https://shadcn.com" },
-    { value: "http://twitter.com/shadcn" },
-  ],
-};
+const defaultValues: Partial<ProfileFormValues> = {};
 
-export function ProfileForm() {
+
+
+export function ProfileForm(props: {data: User }) {
+
+  const [activateUpdateButton, setActivateUpdateButton] = React.useState(false);
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: "onChange",
   });
 
-  const { fields, append } = useFieldArray({
-    name: "urls",
-    control: form.control,
-  });
 
   function onSubmit(data: ProfileFormValues) {
     toast({
@@ -84,108 +69,180 @@ export function ProfileForm() {
       ),
     });
   }
+  const userData = props.data;
+
+  // Filter out the attributes which donot exist in the form
+  // such as id, emailVerified, image, password etc.
+  const filteredData = Object.fromEntries(Object.entries(userData).filter(([key]) => ![
+    "id","emailVerified","image","password"
+  ].includes(key)));
+
+  // set the filtered data as the default values for the formData
+  // so that initially formData === dbData
+  const [formData, setFormData] = React.useState(filteredData);
+
+  // handles onChange event of the form
+  // and updates the formData
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const {name, value} = event.target;
+    setFormData({...formData, [name]: value})
+  }
+  // keeps looking for changes in the formData
+  // and updates the activateUpdateButton (when true you can edit form)
+  useEffect(() => {
+    const isSameData = Object.keys(filteredData).every((key) => filteredData[key] === formData[key]);
+    setActivateUpdateButton(isSameData);
+  }, [formData]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name. It can be your real name or a
-                pseudonym. You can only change this once every 30 days.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                You can manage verified email addresses in your{" "}
-                <Link href="/examples/forms">email settings</Link>.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="bio"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Bio</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Tell us a little bit about yourself"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div>
-          {fields.map((field, index) => (
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full flex flex-col gap-y-8 rounded-lg bg-gradient-to-tl from-black to-slate-600 p-8"
+        >
+          <label className="text-2xl">Account Details</label>
+          <div className="space-y-5 ml-10">
             <FormField
               control={form.control}
-              key={field.id}
-              name={`urls.${index}.value`}
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={cn(index !== 0 && "sr-only")}>
-                    URLs
-                  </FormLabel>
-                  <FormDescription className={cn(index !== 0 && "sr-only")}>
-                    Add links to your website, blog, or social media profiles.
-                  </FormDescription>
+                  <FormLabel className="w-44">Email Address</FormLabel>
+                  <div className="flex gap-x-10 items-center">
                   <FormControl>
-                    <Input {...field} />
+                    <Input defaultValue={userData.email!} className="border-white md:w-3/4" placeholder="emily@acies.com" {...field} onChange={handleChange} />
+                  </FormControl>
+                  <span className="flex items-center gap-x-1 hover:cursor-pointer"><MdOutlineModeEdit /> Edit</span>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="w-44">Mobile Number</FormLabel>
+                  <div className="flex gap-x-10 items-center">
+                  <FormControl>
+                    <Input defaultValue={"9999999991"} className="border-white md:w-3/4" placeholder="99xxxxxxxx" {...field} onChange={handleChange} />
+                  </FormControl>
+                  <span className="flex items-center gap-x-1 hover:cursor-pointer"><MdOutlineModeEdit /> Edit</span>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <label className="text-2xl">Personal Details</label>
+          <div className="space-y-5 ml-10">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="w-44">Name</FormLabel>
+                  <FormControl>
+                    <Input className="border-white md:w-3/4"
+                    defaultValue={userData.name!}
+                      placeholder="Enter your first name here"
+                      {...field} onChange={handleChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          ))}
+            <FormField
+              control={form.control}
+              name="dob"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="w-44">Date of Birth</FormLabel>
+                  <FormControl>
+                    <Input className="border-white md:w-3/4" type="date" {...field} onChange={handleChange}/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="w-44">Gender</FormLabel>
+                  <Select 
+                    onValueChange={field.onChange}
+                    defaultValue={field.value} 
+                    
+                  >
+                    <FormControl className="border-white md:w-3/4">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your Gender" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Male">Male</SelectItem>
+                      <SelectItem value="Female">Female</SelectItem>
+                      <SelectItem value="Prefer Not to say">
+                        Prefer Not To Say
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pincode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="w-44">Zip/Pincode</FormLabel>
+                  <FormControl>
+                    <Input className="border-white md:w-3/4" {...field} onChange={handleChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="w-44">City/Town</FormLabel>
+                  <FormControl>
+                    <Input className="border-white md:w-3/4" {...field} onChange={handleChange}/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="w-44">State</FormLabel>
+                  <FormControl>
+                    <Input className="border-white md:w-3/4" {...field} onChange={handleChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="mt-2"
-            onClick={() => append({ value: "" })}
-          >
-            Add URL
-          </Button>
-        </div>
-        <Button type="submit">Update profile</Button>
-      </form>
-    </Form>
+                  className="ml-10 w-48 text-white mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize"
+                  type="submit"
+                  disabled={activateUpdateButton}
+                >
+                  Update Details
+                </Button>
+        </form>
+      </Form>
+    </>
   );
 }
