@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-<<<<<<< HEAD
   images: {
     remotePatterns: [
       {
@@ -10,12 +9,5 @@ const nextConfig = {
     ],
   },
 };
-=======
-    images: {
-        dangerouslyAllowSVG: true,
-        domains: ['api.dicebear.com']
-    },
-}
->>>>>>> UI
 
 module.exports = nextConfig;

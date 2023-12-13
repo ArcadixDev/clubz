@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { cn } from "@/lib/utils";
@@ -7,6 +9,8 @@ import { FaUser } from "react-icons/fa6";
 import { HiMiniTicket } from "react-icons/hi2";
 import { BiSolidOffer } from "react-icons/bi";
 import { IoSettingsSharp } from "react-icons/io5";
+import { auth } from "@/app/auth";
+import { useSession } from "next-auth/react";
 
 type Props = {};
 
@@ -38,11 +42,15 @@ const options = [
 ];
 
 const Sidebar = (props: Props) => {
+  const { data: session } = useSession();
   const pathName = usePathname();
   return (
     <main className="flex w-full flex-col items-center gap-5 pb-10">
       <Avatar className=" h-32 w-32 -translate-y-1/2 transform">
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+        <AvatarImage
+          src={session?.user.image ?? "https://github.com/shadcn.png"}
+          alt="@shadcn"
+        />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <section className="w-full p-2 text-center">

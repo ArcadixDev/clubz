@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
-import {User} from "@prisma/client";
+import { User } from "@prisma/client";
 
 const profileFormSchema = z.object({
   email: z
@@ -36,7 +36,7 @@ const profileFormSchema = z.object({
   phone: z.string().regex(/^\d{10}$/),
   name: z.string().min(2).max(20),
   dob: z.string(),
-  gender: z.string().min(2).max(20),
+  gender: z.enum(["male", "female", "other", ""]),
   pincode: z.string().regex(/^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/),
   city: z.string().min(2).max(20),
   state: z.string().min(2).max(20),
@@ -46,18 +46,25 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 const defaultValues: Partial<ProfileFormValues> = {};
 
-
-
-export function ProfileForm(props: {data: User }) {
+export function ProfileForm(props: { data: User }) {
+  const { data: user } = props;
 
   const [activateUpdateButton, setActivateUpdateButton] = React.useState(false);
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    defaultValues: {
+      name: user.name ?? "",
+      email: user.email ?? "",
+      gender: "",
+      phone: user.phone ?? "",
+      city: user.city ?? "",
+      dob: "",
+      pincode: user.pincode ?? "",
+      state: user.state ?? "",
+    },
     mode: "onChange",
   });
-
 
   function onSubmit(data: ProfileFormValues) {
     toast({
@@ -73,9 +80,11 @@ export function ProfileForm(props: {data: User }) {
 
   // Filter out the attributes which donot exist in the form
   // such as id, emailVerified, image, password etc.
-  const filteredData = Object.fromEntries(Object.entries(userData).filter(([key]) => ![
-    "id","emailVerified","image","password"
-  ].includes(key)));
+  const filteredData = Object.fromEntries(
+    Object.entries(userData).filter(
+      ([key]) => !["id", "emailVerified", "image", "password"].includes(key),
+    ),
+  );
 
   // set the filtered data as the default values for the formData
   // so that initially formData === dbData
@@ -84,13 +93,15 @@ export function ProfileForm(props: {data: User }) {
   // handles onChange event of the form
   // and updates the formData
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const {name, value} = event.target;
-    setFormData({...formData, [name]: value})
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   }
   // keeps looking for changes in the formData
   // and updates the activateUpdateButton (when true you can edit form)
   useEffect(() => {
-    const isSameData = Object.keys(filteredData).every((key) => filteredData[key] === formData[key]);
+    const isSameData = Object.keys(filteredData).every(
+      (key) => filteredData[key] === formData[key],
+    );
     setActivateUpdateButton(isSameData);
   }, [formData]);
 
@@ -99,21 +110,28 @@ export function ProfileForm(props: {data: User }) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full flex flex-col gap-y-8 rounded-lg bg-gradient-to-tl from-black to-slate-600 p-8"
+          className="flex w-full flex-col gap-y-8 rounded-lg bg-gradient-to-tl from-black to-slate-600 p-8"
         >
           <label className="text-2xl">Account Details</label>
-          <div className="space-y-5 ml-10">
+          <div className="ml-10 space-y-5">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="w-44">Email Address</FormLabel>
-                  <div className="flex gap-x-10 items-center">
-                  <FormControl>
-                    <Input defaultValue={userData.email!} className="border-white md:w-3/4" placeholder="emily@acies.com" {...field} onChange={handleChange} />
-                  </FormControl>
-                  <span className="flex items-center gap-x-1 hover:cursor-pointer"><MdOutlineModeEdit /> Edit</span>
+                  <div className="flex items-center gap-x-10">
+                    <FormControl>
+                      <Input
+                        className="border-white md:w-3/4"
+                        placeholder="emily@acies.com"
+                        {...field}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                    <span className="flex items-center gap-x-1 hover:cursor-pointer">
+                      <MdOutlineModeEdit /> Edit
+                    </span>
                   </div>
                 </FormItem>
               )}
@@ -124,18 +142,26 @@ export function ProfileForm(props: {data: User }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="w-44">Mobile Number</FormLabel>
-                  <div className="flex gap-x-10 items-center">
-                  <FormControl>
-                    <Input defaultValue={"9999999991"} className="border-white md:w-3/4" placeholder="99xxxxxxxx" {...field} onChange={handleChange} />
-                  </FormControl>
-                  <span className="flex items-center gap-x-1 hover:cursor-pointer"><MdOutlineModeEdit /> Edit</span>
+                  <div className="flex items-center gap-x-10">
+                    <FormControl>
+                      <Input
+                        defaultValue={"9999999991"}
+                        className="border-white md:w-3/4"
+                        placeholder="99xxxxxxxx"
+                        {...field}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                    <span className="flex items-center gap-x-1 hover:cursor-pointer">
+                      <MdOutlineModeEdit /> Edit
+                    </span>
                   </div>
                 </FormItem>
               )}
             />
           </div>
           <label className="text-2xl">Personal Details</label>
-          <div className="space-y-5 ml-10">
+          <div className="ml-10 space-y-5">
             <FormField
               control={form.control}
               name="name"
@@ -143,10 +169,12 @@ export function ProfileForm(props: {data: User }) {
                 <FormItem>
                   <FormLabel className="w-44">Name</FormLabel>
                   <FormControl>
-                    <Input className="border-white md:w-3/4"
-                    defaultValue={userData.name!}
+                    <Input
+                      className="border-white md:w-3/4"
+                      defaultValue={userData.name!}
                       placeholder="Enter your first name here"
-                      {...field} onChange={handleChange}
+                      {...field}
+                      onChange={handleChange}
                     />
                   </FormControl>
                   <FormMessage />
@@ -160,7 +188,12 @@ export function ProfileForm(props: {data: User }) {
                 <FormItem>
                   <FormLabel className="w-44">Date of Birth</FormLabel>
                   <FormControl>
-                    <Input className="border-white md:w-3/4" type="date" {...field} onChange={handleChange}/>
+                    <Input
+                      className="border-white md:w-3/4"
+                      type="date"
+                      {...field}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -172,10 +205,9 @@ export function ProfileForm(props: {data: User }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="w-44">Gender</FormLabel>
-                  <Select 
+                  <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value} 
-                    
+                    defaultValue={field.value}
                   >
                     <FormControl className="border-white md:w-3/4">
                       <SelectTrigger>
@@ -183,11 +215,9 @@ export function ProfileForm(props: {data: User }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Male">Male</SelectItem>
-                      <SelectItem value="Female">Female</SelectItem>
-                      <SelectItem value="Prefer Not to say">
-                        Prefer Not To Say
-                      </SelectItem>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Prefer Not To Say</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -201,7 +231,11 @@ export function ProfileForm(props: {data: User }) {
                 <FormItem>
                   <FormLabel className="w-44">Zip/Pincode</FormLabel>
                   <FormControl>
-                    <Input className="border-white md:w-3/4" {...field} onChange={handleChange} />
+                    <Input
+                      className="border-white md:w-3/4"
+                      {...field}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -214,7 +248,11 @@ export function ProfileForm(props: {data: User }) {
                 <FormItem>
                   <FormLabel className="w-44">City/Town</FormLabel>
                   <FormControl>
-                    <Input className="border-white md:w-3/4" {...field} onChange={handleChange}/>
+                    <Input
+                      className="border-white md:w-3/4"
+                      {...field}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -227,7 +265,11 @@ export function ProfileForm(props: {data: User }) {
                 <FormItem>
                   <FormLabel className="w-44">State</FormLabel>
                   <FormControl>
-                    <Input className="border-white md:w-3/4" {...field} onChange={handleChange} />
+                    <Input
+                      className="border-white md:w-3/4"
+                      {...field}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -235,12 +277,12 @@ export function ProfileForm(props: {data: User }) {
             />
           </div>
           <Button
-                  className="ml-10 w-48 text-white mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize"
-                  type="submit"
-                  disabled={activateUpdateButton}
-                >
-                  Update Details
-                </Button>
+            className="ml-10 mt-5 w-48 bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
+            type="submit"
+            disabled={activateUpdateButton}
+          >
+            Update Details
+          </Button>
         </form>
       </Form>
     </>

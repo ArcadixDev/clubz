@@ -1,17 +1,29 @@
-"use client";
 import Sidebar from "@/components/Layouts/sidebar";
-import { useTheme } from "next-themes";
+import prisma from "@/lib/prisma";
 import React from "react";
+import { auth } from "../auth";
 
-const Dashboardlayout = ({ children }: { children: React.ReactNode }) => {
-  const { theme } = useTheme();
+const Dashboardlayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
+
+  async function getUserData() {
+    // console.log("getUserData Called")
+    const data = await prisma.user.findUnique({
+      where: {
+        id: session?.user?.id,
+      },
+    });
+    return data;
+  }
+
+  const data = await getUserData();
 
   return (
     <main className="container relative mx-auto my-10 flex min-h-screen flex-grow flex-col overflow-hidden rounded-xl">
       <div className="h-56 w-full rounded-t-2xl bg-zinc-800"></div>
       <div className="relative flex flex-grow rounded-b-2xl">
         {/* Sidebar Component */}
-        <section className="bg-sidebarBg hidden w-1/5 bg-cover bg-no-repeat md:flex">
+        <section className="hidden w-1/5 bg-sidebarBg bg-cover bg-no-repeat md:flex">
           <Sidebar />
         </section>
         {/* Main Screen */}
