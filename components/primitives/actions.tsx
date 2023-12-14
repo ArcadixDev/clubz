@@ -58,9 +58,9 @@ const Filters = () => {
       urlParams.set("people", people.toString());
     }
 
-    if (type) {
-      urlParams.set("type", type);
-    }
+    if (type === "alcohol") {
+      urlParams.set("alcohol", "true");
+    } else urlParams.set("alcohol", "false");
 
     router.push(createUrl("/search", urlParams));
   };

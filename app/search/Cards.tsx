@@ -4,9 +4,15 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-const TrendingPlaceCard = () => {
+const TrendingPlaceCard = ({
+  club,
+}: {
+  club?: { id: string; name: string; description: string; alcohol: boolean };
+}) => {
+  console.log("card => ", club);
   return (
     <div>
       <div className="pb-4">
@@ -15,11 +21,14 @@ const TrendingPlaceCard = () => {
         </AspectRatio>
       </div>
       <div>
-        <div className="mb-2 text-3xl font-semibold">Title</div>
+        <div className="mb-2 text-3xl font-semibold">
+          {club?.name ?? "Title"}
+          {club?.alcohol ? "alcohol == true" : "alcohol == false"}
+        </div>
         <div className="flex gap-5">
           <div>
-            Description goes here whatever it is, Description goes here whatever
-            it is....
+            {club?.description ??
+              "Description goes here whatever it is, Description goes here whatever it is...."}
           </div>
           <div>
             <Button variant={"destructive"}>50% Off</Button>
@@ -66,4 +75,26 @@ const PopularSearchCard = ({
     </div>
   );
 };
-export { PopularSearchCard, TrendingPlaceCard };
+
+const RelevantSearches = ({ clubs }) => {
+  const searchParams = useSearchParams();
+  let data = clubs;
+
+  if (searchParams.get("alcohol") === "true") {
+    console.log(searchParams.get("alcohol"));
+    data = data.filter((club) => club.alcohol);
+  }
+
+  return (
+    <div className="mb-20">
+      <div className="text-3xl font-bold ">Relavant Searches</div>
+      <div className="flex flex-wrap justify-center gap-10 py-6">
+        {data.slice(0, 10).map((club) => {
+          return <TrendingPlaceCard key={club.id} club={club} />;
+        })}
+      </div>
+    </div>
+  );
+};
+
+export { PopularSearchCard, TrendingPlaceCard, RelevantSearches };

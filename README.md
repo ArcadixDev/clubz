@@ -8,28 +8,35 @@ To get started with ClubZ, follow these steps:
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/ArcadixGaming/clubz.git
-   ```
+```bash
+git clone https://github.com/ArcadixGaming/clubz.git
+```
 
 2. **Fetch the latest changes:**
 
-   ```bash
-   git fetch origin
-   ```
+```bash
+git fetch origin
+```
 
 3. **Checkout a specific branch:**
 
-   ```bash
-   git checkout -b <branch_name> origin/<branch_name>
-   ```
+```bash
+git checkout -b <branch_name> origin/<branch_name>
+```
 
-   Replace `<branch_name>` with the name of the branch you want to work on.
+Replace `<branch_name>` with the name of the branch you want to work on.
 
 4. **Run the preinstall script for intial project setup**
-   ```bash
-   pnpm ready
-   ```
+
+```bash
+pnpm ready
+```
+
+5. **Migrate the database (optional only if schema file has changes when pulled)**
+
+```bash
+pnpm migrate
+```
 
 ## Environment Variables
 

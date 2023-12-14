@@ -50,6 +50,8 @@ model User {
   state         String?
   accounts      Account[]
   sessions      Session[]
+  tickets     Ticket[]      
+  reviews     Review[]      
 }
 
 model VerificationToken {
@@ -58,4 +60,40 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Club {
+  id           String         @id @default(cuid())
+  name         String         @unique
+  description  String
+  websiteUrl  String
+  phone 		String		 @unique
+  availableTickets Int
+  ticketPrice	Float
+  openingHours Json         @db.Json
+  location    Json         @db.Json
+  images      String[]       @db.VarChar(255)
+  tickets      Ticket[]      
+  reviews      Review[]      
+}
+
+model Ticket {
+  id        String          @id @default(cuid())
+  clubId    String          @db.VarChar(255)
+  userId    String          @db.VarChar(255)
+  date      DateTime
+  price     Float
+  paymentStatus String
+  club      Club            @relation(fields: [clubId], references: [id])
+  user      User            @relation(fields: [userId], references: [id])
+}
+
+model Review {
+  id        String          @id @default(cuid())
+  clubId    String          @db.VarChar(255)
+  userId    String          @db.VarChar(255)
+  rating    Int
+  comment   String
+  club      Club            @relation(fields: [clubId], references: [id])
+  user      User            @relation(fields: [userId], references: [id])
 }

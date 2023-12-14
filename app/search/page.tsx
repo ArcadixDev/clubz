@@ -15,7 +15,11 @@ import {
 import Image from "next/image";
 import { apiEndpoint } from "@/lib/utils";
 import { Suspense } from "react";
-import { PopularSearchCard, TrendingPlaceCard } from "./Cards";
+import {
+  PopularSearchCard,
+  RelevantSearches,
+  TrendingPlaceCard,
+} from "./Cards";
 import {
   PopularSearchSkeleton,
   TrendingPlaceSkeletion,
@@ -28,9 +32,10 @@ import {
 } from "@/components/ui/popover";
 import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import SortAndFilters from "./sorting-and-filters";
 
 const getData = async () => {
-  const res = await fetch(`https://${process.env.API_KEY}.mockapi.io/clubz`, {
+  const res = await fetch(`https://${process.env.API_KEY}.mockapi.io/club`, {
     method: "GET",
     headers: { "content-type": "application/json" },
   });
@@ -52,11 +57,11 @@ const page = async () => {
       <div className="mb-20 space-y-10 px-5">
         <div className="flex items-center justify-between py-4">
           <div>Home / About / Contact</div>
-          <div>
+          {/* <div>
             <Badge variant={"secondary"} className="rounded-lg px-3 py-1.5">
               Name
             </Badge>
-          </div>
+          </div> */}
         </div>
         <div className="jusity-between flex items-center space-x-3">
           <div className="relative flex flex-grow items-center">
@@ -74,60 +79,17 @@ const page = async () => {
             </Button>
           </div>
         </div>
-        <div className="flex items-center justify-between space-x-6">
-          <div>
-            <Popover>
-              <PopoverTrigger>
-                <Button variant={"outline"}>Sort</Button>
-              </PopoverTrigger>
-              <PopoverContent sideOffset={10} align={`start`} className="w-fit">
-                <RadioGroup defaultValue="comfortable" className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="default" id="r1" />
-                    <Label htmlFor="r1">Relavance: Low to High</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="default" id="r1" />
-                    <Label htmlFor="r1">Relavance: Low to High</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="pricelh" id="plh" />
-                    <Label htmlFor="plh">Price: Low to High</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="pricehl" id="phl" />
-                    <Label htmlFor="phl">Price: High to Low</Label>
-                  </div>
-                </RadioGroup>
-              </PopoverContent>
-            </Popover>
-
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger className="focus-visible:ring-0">
-                <Button variant={"outline"}>Sort</Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
-          </div>
-          <div className="flex-grow bg-white">contents</div>
-          <div>filter</div>
-        </div>
+        <SortAndFilters />
       </div>
-      <div className="mb-20">
+      <RelevantSearches clubs={data} />
+      {/* <div className="mb-20">
         <div className="text-3xl font-bold ">Relavant Searches</div>
         <div className="flex flex-wrap justify-center gap-10 py-6">
           {data.slice(0, 10).map((club) => {
-            return <TrendingPlaceCard key={club.id} />;
+            return <TrendingPlaceCard key={club.id} club={club} />;
           })}
         </div>
-      </div>
+      </div> */}
 
       <div className="mb-20">
         <div className="text-3xl font-bold ">Popular searches....</div>

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "ready": "pnpm install && pnpm prisma generate",
+    "migrate": "pnpm prisma migrate dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
