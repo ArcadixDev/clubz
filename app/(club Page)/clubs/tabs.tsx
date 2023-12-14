@@ -3,7 +3,13 @@ import { StarFilledIcon } from "@radix-ui/react-icons";
 import photoImage from "@/public/assets/section1Image0.png";
 import Image from "next/image";
 
-const Overview = () => {
+const Overview = (props:{name: string, description: string, rating: number}) => {
+  let { name, description, rating } = props;
+  const stars = [];
+  rating > 5 ? rating = rating % 5 : rating;
+  for (let i = 0; i < rating; i++) {
+    stars.push(<StarFilledIcon className="h-6 w-6 text-yellow-500" />);
+  }
   return (
     <div className="flex flex-col gap-y-6 p-4 font-serif">
       {/* <div className="headerSection px-3">
@@ -29,11 +35,9 @@ const Overview = () => {
       </div> */}
       <div className="flex flex-col">
         <h1 className="mb-3 text-3xl">Overview</h1>
+        
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
-          quaerat incidunt aliquam iusto porro, sequi laudantium perferendis
-          velit modi in debitis illo illum eum sapiente consequuntur eveniet et
-          placeat nam consectetur. Eaque.
+          {name}{" "}{description}
         </p>
       </div>
       <div>
@@ -49,11 +53,7 @@ const Overview = () => {
       <div>
         <h1 className="mb-3 text-3xl">Rating</h1>
         <div className="flex gap-x-2">
-          <StarFilledIcon className="h-6 w-6 text-yellow-500" />
-          <StarFilledIcon className="h-6 w-6 text-yellow-500" />
-          <StarFilledIcon className="h-6 w-6 text-yellow-500" />
-          <StarFilledIcon className="h-6 w-6 text-yellow-500" />
-          <StarFilledIcon className="h-6 w-6 text-yellow-500" />
+          {stars}
         </div>
       </div>
     </div>
