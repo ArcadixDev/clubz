@@ -173,9 +173,9 @@ export function LoginFormDemo() {
                   type="submit"
                 >
                   {isSubmitting ? (
-                    <div className=" animate-spin">
+                    <div className="flex items-center gap-x-2">
                       <span>Login In....</span>
-                      <FiLoader />
+                      <FiLoader className="animate-spin" />
                     </div>
                   ) : (
                     "SIGN IN"
