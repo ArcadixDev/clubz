@@ -1,6 +1,6 @@
 "use client";
 
-import { Icons, Primitives } from "@/components/icons";
+import { Icons, Primitives, Images } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,22 +20,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "@prisma/client";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { redirect, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { FaApple, FaGoogle } from "react-icons/fa";
-import { Checkbox } from "@/components/ui/checkbox";
-import { FiEye, FiEyeOff, FiLoader, FiLock, FiMail } from "react-icons/fi";
+import * as z from "zod";
+import { toast, Toaster } from "react-hot-toast";
+import { FaApple, FaGoogle, FaUser } from "react-icons/fa";
+import {
+  FiEye,
+  FiEyeOff,
+  FiLoader,
+  FiLock,
+  FiMail,
+  FiUser,
+} from "react-icons/fi";
+import Password from "../Fields";
+import { useState } from "react";
+import { Router } from "next/router";
 import { FcGoogle } from "react-icons/fc";
-import toast from "react-hot-toast";
+// import { Icons } from '@/components/icons';
 
-export const LoginFormSchema = z.object({
+export const SignupFormSchema = z.object({
+  name: z.string().min(4, {
+    message: "Name must not be less than 4 characters.",
+  }),
   email: z
     .string()
     .min(2, {
@@ -47,61 +57,106 @@ export const LoginFormSchema = z.object({
   }),
 });
 
-export function LoginFormDemo() {
-  const searchParams = useSearchParams();
-  const callback = searchParams.get("callbackUrl");
-  const error = searchParams.get("error");
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+export function SignupForm() {
   const [isPassVisible, setIsPassVisible] = useState<boolean>(false);
-
-  if (error) {
-    console.log("error catched => ", error);
-  }
-
-  if (error === "OAuthAccountNotLinked") {
-    console.log(
-      "There is an account which has been signed up with credentials but has not yet linked from the OAuth account that the user is trying to signup with.",
-    );
-  }
-
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const router = useRouter();
   // 1. Define your form.
-  const form = useForm<z.infer<typeof LoginFormSchema>>({
-    resolver: zodResolver(LoginFormSchema),
+  const form = useForm<z.infer<typeof SignupFormSchema>>({
+    resolver: zodResolver(SignupFormSchema),
     defaultValues: {
-      email: searchParams.get("email") ?? "",
+      name: "",
+      email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof LoginFormSchema>) => {
-    try {
-      setIsSubmitting(true);
-      await signIn("credentials", {
-        ...values,
-        callbackUrl: callback ?? "/",
-        redirect: true,
-      });
-    } catch (error) {
-      console.log("Error signing in", error);
-      toast.error("Error occured!");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  // 2. Define a submit handler.
+  const onSubmit = async (values: z.infer<typeof SignupFormSchema>) => {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
 
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: values }),
+    });
+    console.log(response);
+
+    const userInfo = await response.json();
+    const { data, error, errorCode } = userInfo;
+
+    if (data) {
+      toast.success(
+        (t) => (
+          <span className="flex items-center space-x-3">
+            <b>{`Account Created Successfully!`}</b>
+          </span>
+        ),
+        { position: "bottom-center" },
+      );
+      form.reset();
+      setTimeout(() => {
+        router.push(`/login`);
+      }, 3000);
+    }
+
+    if (error && errorCode === "409") {
+      console.error(error);
+      toast.error(
+        (t) => (
+          <span className="flex items-center space-x-3">
+            <b>{`${error}, Try Loggin in!`}</b>
+          </span>
+        ),
+        { position: "bottom-center" },
+      );
+      setTimeout(() => {
+        router.push(`/login?email=${values.email}`);
+      }, 3000);
+    }
+    setIsSubmitting(false);
+  };
   return (
     //Todo: Glass effect needs to be implemented in the form card component.
-    <Card className="custom-card w-full max-w-lg border-none  bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 py-20 backdrop-blur-2xl">
+    <Card className="custom-card to-tr w-full max-w-lg border-none bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 backdrop-blur-2xl py-20">
       <div className="mb-5 flex flex-col items-center justify-center gap-1">
         <h1 className="text-4xl font-semibold text-white underline underline-offset-4">
-          Login
+          Register your Club
         </h1>
-        <span className="text-white">Welcome back!</span>
+        <span className="text-white">Welcome onboard !</span>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
+              <div className="grid">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <div className="">
+                          {/* <Primitives.person
+                          className={`absolute -left-12 top-0 m-2.5 h-6 w-6`}
+                        /> */}
+                          <Input
+                            placeholder="name"
+                            {...field}
+                            className="border-none bg-white/60 outline-none"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <div className="grid gap-2">
                 <FormField
                   control={form.control}
@@ -173,28 +228,28 @@ export function LoginFormDemo() {
                   type="submit"
                 >
                   {isSubmitting ? (
-                    <div className="flex items-center gap-x-2">
-                      <span>Login In....</span>
-                      <FiLoader className="animate-spin"/>
+                    <div className=" animate-spin">
+                      <span>Registering....</span>
+                      <FiLoader />
                     </div>
                   ) : (
-                    "SIGN IN"
+                    "SIGN UP"
                   )}
                 </Button>
               </div>
               <div className="">
                 <div className="flex items-center justify-center space-x-2 text-sm">
-                  <span>Don't have an account?</span>
+                  <span>Already have an account?</span>
                   <Link
-                    href={"/signup"}
+                    href={"/login"}
                     className="font-bold text-white underline-offset-4 hover:underline"
                   >
-                    Register <span className="font-light">Now</span>
+                    Login <span className="font-light">Here</span>
                   </Link>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-0">
+            <div className="flex flex-col gap-5">
               <div className="flex flex-row items-center justify-center gap-2">
                 <span className="h-px w-full bg-white" />
                 <div className="flex justify-center text-lg font-semibold">

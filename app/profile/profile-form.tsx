@@ -80,6 +80,7 @@ export function ProfileForm(props: {data: User }) {
   // set the filtered data as the default values for the formData
   // so that initially formData === dbData
   const [formData, setFormData] = React.useState(filteredData);
+  
 
   // handles onChange event of the form
   // and updates the formData
@@ -153,7 +154,7 @@ export function ProfileForm(props: {data: User }) {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="dob"
               render={({ field }) => (
@@ -165,8 +166,8 @@ export function ProfileForm(props: {data: User }) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
+            /> */}
+            {/* <FormField
               control={form.control}
               name="gender"
               render={({ field }) => (
@@ -193,8 +194,8 @@ export function ProfileForm(props: {data: User }) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
+            /> */}
+            {/* <FormField
               control={form.control}
               name="pincode"
               render={({ field }) => (
@@ -232,7 +233,7 @@ export function ProfileForm(props: {data: User }) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
           <Button
                   className="ml-10 w-48 text-white mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize"
