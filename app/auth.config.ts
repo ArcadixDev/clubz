@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
-import Credentials from "@auth/core/providers/credentials";
-import Google from "@auth/core/providers/google";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import { User } from "@prisma/client";
 import { compare } from "bcrypt";
 import { NextAuthConfig } from "next-auth";
