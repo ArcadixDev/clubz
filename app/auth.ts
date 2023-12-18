@@ -1,5 +1,5 @@
 import { compare } from "bcrypt";
-import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
+import NextAuth, { DefaultSession, NextAuthConfig, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -9,7 +9,7 @@ import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { authConfig } from "./auth.config";
 
-declare module "@auth/core" {
+declare module "next-auth" {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
@@ -17,12 +17,13 @@ declare module "@auth/core" {
     user: {
       /** The user's postal address. */
       id: string;
+      role: "user" | "club";
     } & User;
   }
 
-  interface User {
-    role: "user" | "club";
-  }
+  //   interface User {
+  //     role: "user" | "club";
+  //   }
 }
 
 declare module "@auth/core/jwt" {

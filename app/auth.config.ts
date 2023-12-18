@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { User } from "@prisma/client";
 import { compare } from "bcrypt";
-import { NextAuthConfig } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
   providers: [
@@ -89,6 +89,7 @@ export const authConfig = {
     //   console.log("The user is not present...");
     //   return true;
     // },
+
     jwt({ token, user, account, profile, session }) {
       // console.log("jwt => ", token, user, account, profile, session);
       if (user) {
