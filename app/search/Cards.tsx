@@ -7,7 +7,6 @@ import { Club } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 const TrendingPlaceCard = ({ club }: { club?: Club }) => {
   console.log("card => ", club);
@@ -74,7 +73,7 @@ const PopularSearchCard = ({
   );
 };
 
-const RelevantSearches = ({ clubs }: { clubs: Club[] }) => {
+const RelevantSearches = ({ clubs = [] }: { clubs: Club[] }) => {
   const searchParams = useSearchParams();
   let data = clubs;
 

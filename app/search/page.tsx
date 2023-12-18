@@ -1,40 +1,9 @@
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
 import { MdLocationPin } from "react-icons/md";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Image from "next/image";
-import { apiEndpoint } from "@/lib/utils";
-import { Suspense } from "react";
-import {
-  PopularSearchCard,
-  RelevantSearches,
-  TrendingPlaceCard,
-} from "./Cards";
-import {
-  PopularSearchSkeleton,
-  TrendingPlaceSkeletion,
-} from "@/components/primitives/Skeletons";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { PopularSearchCard, RelevantSearches } from "./Cards";
 import SortAndFilters from "./sorting-and-filters";
 import { Club } from "@prisma/client";
-
 import { clubs } from "@/data/data";
 
 const getData = async () => {
@@ -111,14 +80,14 @@ const page = async () => {
           })}
         </div>
       </div>
-      <div className="mb-20">
+      {/* <div className="mb-20">
         <div className="text-3xl font-bold ">Trending Places</div>
         <div className=" mt-5 flex gap-10">
           <TrendingPlaceCard />
           <TrendingPlaceCard />
           <TrendingPlaceCard />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
