@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
   if (exist) {
     return NextResponse.json(
-      { error: "User Already Exist", errorCode: "409" },
+      { error: "Club Already Exist", errorCode: "409" },
       { status: 400 },
     );
   }
@@ -43,8 +43,8 @@ export async function POST(request: Request) {
     data: {
       name,
       email,
-      role: "user",
       password: hashedPassword,
+      role: "club",
     },
   });
 

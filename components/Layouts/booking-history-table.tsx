@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookingHistoryTable = ({ data }) => {
+const BookingHistoryTable = ({ data }: { data: any }) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full overflow-hidden rounded-lg border-2 border-gray-300 shadow-md">
@@ -15,7 +15,7 @@ const BookingHistoryTable = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {data.map((item: any) => (
             <tr
               key={item.id}
               className="bg-zinc-900 transition duration-300 hover:bg-zinc-800"

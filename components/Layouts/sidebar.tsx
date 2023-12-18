@@ -48,7 +48,11 @@ const Sidebar = (props: Props) => {
     <main className="flex w-full flex-col items-center gap-5 pb-10">
       <Avatar className=" h-32 w-32 -translate-y-1/2 transform">
         <AvatarImage
-          src={session?.user.image ?? "https://github.com/shadcn.png"}
+          src={
+            session && session.user
+              ? (session?.user?.image as string | undefined)
+              : "https://github.com/k8pai.png"
+          }
           alt="@shadcn"
         />
         <AvatarFallback>CN</AvatarFallback>

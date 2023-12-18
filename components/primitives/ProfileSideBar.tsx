@@ -10,7 +10,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
     href: string;
     title: string;
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
   }[];
 }
 
@@ -36,8 +36,8 @@ export function ProfileSidebarNav({
           className={`${cn(
             buttonVariants({ variant: "ghost" }),
             pathname === item.href
-              ? "bg-muted hover:bg-muted text-md"
-              : "hover:bg-transparent hover:underline text-md",
+              ? "text-md bg-muted hover:bg-muted"
+              : "text-md hover:bg-transparent hover:underline",
             "justify-start",
           )} flex items-center gap-x-2 `}
         >

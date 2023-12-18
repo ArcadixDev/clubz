@@ -33,6 +33,7 @@ import {
 import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import SortAndFilters from "./sorting-and-filters";
+import { Club } from "@prisma/client";
 
 const getData = async () => {
   const res = await fetch(`https://${process.env.API_KEY}.mockapi.io/club`, {
@@ -48,8 +49,10 @@ const getData = async () => {
   return res.json() ?? [];
 };
 
+type Data = Club & { image: string };
+
 const page = async () => {
-  const data = await getData();
+  const data: Data[] = await getData();
 
   return (
     <div className="container mx-auto flex-grow py-20">
@@ -98,7 +101,7 @@ const page = async () => {
             return (
               <PopularSearchCard
                 key={club.id}
-                image={club.avatar}
+                image={club.image}
                 name={club.name}
               />
             );

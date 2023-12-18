@@ -2,7 +2,7 @@
 
 import { createUrl } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Popover,
   PopoverContent,
@@ -25,6 +25,34 @@ const SortAndFilters = () => {
     searchParams.get("people") ?? "",
   );
 
+  const AlcoholToggelGroup = useCallback(() => {
+    console.log("alcohol => ", alcohol);
+    return (
+      <ToggleGroup
+        type="single"
+        variant={"outline"}
+        className="space-x-5 hover:bg-none data-[state=on]:bg-none"
+        defaultValue={alcohol}
+        onValueChange={toggelAlcohol}
+      >
+        <ToggleGroupItem
+          value="alcohol"
+          aria-label="Toggle Alcohol"
+          className="hover:bg-transparent"
+        >
+          <span>Alcohol</span>
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="noAlcohol"
+          aria-label="Toggle noAlcohol"
+          className="hover:bg-transparent"
+        >
+          <span>No Alcohol</span>
+        </ToggleGroupItem>
+      </ToggleGroup>
+    );
+  }, [alcohol]);
+
   console.log(
     "state alcohol => ",
     alcohol,
@@ -34,12 +62,10 @@ const SortAndFilters = () => {
   const [price, setPrice] = useState<string>(searchParams.get("price") ?? "");
   //   console.log("values => ", { price, people, type });
   const toggelAlcohol = (value: string) => {
-    // if(value === 'alcohol'){
-
-    // }
-    console.log("value => ", value);
     if (value === "alcohol") {
       urlParams.set("alcohol", "true");
+    } else if (!value) {
+      urlParams.delete("alcohol");
     } else {
       urlParams.set("alcohol", "false");
     }
@@ -88,28 +114,7 @@ const SortAndFilters = () => {
         </Popover>
       </div>
       <div className="flex flex-grow justify-end space-x-5">
-        <ToggleGroup
-          type="single"
-          variant={"outline"}
-          className="space-x-5 hover:bg-none data-[state=on]:bg-none"
-          defaultValue={alcohol}
-          onValueChange={toggelAlcohol}
-        >
-          <ToggleGroupItem
-            value="alcohol"
-            aria-label="Toggle Alcohol"
-            className="hover:bg-transparent"
-          >
-            <span>Alcohol</span>
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="noAlcohol"
-            aria-label="Toggle noAlcohol"
-            className="hover:bg-transparent"
-          >
-            <span>No Alcohol</span>
-          </ToggleGroupItem>
-        </ToggleGroup>
+        <AlcoholToggelGroup />
         <ToggleGroup
           type="multiple"
           onValueChange={toggleFilters}
