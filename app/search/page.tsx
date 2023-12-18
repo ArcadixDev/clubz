@@ -35,24 +35,27 @@ import { Label } from "@/components/ui/label";
 import SortAndFilters from "./sorting-and-filters";
 import { Club } from "@prisma/client";
 
-const getData = async () => {
-  const res = await fetch(`https://${process.env.API_KEY}.mockapi.io/club`, {
-    method: "GET",
-    headers: { "content-type": "application/json" },
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
+import { clubs } from "@/data/data";
 
-  console.log(res);
-  return res.json() ?? [];
+const getData = async () => {
+  //   const res = await fetch(`https://${process.env.API_KEY}.mockapi.io/club`, {
+  //     method: "GET",
+  //     headers: { "content-type": "application/json" },
+  //   });
+  //   if (!res.ok) {
+  //     // This will activate the closest `error.js` Error Boundary
+  //     throw new Error("Failed to fetch data");
+  //   }
+
+  //   console.log(res);
+  //   return res.json() ?? [];
+  return clubs || [];
 };
 
 type Data = Club & { image: string };
 
 const page = async () => {
-  const data: Data[] = await getData();
+  const data: any[] = await getData();
 
   return (
     <div className="container mx-auto flex-grow py-20">
