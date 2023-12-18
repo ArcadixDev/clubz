@@ -100,17 +100,17 @@ export const authConfig = {
       }
       return token;
     },
-    session({ session, token, user }) {
-      // console.log("inside session, ", session, token);
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.userId,
-          role: token.role,
-        },
-      };
-    },
+    // session({ session, token, user }) {
+    //   // console.log("inside session, ", session, token);
+    //   return {
+    //     ...session,
+    //     user: {
+    //       ...session.user,
+    //       id: token.userId,
+    //       role: token.role,
+    //     },
+    //   };
+    // },
   },
   pages: {
     signIn: "/login",
