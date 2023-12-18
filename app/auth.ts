@@ -129,7 +129,7 @@ export const {
       }
       return token;
     },
-    async session({ session, token, user }) {
+    session({ session, token, user }) {
       console.log("inside session, ", session, token);
       return {
         ...session,
