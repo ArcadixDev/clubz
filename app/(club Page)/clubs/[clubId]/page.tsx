@@ -26,6 +26,15 @@ export default async function page({ params }: { params: { clubId: string } }) {
   const session = await auth();
   const { name, email } = session?.user as Session["user"];
 
+  const data = await fetch(`https://657ae4e9394ca9e4af12fbb2.mockapi.io/clubz?slug=${params.clubId}`,{
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await data.json();
+  console.log(res);
+
   return (
     <div className="w-full flex-grow py-20">
       <div className="container mx-auto ">
@@ -61,7 +70,7 @@ export default async function page({ params }: { params: { clubId: string } }) {
                 </TabsList>
                 <hr className="h-0.5 bg-white text-white" />
                 <TabsContent value="overview">
-                  <Overview />
+                  <Overview name={res[0].name} description={res[0].description} rating={res[0].rating}/>
                 </TabsContent>
                 <TabsContent value="photos">
                   <Photos />
@@ -108,7 +117,7 @@ export default async function page({ params }: { params: { clubId: string } }) {
             <h1 className="mb-10 font-serif text-4xl text-red-500">
               <span className="font-bold">Bookings</span> & Contact
             </h1>
-            <BookingForm name={name} email={email} />
+            <BookingForm name={name} email={email} tickets={res[0].tickets}/>
 
             {/* Contact Info */}
             <div>
@@ -118,15 +127,15 @@ export default async function page({ params }: { params: { clubId: string } }) {
               <div className="mb-10 flex flex-col gap-y-3">
                 <div>
                   <h2>Phone</h2>
-                  <Link href={"tel:"} className="font-thin underline">
-                    +91999999999
+                  <Link href={"tel:"} className="font-thin underline underline-offset-4">
+                    {res[0].phone}
                   </Link>
                 </div>
 
                 <div>
                   <h2>Email</h2>
-                  <Link href={"mailto:"} className=" underline">
-                    abc@abc.com
+                  <Link href={"mailto:"} className=" underline underline-offset-4">
+                    {res[0].email}
                   </Link>
                 </div>
               </div>

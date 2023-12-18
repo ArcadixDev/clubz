@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,9 +42,11 @@ const formSchema = z.object({
 const BookingForm = ({
   name,
   email,
+  tickets
 }: {
   name: Session["user"]["name"];
   email: Session["user"]["email"];
+  tickets: number;
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,6 +60,8 @@ const BookingForm = ({
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+
+  console.log("tickets available => ",tickets);
   return (
     <Form {...form}>
       <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="">
@@ -146,7 +150,7 @@ const BookingForm = ({
           name="date"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Dete & Time</FormLabel>
+              <FormLabel>Date & Time</FormLabel>
               <FormControl>
                 <Calendar
                   className="w-full"
@@ -160,8 +164,8 @@ const BookingForm = ({
                     tbody: "justify-around",
                     head_row: "justify-evenly",
                     head_cell: "justify-evenly",
-                    // head: "justify-around",
-                    // row: "justify-around",
+                    head: "justify-around",
+                    row: "justify-around",
                   }}
                 />
               </FormControl>
@@ -215,12 +219,17 @@ const BookingForm = ({
                   )}
                 /> */}
 
-        <Button
-          className="w-1full mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize"
+        {/* <Button
+          className="w-1full mt-5 text-white bg-gradient-to-t from-red-800 to-red-400 capitalize"
           type="submit"
         >
           Book ticket
-        </Button>
+        </Button> */}
+        {
+          tickets > 0 ? <><Button
+          className="w-1full mt-5 text-white bg-gradient-to-t from-red-800 to-red-400 capitalize"
+          type="submit">Book Ticket</Button><span className="ml-5 text-red-500">Only {tickets} left! Hurry!</span></> : <Button disabled className="w-1full mt-5 text-white bg-gradient-to-t from-red-800 to-red-400 capitalize" type="submit">Sold Out</Button>
+        }
       </form>
     </Form>
   );
