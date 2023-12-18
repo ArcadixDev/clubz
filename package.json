@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "ready": "pnpm install && pnpm prisma generate",
+    "ready": "pnpm install && pnpm prisma generate && pnpm prisma format",
     "migrate": "pnpm prisma migrate dev",
     "build": "next build",
     "start": "next start",

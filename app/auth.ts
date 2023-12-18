@@ -17,6 +17,7 @@ declare module "@auth/core" {
     user: {
       /** The user's postal address. */
       id: User;
+      role: "user" | "club";
     } & DefaultSession["user"];
   }
 }
@@ -26,6 +27,7 @@ declare module "@auth/core/jwt" {
   interface JWT {
     /** OpenID ID Token */
     userId: string;
+    role: "user" | "club";
   }
 }
 
@@ -46,10 +48,10 @@ export const {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials as Pick<
+        const { email, password, role } = credentials as Pick<
           User,
           "email" | "password"
-        >;
+        > & { role: "user" | "club" };
 
         if (!email || !password) {
           return null;
@@ -61,11 +63,11 @@ export const {
           },
         });
 
-        console.log("user is found . ", user);
+        console.log("club is found . ", user);
 
         if (!user?.password) {
           throw new Error(
-            "Already signedup User is logged in with Google auth and should be logged",
+            "Already signedup Club is logged in with Google auth and should be logged",
           );
         }
 
@@ -117,7 +119,8 @@ export const {
     //   console.log("The user is not present...");
     //   return true;
     // },
-    async jwt({ token, user, session }) {
+    async jwt({ token, user, account, profile, session }) {
+      console.log("jwt => ", token, user, account, profile, session);
       if (user) {
         return {
           ...token,
@@ -127,11 +130,13 @@ export const {
       return token;
     },
     async session({ session, token, user }) {
+      console.log("inside session, ", session, token);
       return {
         ...session,
         user: {
           ...session.user,
           id: token.userId,
+          role: token.role,
         },
       };
     },

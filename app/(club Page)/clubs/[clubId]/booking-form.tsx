@@ -25,8 +25,8 @@ import {
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import { User } from "@prisma/client";
-import { Session } from "next-auth/types";
 import { Calendar } from "@/components/ui/calendar";
+import { Session } from "next-auth";
 
 const formSchema = z.object({
   name: z
@@ -42,10 +42,10 @@ const formSchema = z.object({
 const BookingForm = ({
   name,
   email,
-  tickets
+  tickets,
 }: {
-  name: Session["user"]["name"];
-  email: Session["user"]["email"];
+  name: string | null | undefined;
+  email: string | null | undefined;
   tickets: number;
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,10 +61,14 @@ const BookingForm = ({
     console.log(values);
   }
 
-  console.log("tickets available => ",tickets);
+  console.log("tickets available => ", tickets);
   return (
     <Form {...form}>
-      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="">
+      <form
+        noValidate
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-3"
+      >
         <FormField
           control={form.control}
           name="name"
@@ -225,11 +229,27 @@ const BookingForm = ({
         >
           Book ticket
         </Button> */}
-        {
-          tickets > 0 ? <><Button
-          className="w-1full mt-5 text-white bg-gradient-to-t from-red-800 to-red-400 capitalize"
-          type="submit">Book Ticket</Button><span className="ml-5 text-red-500">Only {tickets} left! Hurry!</span></> : <Button disabled className="w-1full mt-5 text-white bg-gradient-to-t from-red-800 to-red-400 capitalize" type="submit">Sold Out</Button>
-        }
+        {tickets > 0 ? (
+          <>
+            <Button
+              className="w-1full mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
+              type="submit"
+            >
+              Book Ticket
+            </Button>
+            <span className="ml-5 text-red-500">
+              Only {tickets} left! Hurry!
+            </span>
+          </>
+        ) : (
+          <Button
+            disabled
+            className="w-1full mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
+            type="submit"
+          >
+            Sold Out
+          </Button>
+        )}
       </form>
     </Form>
   );

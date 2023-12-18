@@ -1,0 +1,12 @@
+-- AlterTable
+ALTER TABLE "Club" ADD COLUMN     "alcohol" BOOLEAN,
+ALTER COLUMN "description" DROP NOT NULL,
+ALTER COLUMN "websiteUrl" DROP NOT NULL,
+ALTER COLUMN "phone" DROP NOT NULL,
+ALTER COLUMN "availableTickets" DROP NOT NULL,
+ALTER COLUMN "ticketPrice" DROP NOT NULL,
+ALTER COLUMN "openingHours" DROP NOT NULL,
+ALTER COLUMN "location" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "role" TEXT;

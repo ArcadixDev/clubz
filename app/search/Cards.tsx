@@ -3,18 +3,16 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Club } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-const TrendingPlaceCard = ({
-  club,
-}: {
-  club?: { id: string; name: string; description: string; alcohol: boolean };
-}) => {
+const TrendingPlaceCard = ({ club }: { club?: Club }) => {
   console.log("card => ", club);
   return (
-    <div>
+    <Link href={`/clubs/${club?.id}`}>
       <div className="pb-4">
         <AspectRatio ratio={16 / 9}>
           <Skeleton className="aspect-[16/9] h-full w-full rounded-md" />
@@ -35,7 +33,7 @@ const TrendingPlaceCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -76,13 +74,33 @@ const PopularSearchCard = ({
   );
 };
 
-const RelevantSearches = ({ clubs }) => {
+const RelevantSearches = ({ clubs }: { clubs: Club[] }) => {
   const searchParams = useSearchParams();
   let data = clubs;
 
   if (searchParams.get("alcohol") === "true") {
     console.log(searchParams.get("alcohol"));
     data = data.filter((club) => club.alcohol);
+  }
+
+  if (searchParams.get("open") === "true") {
+    console.log("implement logic for filterting out open clubz");
+    // Implement logic for filtering out open clubz
+  }
+
+  if (searchParams.get("rating") === "4-plus") {
+    console.log(
+      "Implement logic for filtering out clubs with rating 4 and above",
+    );
+    // Implement logic for filtering out clubz with rating 4 and above.
+  }
+
+  if (searchParams.get("people")) {
+    // Implement logic for number of people that the user is searching the ticket for, and filtering clubz with that many tickets availabale to sell.
+  }
+
+  if (searchParams.get("price")) {
+    // Implement logic for clubz with price that is less than or equal to the original club size.
   }
 
   return (
