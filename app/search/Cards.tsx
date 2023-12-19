@@ -20,7 +20,6 @@ const TrendingPlaceCard = ({ club }: { club?: Club }) => {
       <div>
         <div className="mb-2 text-3xl font-semibold">
           {club?.name ?? "Title"}
-          {club?.alcohol ? "alcohol == true" : "alcohol == false"}
         </div>
         <div className="flex gap-5">
           <div>

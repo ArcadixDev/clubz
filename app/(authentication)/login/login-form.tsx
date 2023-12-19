@@ -213,14 +213,14 @@ export function LoginFormDemo() {
                 >
                   <FcGoogle className="h-6 w-6" />
                 </Button>
-                <Button
+                {/* <Button
                   variant="ghost"
                   onClick={() => console.log("login with apple")}
                   type="button"
                   className="w-fit"
                 >
                   <FaApple className="h-6 w-6" />
-                </Button>
+                </Button> */}
               </div>
             </div>
           </CardContent>

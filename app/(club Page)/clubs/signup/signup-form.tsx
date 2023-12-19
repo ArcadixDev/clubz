@@ -76,7 +76,8 @@ export function ClubSignup() {
     // ✅ This will be type-safe and validated.
     console.log(values);
 
-    const response = await fetch("/api/signup", {
+    setIsSubmitting(true);
+    const response = await fetch("/api/clubsignup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,9 +99,7 @@ export function ClubSignup() {
         { position: "bottom-center" },
       );
       form.reset();
-      setTimeout(() => {
-        router.push(`/login`);
-      }, 3000);
+      router.push(`/login?email=${values.email}`);
     }
 
     if (error && errorCode === "409") {
@@ -225,11 +224,12 @@ export function ClubSignup() {
                 <Button
                   className="w-full bg-red-600 p-5 text-lg text-white hover:text-red-500"
                   type="submit"
+                  disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <div className=" animate-spin">
-                      <span>Registering....</span>
-                      <FiLoader />
+                    <div className="flex items-center gap-x-2">
+                      <span>Signing In....</span>
+                      <FiLoader className="animate-spin" />
                     </div>
                   ) : (
                     "SIGN UP"
@@ -267,14 +267,14 @@ export function ClubSignup() {
                 >
                   <FcGoogle className="h-6 w-6" />
                 </Button>
-                <Button
+                {/* <Button
                   variant="ghost"
                   onClick={() => console.log("login with apple")}
                   type="button"
                   className="w-fit"
                 >
                   <FaApple className="h-6 w-6" />
-                </Button>
+                </Button> */}
               </div>
             </div>
           </CardContent>

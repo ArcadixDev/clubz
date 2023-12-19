@@ -38,6 +38,7 @@ export default async function Home() {
           <p className="text-lg mt-5">
           Step into a world of extraordinary flavors <br /> and unrivaled mixology expertise
           </p>
+
         </div>
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
           <Button
@@ -48,7 +49,7 @@ export default async function Home() {
           </Button>
         </div>
       </div>
-      <div className="min-h-screen overflow-hidden bg-aicon bg-auto bg-left-bottom bg-no-repeat">
+      <div className="min-h-screen overflow-hidden bg-aicon bg-auto bg-left-top bg-no-repeat">
         <div className="relative my-20">
           <div className="clip-right absolute right-0 top-0 z-50 h-[600px] w-[450px] bg-zinc-900 text-white">
             <div className="ml-auto mr-3 mt-10 h-[375px] w-[350px] overflow-hidden p-3 text-right">
@@ -113,7 +114,7 @@ export default async function Home() {
           <BookingCardRight />
         </div>
       </div>
-      <div className=" bg-bDesign relative min-h-screen space-y-40 bg-auto bg-left-top bg-no-repeat">
+      <div className=" relative min-h-screen space-y-40 bg-bDesign bg-auto bg-left-top bg-no-repeat">
         <div className="container my-24 flex items-center justify-center gap-10">
           <div className="flex-grow text-left text-7xl font-bold capitalize">
             <div className="mx-auto mb-4 w-full max-w-md">

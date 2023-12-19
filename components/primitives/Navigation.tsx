@@ -21,6 +21,7 @@ import { Dropdown } from "react-day-picker";
 
 const Navigation = async () => {
   const session = await auth();
+  const [isLoggedIn, userType] = [!!session?.user, session?.user.role];
   //   const session = {
   //     user: {
   //       id: 123,

@@ -36,6 +36,7 @@ import { Badge } from "../ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createUrl } from "@/lib/utils";
+import { Session } from "next-auth";
 
 const Filters = () => {
   const [type, setType] = useState("alcohol");
@@ -164,12 +165,18 @@ const Filters = () => {
   );
 };
 
-const ProfileSection = () => {
+const ProfileSection = ({
+  user: { name, email, image, role, id },
+}: {
+  user: Session["user"];
+}) => {
   return (
     <Popover>
       <PopoverTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage
+            src={image !== null ? image : "https://github.com/github.png"}
+          />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </PopoverTrigger>
