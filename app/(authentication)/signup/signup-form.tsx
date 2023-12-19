@@ -122,7 +122,7 @@ export function SignupFormDemo() {
   };
   return (
     //Todo: Glass effect needs to be implemented in the form card component.
-    <Card className="custom-card to-tr w-full max-w-lg border-none bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 backdrop-blur-2xl py-20">
+    <Card className="custom-card to-tr w-full max-w-lg border-none bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 py-20 backdrop-blur-2xl">
       <div className="mb-5 flex flex-col items-center justify-center gap-1">
         <h1 className="text-4xl font-semibold text-white underline underline-offset-4">
           Create Account
@@ -228,9 +228,9 @@ export function SignupFormDemo() {
                   type="submit"
                 >
                   {isSubmitting ? (
-                    <div className=" animate-spin">
-                      <span>Registering....</span>
-                      <FiLoader />
+                    <div className="flex items-center gap-x-2">
+                      <span>Signing In....</span>
+                      <FiLoader className="animate-spin" />
                     </div>
                   ) : (
                     "SIGN UP"
@@ -244,8 +244,9 @@ export function SignupFormDemo() {
                     href={"/login"}
                     className="font-bold text-white underline-offset-4 hover:underline"
                   >
-                    Login <span className="font-light">Here</span>
+                    Login
                   </Link>
+                  <span>Here</span>
                 </div>
               </div>
             </div>
@@ -268,14 +269,14 @@ export function SignupFormDemo() {
                 >
                   <FcGoogle className="h-6 w-6" />
                 </Button>
-                <Button
+                {/* <Button
                   variant="ghost"
                   onClick={() => console.log("login with apple")}
                   type="button"
                   className="w-fit"
                 >
                   <FaApple className="h-6 w-6" />
-                </Button>
+                </Button> */}
               </div>
             </div>
           </CardContent>

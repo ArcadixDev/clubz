@@ -10,6 +10,7 @@ import { Filters, ProfileSection } from "./actions";
 
 const Navigation = async () => {
   const session = await auth();
+  const [isLoggedIn, userType] = [!!session?.user, session?.user.role];
   //   const session = {
   //     user: {
   //       id: 123,
@@ -33,7 +34,7 @@ const Navigation = async () => {
             />
           </Link>
           <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
-            {!session?.user!.id && (
+            {!session?.user && (
               <Link
                 href={"/login?loginUserType=clubAdmin"}
                 className="flex items-center space-x-1"
@@ -62,16 +63,16 @@ const Navigation = async () => {
                 />
               </div>
             </div>
-            {!session?.user!.id && (
+            {!session?.user && (
               <Link href={"/login"} className="shadow-custom">
                 <Button variant={"ghost"} className="rounded-lg">
                   login
                 </Button>
               </Link>
             )}
-            {session?.user!.id && (
+            {session?.user && (
               <div>
-                <ProfileSection />
+                <ProfileSection user={session.user} />
               </div>
             )}
           </div>
