@@ -22,7 +22,7 @@ export default function editClub() {
         Club Name
       </span>
 
-      <div className="w-full bg-slate-900 min-h-screen pt-24 pb-20 px-10">
+      <div className="w-full bg-muted min-h-screen pt-24 pb-20 px-10">
         <h1 className="text-2xl font-bold">Edit Club Details</h1>
         <EditForm />
       </div>

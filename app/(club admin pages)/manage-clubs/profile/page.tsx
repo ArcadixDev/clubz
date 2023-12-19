@@ -10,7 +10,7 @@ export default function profile() {
         <Image src={cover} alt="Cover Image" />
       </div>
       
-      <div className="w-full bg-gray-700 min-h-min py-20 px-10">
+      <div className="w-full bg-muted min-h-min py-20 px-10">
         
         <EditForm/>
       </div>

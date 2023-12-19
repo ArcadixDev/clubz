@@ -55,7 +55,7 @@ export default function settings() {
     <div className="relative mx-24 mt-16">
       <Link href={""} className="flex items-center gap-x-3 text-2xl"> <IoIosArrowRoundBack /> Settings</Link>
       <hr className="my-5" />
-      <div className="flex flex-col p-10 bg-gray-200 bg-opacity-40 min-h-min rounded-lg">
+      <div className="flex flex-col p-10 bg-muted min-h-min rounded-lg">
         <span className="text-2xl text-white mb-5">General</span>
         {
             general_links.map((item, index) =>{

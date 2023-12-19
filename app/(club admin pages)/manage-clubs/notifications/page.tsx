@@ -19,7 +19,7 @@ export default function notifications() {
       </span>
       <hr className="my-5" />
 
-      <div className="flex gap-y-5 min-h-min flex-col rounded-lg bg-gray-200 bg-opacity-40 p-10">
+      <div className="flex gap-y-5 min-h-min flex-col rounded-lg bg-muted bg-opacity-40 p-10">
         <div className="flex items-center space-x-2">
           <Checkbox id="terms" />
           <label
@@ -43,7 +43,7 @@ export default function notifications() {
         </div>
       </div>
 
-      <div className="flex gap-y-5 min-h-min flex-col rounded-lg bg-gray-200 bg-opacity-40 p-10 mt-10">
+      <div className="flex gap-y-5 min-h-min flex-col rounded-lg bg-muted bg-opacity-40 p-10 mt-10">
         <div className="flex items-center space-x-2">
           <Checkbox id="terms" />
           <label
