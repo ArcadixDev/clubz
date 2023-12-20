@@ -2,13 +2,12 @@ import prisma from "@/lib/prisma";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { User } from "@prisma/client";
-import { compare } from "bcrypt";
+import bcrypt from "bcrypt";
 import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
   providers: [
     Credentials({
-      name: "Clubz",
       credentials: {
         email: {
           label: "email",
@@ -46,7 +45,7 @@ export const authConfig = {
           return null;
         }
 
-        const passwordsMatch = await compare(
+        const passwordsMatch = await bcrypt.compare(
           password as string,
           user.password as string,
         );
@@ -62,55 +61,35 @@ export const authConfig = {
     Google,
   ],
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   console.log("signin from callbacks ... ");
-
-    //   //   const res = await db
-    //   //     .selectFrom("User")
-    //   //     .selectAll()
-    //   //     .where("User.email", "=", user?.email!);
-
-    //   const res = await prisma.user.findUnique({
-    //     where: {
-    //       email: user?.email!,
-    //     },
-    //   });
-
-    //   console.log("user => ", user);
-    //   console.log("account => ", account);
-    //   console.log("profile => ", profile);
-    //   console.log("email => ", email);
-    //   console.log("credentials => ", credentials);
-    //   console.log("res => ", res);
-    //   if (res) {
-    //     redirect(`/login?error=OAuthAccountNotLinked&email=${user.email}`);
-    //   }
-
-    //   console.log("The user is not present...");
-    //   return true;
-    // },
-
-    jwt({ token, user, account, profile, session }) {
-      // console.log("jwt => ", token, user, account, profile, session);
+    jwt({ token, user, account, profile, session, trigger }) {
+      //   if (trigger === "signUp") {
+      //     console.log("trigger is signUp");
+      //   }
+      //   console.log("jwt token => ", token);
+      //   console.log("jwt user => ", user);
+      //   console.log("jwt trigger => ", trigger);
       if (user) {
         return {
           ...token,
           userId: user.id,
+          role: token.role,
         };
       }
       return token;
     },
-    // session({ session, token, user }) {
-    //   // console.log("inside session, ", session, token);
-    //   return {
-    //     ...session,
-    //     user: {
-    //       ...session.user,
-    //       id: token.userId,
-    //       role: token.role,
-    //     },
-    //   };
-    // },
+    session({ session, token, user }) {
+      //   console.log("session session => ", session);
+      //   console.log("session token => ", token);
+      //   console.log("session user => ", user);
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.userId,
+          role: token.role,
+        },
+      };
+    },
   },
   pages: {
     signIn: "/login",

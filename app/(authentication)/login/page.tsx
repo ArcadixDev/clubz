@@ -1,8 +1,16 @@
 import React from "react";
 import { LoginFormDemo } from "./login-form";
 import Image from "next/image";
+import { auth } from "@/app/auth";
+import { redirect } from "next/navigation";
 
-const Page = () => {
+const Page = async () => {
+  const session = await auth();
+
+  if (session?.user) {
+    redirect("/");
+  }
+
   return (
     <section className="relative flex h-screen w-full flex-row items-center justify-center">
       <div className="relative hidden items-center justify-center md:flex md:w-1/2">

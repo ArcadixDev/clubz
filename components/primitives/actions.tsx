@@ -69,10 +69,13 @@ const Filters = () => {
   return (
     <Popover>
       <PopoverTrigger>Filter</PopoverTrigger>
-      <PopoverContent className=" w-60 rounded-xl bg-zinc-900 p-5">
+      <PopoverContent
+        className=" w-60 rounded-xl bg-zinc-900 p-5"
+        sideOffset={20}
+      >
         <form onSubmit={onSubmit} className="space-y-6">
           <div className="">
-            <div className="flex items-center space-x-3 text-2xl font-semibold tracking-wider">
+            <div className="flex items-center justify-between space-x-3 text-2xl font-semibold tracking-wider">
               <span>Filters</span>
               <FaFilter />
             </div>
@@ -174,10 +177,8 @@ const ProfileSection = ({
     <Popover>
       <PopoverTrigger>
         <Avatar>
-          <AvatarImage
-            src={image !== null ? image : "https://github.com/github.png"}
-          />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={image ?? ""} />
+          <AvatarFallback>{name?.substring(0, 2)}</AvatarFallback>
         </Avatar>
       </PopoverTrigger>
       <PopoverContent
