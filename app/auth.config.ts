@@ -61,7 +61,8 @@ export const authConfig = {
     Google,
   ],
   callbacks: {
-    jwt({ token, user, account, profile, session, trigger }) {
+    jwt({ token, user, account, profile, session }) {
+      // console.log("jwt => ", token, user, account, profile, session);
       if (user) {
         return {
           ...token,
@@ -71,19 +72,6 @@ export const authConfig = {
       }
       return token;
     },
-    //     session({ session, token, user }) {
-    //       //   console.log("session session => ", session);
-    //       //   console.log("session token => ", token);
-    //       //   console.log("session user => ", user);
-    //       return {
-    //         ...session,
-    //         user: {
-    //           ...session.user,
-    //           id: token.userId,
-    //           role: token.role,
-    //         },
-    //       };
-    //     },
   },
   pages: {
     signIn: "/login",

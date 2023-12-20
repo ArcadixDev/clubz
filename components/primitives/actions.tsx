@@ -40,7 +40,7 @@ import { Session } from "next-auth";
 
 const Filters = () => {
   const [type, setType] = useState("alcohol");
-  const [price, setPrice] = useState([0]);
+  const [price, setPrice] = useState([500]);
   const [people, setPeople] = useState(1);
 
   const router = useRouter();
@@ -150,8 +150,8 @@ const Filters = () => {
               <div>
                 <Slider
                   defaultValue={price}
-                  max={2000}
-                  step={1000}
+                  max={20000}
+                  step={500}
                   onValueChange={setPrice}
                 />
               </div>
