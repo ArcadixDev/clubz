@@ -62,7 +62,6 @@ export const authConfig = {
   ],
   callbacks: {
     jwt({ token, user, account, profile, session }) {
-      // console.log("jwt => ", token, user, account, profile, session);
       if (user) {
         return {
           ...token,
