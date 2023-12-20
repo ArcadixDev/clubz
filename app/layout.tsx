@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { auth } from "./auth";
+import { getUserRole } from "@/lib/db/user";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,7 +14,16 @@ export const metadata: Metadata = {
 };
 
 // to be typed as RootLayoutProps
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const session = await auth();
+
+  //   const isLoggedIn = !!(session && session.user);
+
+  const role = await getUserRole(session?.user.email!);
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -20,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AuthProvider>
           <body>
             <ThemeProvider attribute="class" defaultTheme="dark">
-              <main className="flex h-full min-h-screen w-full flex-col relative">
+              <main className="relative flex h-full min-h-screen w-full flex-col">
                 <Navigation />
                 {children}
                 <Footer />

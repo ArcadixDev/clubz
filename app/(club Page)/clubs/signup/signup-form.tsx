@@ -120,12 +120,12 @@ export function ClubSignup() {
   };
   return (
     //Todo: Glass effect needs to be implemented in the form card component.
-    <Card className="custom-card to-tr w-full max-w-lg border-none bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 py-20 backdrop-blur-2xl">
+    <Card className="custom-card to-tr w-full max-w-lg border border-muted-foreground bg-gradient-to-br from-zinc-500 via-zinc-800 p-5 py-14 backdrop-blur-2xl">
       <div className="mb-5 flex flex-col items-center justify-center gap-1">
         <h1 className="text-4xl font-semibold text-white underline underline-offset-4">
-          Create Account
+          Create A Club Account
         </h1>
-        <span className="text-white">Welcome onboard with us!</span>
+        <span className="text-white">Add And Manage Clubs Effortlessly</span>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -146,7 +146,7 @@ export function ClubSignup() {
                           <Input
                             placeholder="name"
                             {...field}
-                            className="border-none bg-white/60 outline-none"
+                            className="border border-muted-foreground py-5 outline-none"
                           />
                         </div>
                       </FormControl>
@@ -170,7 +170,7 @@ export function ClubSignup() {
                           <Input
                             placeholder="user@example.com"
                             {...field}
-                            className=" border-2 border-none border-white bg-white/60 py-5 outline-none"
+                            className=" border border-muted-foreground py-5 outline-none"
                           />
                         </div>
                       </FormControl>
@@ -197,7 +197,7 @@ export function ClubSignup() {
                           <Input
                             type={isPassVisible ? "text" : "password"}
                             {...field}
-                            className="border-none bg-white/60 outline-none "
+                            className="border border-muted-foreground py-5 outline-none "
                             placeholder="password"
                           />
                           <button
@@ -243,38 +243,10 @@ export function ClubSignup() {
                     href={"/login"}
                     className="font-bold text-white underline-offset-4 hover:underline"
                   >
-                    Login <span className="font-light">Here</span>
+                    Login
                   </Link>
+                  <span>Here</span>
                 </div>
-              </div>
-            </div>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-row items-center justify-center gap-2">
-                <span className="h-px w-full bg-white" />
-                <div className="flex justify-center text-lg font-semibold">
-                  <span className="text-white">or</span>
-                </div>
-                <span className="h-px w-full bg-white" />
-              </div>
-              <div className="flex items-center justify-center space-x-2 ">
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    signIn("google");
-                  }}
-                  type="button"
-                  className="w-fit"
-                >
-                  <FcGoogle className="h-6 w-6" />
-                </Button>
-                {/* <Button
-                  variant="ghost"
-                  onClick={() => console.log("login with apple")}
-                  type="button"
-                  className="w-fit"
-                >
-                  <FaApple className="h-6 w-6" />
-                </Button> */}
               </div>
             </div>
           </CardContent>

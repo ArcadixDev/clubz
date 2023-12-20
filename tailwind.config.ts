@@ -30,6 +30,7 @@ module.exports = {
         baseBackground: "url('/background.png')",
         loginBg: "url('/assets/bg.png')",
         sidebarBg: "url('/assets/sideBg.jpg')",
+        starsBg: "url('/assets/bg-star.svg')",
       },
       colors: {
         border: "hsl(var(--border))",

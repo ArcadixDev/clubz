@@ -117,7 +117,7 @@ export function LoginFormDemo() {
                           <Input
                             placeholder="user@example.com"
                             {...field}
-                            className=" border-2 border-none border-white bg-white/60 py-5 outline-none"
+                            className="border border-muted-foreground py-5 outline-none"
                           />
                         </div>
                       </FormControl>
@@ -144,7 +144,7 @@ export function LoginFormDemo() {
                           <Input
                             type={isPassVisible ? "text" : "password"}
                             {...field}
-                            className="border-none bg-white/60 outline-none "
+                            className="border border-muted-foreground py-5 outline-none "
                             placeholder="password"
                           />
                           <button
@@ -189,8 +189,9 @@ export function LoginFormDemo() {
                     href={"/signup"}
                     className="font-bold text-white underline-offset-4 hover:underline"
                   >
-                    Register <span className="font-light">Now</span>
+                    Register
                   </Link>
+                  <span>Now</span>
                 </div>
               </div>
             </div>
@@ -213,14 +214,6 @@ export function LoginFormDemo() {
                 >
                   <FcGoogle className="h-6 w-6" />
                 </Button>
-                {/* <Button
-                  variant="ghost"
-                  onClick={() => console.log("login with apple")}
-                  type="button"
-                  className="w-fit"
-                >
-                  <FaApple className="h-6 w-6" />
-                </Button> */}
               </div>
             </div>
           </CardContent>

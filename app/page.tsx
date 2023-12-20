@@ -10,35 +10,44 @@ import Image from "next/image";
 import { auth } from "@/app/auth";
 import { FaArrowRightLong } from "react-icons/fa6";
 
-import note from "../public/assets/note.png"
-import stars_bg from "../public/assets/bg-star.svg"
+import note from "../public/assets/note.png";
+import stars_bg from "../public/assets/bg-star.svg";
 import club1 from "../public/assets/club1.jpg";
 import club2 from "../public/assets/club2.jpg";
 import club3 from "../public/assets/club3.jpg";
 import club4 from "../public/assets/club4.jpg";
 import club5 from "../public/assets/club5.jpg";
 
-import { Noto_Serif } from 'next/font/google'
+import { Noto_Serif } from "next/font/google";
 const noto_serif = Noto_Serif({
-  weight: ['400','500','700','900'],
-  subsets: ['latin'],
-})
+  weight: ["400", "500", "700", "900"],
+  subsets: ["latin"],
+});
 
 export default async function Home() {
   const session = await auth();
+
   return (
     <div className="mb-24 flex-grow">
-      <Image src={stars_bg} alt="Bg" className="absolute w-full object-cover max-h-screen"/>
-      <div className="relative min-h-screen w-full bg-waves bg-cover bg-bottom bg-no-repeat">
-        
-        <div className="pl-72 pt-44 relative">
-          <Image className="absolute left-[650px] top-[80px] rotate-6" src={note} alt="Note" />
+      {/* <Image src={stars_bg} alt="Bg" className="absolute w-full bg-cover" /> */}
+      <div className="bg-starsBg relative min-h-screen w-full bg-cover bg-bottom bg-no-repeat">
+        <div className="absolute h-full w-full bg-waves bg-cover bg-top bg-no-repeat"></div>
+        <div className="relative pl-72 pt-44">
+          <Image
+            className="absolute left-[650px] top-[80px] rotate-6"
+            src={note}
+            alt="Note"
+          />
           {/* <Image src={ellipse2} alt="Ellipse 2" className="absolute right-0 top-10" /> */}
-          <h1 className={`${noto_serif.className} text-8xl font-bold tracking-wider`}>Liquid <br /> Artistry</h1>
-          <p className="text-lg mt-5">
-          Step into a world of extraordinary flavors <br /> and unrivaled mixology expertise
+          <h1
+            className={`${noto_serif.className} text-8xl font-bold tracking-wider`}
+          >
+            Liquid <br /> Artistry
+          </h1>
+          <p className="mt-5 text-lg">
+            Step into a world of extraordinary flavors <br /> and unrivaled
+            mixology expertise
           </p>
-
         </div>
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
           <Button
@@ -65,20 +74,32 @@ export default async function Home() {
           </div>
           <div className="relative pt-16">
             <div className="mx-auto flex w-fit overflow-x-scroll rounded-md bg-zinc-800/30 scrollbar-default">
-              <div className="box relative m-3 h-[300px] w-[300px] rounded-md overflow-hidden bg-zinc-600">
-                <Image src={club1} alt="Club 1" className="h-[300px] w-[300px] object-cover" />
+              <div className="box relative m-3 h-[300px] w-[300px] overflow-hidden rounded-md bg-zinc-600">
+                <Image
+                  src={club1}
+                  alt="Club 1"
+                  className="h-[300px] w-[300px] object-cover"
+                />
                 <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
                   Disco Night
                 </div>
               </div>
               <div className="box relative m-3 h-[300px] w-[300px] rounded-md bg-zinc-600">
-              <Image src={club2} alt="Club 1" className="h-[300px] w-[300px] object-cover" />
+                <Image
+                  src={club2}
+                  alt="Club 1"
+                  className="h-[300px] w-[300px] object-cover"
+                />
                 <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
                   DJ Night
                 </div>
               </div>
               <div className="box relative m-3 h-[300px] w-[300px] rounded-md bg-zinc-600">
-              <Image src={club3} alt="Club 1" className="h-[300px] w-[300px] object-cover" />
+                <Image
+                  src={club3}
+                  alt="Club 1"
+                  className="h-[300px] w-[300px] object-cover"
+                />
                 <div className="absolute bottom-0 w-full pb-3 text-center text-4xl font-bold">
                   Retro Night
                 </div>
@@ -124,10 +145,18 @@ export default async function Home() {
           </div>
           <div className=" relative flex flex-grow items-end justify-start">
             <div className="flex aspect-[9/16] h-[525px] w-[350px] items-start justify-start bg-gray-400">
-            <Image className="aspect-[9/16] h-[525px] w-[350px] object-cover" src={club5} alt="Club" />
+              <Image
+                className="aspect-[9/16] h-[525px] w-[350px] object-cover"
+                src={club5}
+                alt="Club"
+              />
             </div>
             <div className="absolute left-48 top-20 flex aspect-[9/16] h-[525px] w-[350px] items-end justify-end bg-gray-400">
-              <Image className="aspect-[9/16] h-[525px] w-[350px] object-cover" src={club2} alt="Club" />
+              <Image
+                className="aspect-[9/16] h-[525px] w-[350px] object-cover"
+                src={club2}
+                alt="Club"
+              />
             </div>
           </div>
         </div>
@@ -154,16 +183,32 @@ export default async function Home() {
           <div className="mx-auto w-full flex-grow">
             <div className="grid grid-cols-2 place-items-start content-center items-center gap-10">
               <div className="h-[350px] w-[350px] place-self-end bg-zinc-800 shadow-custom">
-              <Image className="h-[350px] w-[350px] object-cover" src={club4} alt="Club" />
+                <Image
+                  className="h-[350px] w-[350px] object-cover"
+                  src={club4}
+                  alt="Club"
+                />
               </div>
               <div className="h-[350px] w-[350px] bg-zinc-800 shadow-custom">
-              <Image className="h-[350px] w-[350px] object-cover" src={club3} alt="Club" />
+                <Image
+                  className="h-[350px] w-[350px] object-cover"
+                  src={club3}
+                  alt="Club"
+                />
               </div>
               <div className="h-[350px] w-[350px] place-self-end bg-zinc-800 shadow-custom">
-              <Image className="h-[350px] w-[350px] object-cover" src={club2} alt="Club" />
+                <Image
+                  className="h-[350px] w-[350px] object-cover"
+                  src={club2}
+                  alt="Club"
+                />
               </div>
               <div className="h-[350px] w-[350px] bg-zinc-800 shadow-custom">
-              <Image className="h-[350px] w-[350px] object-cover" src={club1} alt="Club" />
+                <Image
+                  className="h-[350px] w-[350px] object-cover"
+                  src={club1}
+                  alt="Club"
+                />
               </div>
             </div>
           </div>

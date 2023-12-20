@@ -27,12 +27,12 @@ const options = [
     icon: <HiMiniTicket />,
     path: "/bookings",
   },
-  {
-    id: 3,
-    label: "Discounts & Offers",
-    icon: <BiSolidOffer />,
-    path: "/offers",
-  },
+  //   {
+  //     id: 3,
+  //     label: "Discounts & Offers",
+  //     icon: <BiSolidOffer />,
+  //     path: "/offers",
+  //   },
   {
     id: 4,
     label: "Settings",
@@ -55,10 +55,11 @@ const Sidebar = (props: Props) => {
           }
           alt="@shadcn"
         />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback>
+          {session?.user.name?.substring(0, 2) || session?.user.name}
+        </AvatarFallback>
       </Avatar>
       <section className="w-full p-2 text-center">
-        <h1 className="text-3xl font-bold">Hi, Guest!</h1>
         <div className="mt-5 space-y-1">
           {options.map((item) => (
             <Link
