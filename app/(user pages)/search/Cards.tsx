@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const TrendingPlaceCard = ({ club }: { club?: Club }) => {
-  console.log("card => ", club);
+  //   console.log("card => ", club);
   return (
     <Link href={`/clubs/${club?.id}`} className=" max-w-sm">
       <div className="pb-4">
