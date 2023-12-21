@@ -2,8 +2,15 @@ import React from "react";
 import { LoginFormDemo } from "../login/login-form";
 import Image from "next/image";
 import { SignupFormDemo } from "./signup-form";
+import { auth } from "@/app/auth";
+import { redirect } from "next/navigation";
 
-const Page = () => {
+const Page = async () => {
+  const session = await auth();
+
+  if (session?.user) {
+    redirect("/");
+  }
   return (
     <section className="relative flex h-screen w-full flex-row items-center justify-center">
       <div className="relative hidden items-center justify-center md:flex md:w-1/2">
@@ -14,10 +21,10 @@ const Page = () => {
           alt=""
         />
       </div>
-      <div className="absolute top-0 left-72 -z-10 hidden md:flex">
+      <div className="absolute left-72 top-0 -z-10 hidden md:flex">
         <Image src="/assets/Vector 14.png" alt="" width={800} height={800} />
       </div>
-      <div className="absolute top-0 left-0 -z-10 hidden md:flex">
+      <div className="absolute left-0 top-0 -z-10 hidden md:flex">
         <Image src="/assets/Vector 15.png" alt="" width={500} height={500} />
       </div>
       <div className="absolute bottom-60 left-0 hidden md:flex">
@@ -25,7 +32,7 @@ const Page = () => {
       </div>
 
       <div className="w-full md:w-1/2">
-        <SignupFormDemo/>
+        <SignupFormDemo />
       </div>
       <Image
         src="/assets/image 8.png"
@@ -39,7 +46,7 @@ const Page = () => {
         alt=""
         width={200}
         height={200}
-        className="absolute top-0 right-0 -z-10"
+        className="absolute right-0 top-0 -z-10"
       />
       <Image
         src="/assets/note.png"

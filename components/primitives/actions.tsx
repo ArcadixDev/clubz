@@ -40,7 +40,7 @@ import { Session } from "next-auth";
 
 const Filters = () => {
   const [type, setType] = useState("alcohol");
-  const [price, setPrice] = useState([0]);
+  const [price, setPrice] = useState([500]);
   const [people, setPeople] = useState(1);
 
   const router = useRouter();
@@ -69,10 +69,13 @@ const Filters = () => {
   return (
     <Popover>
       <PopoverTrigger>Filter</PopoverTrigger>
-      <PopoverContent className=" w-60 rounded-xl bg-zinc-900 p-5">
+      <PopoverContent
+        className=" w-60 rounded-xl bg-zinc-900 p-5"
+        sideOffset={20}
+      >
         <form onSubmit={onSubmit} className="space-y-6">
           <div className="">
-            <div className="flex items-center space-x-3 text-2xl font-semibold tracking-wider">
+            <div className="flex items-center justify-between space-x-3 text-2xl font-semibold tracking-wider">
               <span>Filters</span>
               <FaFilter />
             </div>
@@ -147,8 +150,8 @@ const Filters = () => {
               <div>
                 <Slider
                   defaultValue={price}
-                  max={2000}
-                  step={1000}
+                  max={20000}
+                  step={500}
                   onValueChange={setPrice}
                 />
               </div>
@@ -174,10 +177,8 @@ const ProfileSection = ({
     <Popover>
       <PopoverTrigger>
         <Avatar>
-          <AvatarImage
-            src={image !== null ? image : "https://github.com/github.png"}
-          />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={image ?? ""} />
+          <AvatarFallback>{name?.substring(0, 2)}</AvatarFallback>
         </Avatar>
       </PopoverTrigger>
       <PopoverContent

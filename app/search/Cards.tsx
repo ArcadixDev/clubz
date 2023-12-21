@@ -11,10 +11,10 @@ import { useSearchParams } from "next/navigation";
 const TrendingPlaceCard = ({ club }: { club?: Club }) => {
   console.log("card => ", club);
   return (
-    <Link href={`/clubs/${club?.id}`}>
+    <Link href={`/clubs/${club?.id}`} className=" max-w-sm">
       <div className="pb-4">
         <AspectRatio ratio={16 / 9}>
-          <Skeleton className="aspect-[16/9] h-full w-full rounded-md" />
+          <Skeleton className="aspect-[16/9] h-full w-full rounded-xl" />
         </AspectRatio>
       </div>
       <div>
@@ -43,31 +43,19 @@ const PopularSearchCard = ({
   name?: string;
 }) => {
   return (
-    <div className="text-center">
-      <div className="mb-2">
-        {/* <Suspense
-          fallback={<Skeleton className="aspect-square h-24 rounded-full" />}
-        > */}
-        <Image
-          src={image}
-          alt={image}
-          height={100}
-          width={100}
-          className="rounded-full"
-        />
-        {/* </Suspense> */}
-        {/* {image ? (
-		  ) : (
-			
-		  )} */}
-      </div>
-      <div>
-        {name ? (
-          <div>{name}</div>
-        ) : (
-          <Skeleton className={"h-5 w-full rounded-full"}></Skeleton>
-        )}
-      </div>
+    <div className="max-w-[110px]">
+      <Image
+        src={image}
+        alt={image}
+        height={100}
+        width={100}
+        className="mb-2 rounded-full"
+      />
+      {name ? (
+        <div className="truncate">{name}</div>
+      ) : (
+        <Skeleton className={"h-5 w-full rounded-full"}></Skeleton>
+      )}
     </div>
   );
 };
@@ -79,6 +67,14 @@ const RelevantSearches = ({ clubs = [] }: { clubs: Club[] }) => {
   if (searchParams.get("alcohol") === "true") {
     console.log(searchParams.get("alcohol"));
     data = data.filter((club) => club.alcohol);
+  }
+
+  if (searchParams.get("q")) {
+    data = data.filter((club) =>
+      club.name
+        .toLowerCase()
+        .includes(searchParams.get("q") ?? "".toString()?.toLowerCase()),
+    );
   }
 
   if (searchParams.get("open") === "true") {
@@ -105,9 +101,13 @@ const RelevantSearches = ({ clubs = [] }: { clubs: Club[] }) => {
     <div className="mb-20">
       <div className="text-3xl font-bold ">Relavant Searches</div>
       <div className="flex flex-wrap justify-center gap-10 py-6">
-        {data.slice(0, 10).map((club) => {
-          return <TrendingPlaceCard key={club.id} club={club} />;
-        })}
+        {data.length > 0 ? (
+          data.slice(0, 10).map((club) => {
+            return <TrendingPlaceCard key={club.id} club={club} />;
+          })
+        ) : (
+          <span className="text-xl font-semibold">No Results found :(</span>
+        )}
       </div>
     </div>
   );

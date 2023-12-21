@@ -6,7 +6,7 @@ import { RiShareForwardLine } from "react-icons/ri";
 import Link from "next/link";
 
 const Footer = () => (
-  <div className="bg-footer-bg flex w-full items-end bg-cover">
+  <div className="flex w-full items-end bg-footer-bg bg-cover">
     <footer className="body-font w-full text-white">
       <div className="lg:flex-no-wrap container mx-auto flex flex-col px-5 py-24 lg:flex-row lg:items-center">
         <div className="mx-auto w-96 flex-shrink-0">
@@ -32,12 +32,12 @@ const Footer = () => (
               <li className="mt-3">
                 <a className="cursor-pointer">Services</a>
               </li>
-              <li className="mt-3">
+              {/* <li className="mt-3">
                 <a className="cursor-pointer">About us</a>
               </li>
               <li className="mt-3">
                 <a className="cursor-pointer">Contact us</a>
-              </li>
+              </li> */}
             </nav>
           </div>
           {/* <div className="w-full justify-self-end px-4 md:w-1/2 lg:w-1/3">
