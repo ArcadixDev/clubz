@@ -1,3 +1,5 @@
+"use client";
+
 import logo from "@/public/logo.png";
 import { PlusIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
@@ -18,12 +20,73 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getUserRole } from "@/lib/db/user";
+import { useEffect, useState } from "react";
+import { Session } from "next-auth";
 
-const Navigation = async () => {
-  const session = await auth();
+const Location = () => {
+  const [location, setLocation] = useState<
+    Record<"latitude" | "longitude", string | number>
+  >({
+    latitude: "",
+    longitude: "",
+  });
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Request location permission if not already granted
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          setError(error.message);
+        },
+        {
+          enableHighAccuracy: true, // Optional for more accurate results
+          timeout: 5000, // Timeout after 5 seconds
+          maximumAge: 0, // Use the most recent position
+        },
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("location => ", location);
+  }, [location]);
+
+  // Function to handle button click
+  const handleGetLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+
+    console.log("values => ", location);
+  };
+
+  return (
+    <Button variant={"ghost"} type="button" onClick={() => handleGetLocation()}>
+      <MdLocationOn className={`h-full w-5 text-secondary-foreground`} />
+    </Button>
+  );
+};
+
+const Navigation = ({
+  session,
+  role,
+}: {
+  session: Session | null;
+  role: "user" | "club";
+}) => {
   const isLoggedIn = !!(session && session.user);
-
-  const role = await getUserRole(session?.user.email!);
 
   //   const [isLoggedIn, role] = [!!session?.user, session?.user.role];
   //   const session = {
@@ -94,6 +157,10 @@ const Navigation = async () => {
               <Image className="h-6 w-6" alt="club Images" src={club_image} />
               <span>Club Name</span>
             </Link>
+
+            <div>
+              <ProfileSection user={session?.user!} />
+            </div>
           </div>
         </div>
       </div>
@@ -132,9 +199,7 @@ const Navigation = async () => {
               <Filters />
               <div className="flex flex-grow items-center justify-center">
                 <div className="flex h-full w-full flex-grow items-center space-x-2">
-                  <MdLocationOn
-                    className={`h-full w-5 text-secondary-foreground`}
-                  />
+                  <Location />
                   <Input
                     placeholder="Search Location"
                     className="w-full rounded-none border-transparent px-px focus:outline-none focus-visible:border-b-foreground focus-visible:ring-0"

@@ -14,10 +14,6 @@ declare module "next-auth" {
       role: "user" | "club";
     } & User;
   }
-
-  //   interface User {
-  //     role: "user" | "club";
-  //   }
 }
 
 declare module "@auth/core/jwt" {

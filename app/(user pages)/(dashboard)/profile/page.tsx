@@ -2,19 +2,25 @@ import { ProfileForm } from "./profile-form";
 import { auth } from "@/app/auth";
 import { Separator } from "@/components/ui/separator";
 import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 const page = async () => {
   const session = await auth();
-
+  if(!session){
+    redirect("/login");
+    console.log("Session not found")
+  }
   if (session && session.user) {
     console.log("session from profilepage -> ", session);
+    console.log("Session found")
   }
 
   async function getUserData() {
     // console.log("getUserData Called")
+    
     const data = await prisma.user.findUnique({
       where: {
-        id: session?.user?.id,
+        email: session?.user?.email!,
       },
     });
     return data;
@@ -30,7 +36,7 @@ const page = async () => {
           This is how others will see you on the site.
         </p>
       </div> */}
-      {/* <Separator /> */}
+      <Separator />
       <ProfileForm data={data!} />
     </div>
   );

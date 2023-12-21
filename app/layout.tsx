@@ -32,7 +32,7 @@ export default async function RootLayout({
           <body>
             <ThemeProvider attribute="class" defaultTheme="dark">
               <main className="relative flex h-full min-h-screen w-full flex-col">
-                <Navigation />
+                <Navigation session={session} role={role!} />
                 {children}
                 <Footer />
               </main>

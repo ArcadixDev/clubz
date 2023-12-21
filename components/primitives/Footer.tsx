@@ -104,7 +104,7 @@ const Footer = () => (
           <div className="palce-items-end z-50 grid grid-cols-1 justify-items-end gap-10 px-5 py-12 lg:grid-cols-4">
             <div className=""></div>
             <div className="space-y-4 place-self-center font-bold lg:col-span-2">
-              <p className="text-center capitalize">Clubs</p>
+              <p className="text-center capitalize">Clubz</p>
               <p className="flex space-x-1 xl:text-center">
                 <span>Copyright</span>
                 <span>&copy; {new Date().getFullYear()}</span>
