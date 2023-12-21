@@ -27,6 +27,8 @@ import { useSession } from "next-auth/react";
 import { User } from "@prisma/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Session } from "next-auth";
+import { redirect, useRouter } from "next/navigation";
+
 
 const formSchema = z.object({
   name: z
@@ -39,6 +41,7 @@ const formSchema = z.object({
   date: z.coerce.date(),
 });
 
+
 const BookingForm = ({
   name,
   email,
@@ -48,6 +51,8 @@ const BookingForm = ({
   email: string | null | undefined;
   tickets: number;
 }) => {
+  const route = useRouter();
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,8 +62,12 @@ const BookingForm = ({
     },
   });
 
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    if(!name && !email){
+      route.push("/login");
+    }
   }
 
   console.log("tickets available => ", tickets);
