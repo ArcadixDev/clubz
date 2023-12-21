@@ -80,7 +80,7 @@ export const clubs: any = [
       "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
     alcohol: true,
     price: "404.00",
-    ticket: 46,
+    ticket: 10,
     image:
       "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/945.jpg",
     id: "1",

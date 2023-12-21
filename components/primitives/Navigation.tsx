@@ -94,6 +94,10 @@ const Navigation = async () => {
               <Image className="h-6 w-6" alt="club Images" src={club_image} />
               <span>Club Name</span>
             </Link>
+
+            <div>
+              <ProfileSection user={session?.user!} />
+            </div>
           </div>
         </div>
       </div>

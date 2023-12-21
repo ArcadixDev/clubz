@@ -229,26 +229,15 @@ const BookingForm = ({
         >
           Book ticket
         </Button> */}
-        {tickets > 0 ? (
-          <>
-            <Button
-              className="w-1full mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
-              type="submit"
-            >
-              Book Ticket
-            </Button>
-            <span className="ml-5 text-red-500">
-              Only {tickets} left! Hurry!
-            </span>
-          </>
-        ) : (
-          <Button
-            disabled
-            className="w-1full mt-5 bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
-            type="submit"
-          >
-            Sold Out
-          </Button>
+        <Button
+          className="mt-5 w-full bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
+          type="submit"
+          disabled={tickets <= 0}
+        >
+          {tickets > 0 ? "Book Ticket" : "Sold Out"}
+        </Button>
+        {tickets > 0 && (
+          <span className="ml-5 text-red-500">Only {tickets} left! Hurry!</span>
         )}
       </form>
     </Form>
