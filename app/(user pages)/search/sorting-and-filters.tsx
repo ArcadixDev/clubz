@@ -26,7 +26,6 @@ const SortAndFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlParams = new URLSearchParams(searchParams.toString());
-
   const [input, setInput] = useState<string>(searchParams.get("q") ?? "");
   const [people, setPeople] = useState<string>(
     searchParams.get("people") ?? "",

@@ -11,7 +11,7 @@ import { useSearchParams } from "next/navigation";
 const TrendingPlaceCard = ({ club }: { club?: Club }) => {
   console.log("card => ", club);
   return (
-    <Link href={`/clubs/${club?.name}`} className=" max-w-sm">
+    <Link href={`/clubs/${club?.id}`} className=" max-w-sm">
       <div className="pb-4">
         <AspectRatio ratio={16 / 9}>
           <Skeleton className="aspect-[16/9] h-full w-full rounded-xl" />
@@ -64,9 +64,17 @@ const RelevantSearches = ({ clubs = [] }: { clubs: Club[] }) => {
   const searchParams = useSearchParams();
   let data = clubs;
 
-  if (searchParams.get("alcohol") === "true") {
-    console.log(searchParams.get("alcohol"));
-    data = data.filter((club) => club.alcohol);
+  // if (searchParams.get("alcohol") === "true") {
+  //   console.log(searchParams.get("alcohol"));
+  //   data = data.filter((club) => club.alcohol);
+  // }
+
+  if (searchParams.get("q")) {
+    data = data.filter((club) =>
+      club.name
+        .toLowerCase()
+        .includes(searchParams.get("q") ?? "".toString()?.toLowerCase()),
+    );
   }
 
   if (searchParams.get("q")) {
