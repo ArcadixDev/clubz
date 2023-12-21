@@ -20,23 +20,24 @@ import { useSession } from "next-auth/react";
 import BookingForm from "./booking-form";
 import { auth } from "@/app/auth";
 import { Session } from "next-auth/types";
+import { clubs as res } from "@/data/data";
 
 export default async function page({ params }: { params: { clubId: string } }) {
   //   const [date, setDate] = React.useState<Date | undefined>(new Date());
   const session = await auth();
   const { name, email } = session?.user || { user: "", email: "" };
 
-  const data = await fetch(
-    `https://6575172cb2fbb8f6509ce2fa.mockapi.io/club?slug=${params.clubId}`,
-    // `https://657ae4e9394ca9e4af12fbb2.mockapi.io/clubz?slug=${params.clubId}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-  );
-  const res = await data.json();
+  //   const data = await fetch(
+  //     `https://6575172cb2fbb8f6509ce2fa.mockapi.io/club?slug=${params.clubId}`,
+  //     // `https://657ae4e9394ca9e4af12fbb2.mockapi.io/clubz?slug=${params.clubId}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     },
+  //   );
+  //   const res = await data.json();
   console.log(res);
 
   return (
@@ -155,177 +156,19 @@ export default async function page({ params }: { params: { clubId: string } }) {
               </div>
 
               <AspectRatio ratio={16 / 9}>
-                <Image
-                  src={map}
-                  alt="Image"
-                  className="rounded-md object-cover"
-                  fill
-                />
+                <iframe
+                  width="450"
+                  height="250"
+                  frameBorder="0"
+                  style={{ border: "0px" }}
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS"
+                  allowFullScreen
+                ></iframe>
               </AspectRatio>
             </div>
           </div>
         </div>
-        {/* // similar section  */}
-        {/* <div className=" mb-10 space-y-4">
-          <div className="text-xl font-semibold text-secondary-foreground">
-            Similar to this
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="w-[400px] space-y-3">
-              <div className=" w-full">
-                <AspectRatio ratio={3 / 2}>
-                  <Image
-                    src={img}
-                    alt="Image"
-                    className="rounded-xl object-cover"
-                    fill
-                  />
-                </AspectRatio>
-              </div>
-              <div className="p-1">
-                <div>Title</div>
-                <div className="flex items-start space-x-2">
-                  <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  </div>
-                  <Button variant={"destructive"}>50% off</Button>
-                </div>
-              </div>
-            </div>
-            <div className="w-[400px] space-y-3">
-              <div className=" w-full">
-                <AspectRatio ratio={3 / 2}>
-                  <Image
-                    src={img}
-                    alt="Image"
-                    className="rounded-xl object-cover"
-                    fill
-                  />
-                </AspectRatio>
-              </div>
-              <div className="p-1">
-                <div>Title</div>
-                <div className="flex items-start space-x-2">
-                  <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  </div>
-                  <Button variant={"destructive"}>50% off</Button>
-                </div>
-              </div>
-            </div>
-            <div className="w-[400px] space-y-3">
-              <div className=" w-full">
-                <AspectRatio ratio={3 / 2}>
-                  <Image
-                    src={img}
-                    alt="Image"
-                    className="rounded-xl object-cover"
-                    fill
-                  />
-                </AspectRatio>
-              </div>
-              <div className="p-1">
-                <div>Title</div>
-                <div className="flex items-start space-x-2">
-                  <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  </div>
-                  <Button variant={"destructive"}>50% off</Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-        {/* rate and review section  */}
-        {/* <div className="p-5">
-          <div className="mb-10 flex items-start justify-between">
-            <div>
-              <div className="text-2xl font-semibold capitalize text-secondary-foreground">
-                Rate & Review
-              </div>
-              <div className="mt-10 flex items-start justify-center space-x-10">
-                <div>
-                  <Badge
-                    variant={"outline"}
-                    className="flex items-center space-x-2 rounded-lg border border-white text-lg"
-                  >
-                    <div>4.5</div>
-                    <StarFilledIcon className="h-6 w-6 text-yellow-500" />
-                  </Badge>
-                  <div className="text-center"> 212 votes </div>
-                </div>
-                <div className="w-[200px]">
-                  <div className="flex w-full items-center space-x-5">
-                    <span>5</span>
-                    <Progress value={75} className="text-green-500" />
-                  </div>
-                  <div className="flex w-full items-center space-x-5">
-                    <span>5</span>
-                    <Progress value={60} />
-                  </div>
-                  <div className="flex w-full items-center space-x-5">
-                    <span>5</span>
-                    <Progress value={40} />
-                  </div>
-                  <div className="flex w-full items-center space-x-5">
-                    <span>5</span>
-                    <Progress value={22} />
-                  </div>
-                  <div className="flex w-full items-center space-x-5">
-                    <span>5</span>
-                    <Progress value={10} />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>Spinner goes here...</div>
-          </div>
-          <div className="mb-10 space-y-4">
-            <div className="text-2xl font-semibold capitalize text-secondary-foreground">
-              Rate this Place
-            </div>
-            <div className="flex items-center space-x-5">
-              <StarFilledIcon />
-              <StarFilledIcon />
-              <StarFilledIcon />
-              <StarFilledIcon />
-              <StarFilledIcon />
-            </div>
-          </div>
-          <div className=" mb-10 space-y-4">
-            <div className="text-2xl font-semibold capitalize text-secondary-foreground">
-              FAQs
-            </div>
-            <div>
-              <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-3">
-                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-4">
-                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

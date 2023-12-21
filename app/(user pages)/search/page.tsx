@@ -29,33 +29,7 @@ const page = async () => {
   return (
     <div className="container mx-auto flex-grow py-20">
       {/* <Navigation /> */}
-      <div className="mb-20 space-y-10 px-5">
-        <div className="flex items-center justify-between py-4">
-          <div>Home / About / Contact</div>
-          {/* <div>
-            <Badge variant={"secondary"} className="rounded-lg px-3 py-1.5">
-              Name
-            </Badge>
-          </div> */}
-        </div>
-        <div className="jusity-between flex items-center space-x-3">
-          <div className="relative flex flex-grow items-center">
-            <Input
-              placeholder="Search for places, cuisines and more"
-              className=" rounded-full bg-zinc-700/10 py-5 pl-12 pr-7 capitalize"
-            />
-            <div className={`pointer-events-none absolute left-0 ml-4`}>
-              <MdLocationPin className={`h-5 w-5`} />
-            </div>
-          </div>
-          <div>
-            <Button className="searchButton capitalize" variant={"ghost"}>
-              search
-            </Button>
-          </div>
-        </div>
-        <SortAndFilters />
-      </div>
+      <SortAndFilters />
       <RelevantSearches clubs={data} />
       {/* <div className="mb-20">
         <div className="text-3xl font-bold ">Relavant Searches</div>

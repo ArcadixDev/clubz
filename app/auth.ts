@@ -1,12 +1,6 @@
-import { compare } from "bcrypt";
-import NextAuth, { DefaultSession, NextAuthConfig, User } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import Google from "next-auth/providers/google";
+import NextAuth, { User } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-// The `JWT` interface can be found in the `next-auth/jwt` submodule
-import { JWT } from "@auth/core/jwt";
 import prisma from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import { authConfig } from "./auth.config";
 
 declare module "next-auth" {
@@ -17,14 +11,9 @@ declare module "next-auth" {
     user: {
       /** The user's postal address. */
       id: string;
-      // email: string;
       role: "user" | "club";
     } & User;
   }
-
-  //   interface User {
-  //     role: "user" | "club";
-  //   }
 }
 
 declare module "@auth/core/jwt" {

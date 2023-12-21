@@ -75,6 +75,7 @@ export function SignupFormDemo() {
   const onSubmit = async (values: z.infer<typeof SignupFormSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    setIsSubmitting(true);
     console.log(values);
 
     const response = await fetch("/api/signup", {
@@ -99,9 +100,7 @@ export function SignupFormDemo() {
         { position: "bottom-center" },
       );
       form.reset();
-      setTimeout(() => {
-        router.push(`/login`);
-      }, 3000);
+      router.push(`/login?email=${values.email}`);
     }
 
     if (error && errorCode === "409") {
@@ -114,9 +113,7 @@ export function SignupFormDemo() {
         ),
         { position: "bottom-center" },
       );
-      setTimeout(() => {
-        router.push(`/login?email=${values.email}`);
-      }, 3000);
+      router.push(`/login?email=${values.email}`);
     }
     setIsSubmitting(false);
   };
@@ -148,7 +145,7 @@ export function SignupFormDemo() {
                           <Input
                             placeholder="name"
                             {...field}
-                            className="border-none bg-white/60 outline-none"
+                            className="border border-muted-foreground outline-none"
                           />
                         </div>
                       </FormControl>
@@ -172,7 +169,7 @@ export function SignupFormDemo() {
                           <Input
                             placeholder="user@example.com"
                             {...field}
-                            className=" border-2 border-none border-white bg-white/60 py-5 outline-none"
+                            className="border border-muted-foreground py-5 outline-none"
                           />
                         </div>
                       </FormControl>
@@ -199,7 +196,7 @@ export function SignupFormDemo() {
                           <Input
                             type={isPassVisible ? "text" : "password"}
                             {...field}
-                            className="border-none bg-white/60 outline-none "
+                            className="border border-muted-foreground outline-none "
                             placeholder="password"
                           />
                           <button
@@ -226,6 +223,7 @@ export function SignupFormDemo() {
                 <Button
                   className="w-full bg-red-600 p-5 text-lg text-white hover:text-red-500"
                   type="submit"
+                  disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <div className="flex items-center gap-x-2">

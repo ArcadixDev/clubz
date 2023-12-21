@@ -6,7 +6,7 @@ import { RiShareForwardLine } from "react-icons/ri";
 import Link from "next/link";
 
 const Footer = () => (
-  <div className="bg-footer-bg flex w-full items-end bg-cover">
+  <div className="flex w-full items-end bg-footer-bg bg-cover">
     <footer className="body-font w-full text-white">
       <div className="lg:flex-no-wrap container mx-auto flex flex-col px-5 py-24 lg:flex-row lg:items-center">
         <div className="mx-auto w-96 flex-shrink-0">
@@ -32,12 +32,12 @@ const Footer = () => (
               <li className="mt-3">
                 <a className="cursor-pointer">Services</a>
               </li>
-              <li className="mt-3">
+              {/* <li className="mt-3">
                 <a className="cursor-pointer">About us</a>
               </li>
               <li className="mt-3">
                 <a className="cursor-pointer">Contact us</a>
-              </li>
+              </li> */}
             </nav>
           </div>
           {/* <div className="w-full justify-self-end px-4 md:w-1/2 lg:w-1/3">
@@ -104,7 +104,7 @@ const Footer = () => (
           <div className="palce-items-end z-50 grid grid-cols-1 justify-items-end gap-10 px-5 py-12 lg:grid-cols-4">
             <div className=""></div>
             <div className="space-y-4 place-self-center font-bold lg:col-span-2">
-              <p className="text-center capitalize">Clubs</p>
+              <p className="text-center capitalize">Clubz</p>
               <p className="flex space-x-1 xl:text-center">
                 <span>Copyright</span>
                 <span>&copy; {new Date().getFullYear()}</span>

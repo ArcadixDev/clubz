@@ -35,7 +35,7 @@ const page = async () => {
           This is how others will see you on the site.
         </p>
       </div> */}
-      <Separator />
+      {/* <Separator /> */}
       <ProfileForm data={data!} />
     </div>
   );
