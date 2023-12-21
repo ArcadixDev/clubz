@@ -2,12 +2,17 @@ import { ProfileForm } from "./profile-form";
 import { auth } from "@/app/auth";
 import { Separator } from "@/components/ui/separator";
 import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 const page = async () => {
   const session = await auth();
-
+  if(!session){
+    redirect("/login");
+    console.log("Session not found")
+  }
   if (session && session.user) {
     console.log("session from profilepage -> ", session);
+    console.log("Session found")
   }
 
   async function getUserData() {

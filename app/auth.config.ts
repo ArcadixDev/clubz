@@ -96,6 +96,7 @@ export const authConfig = {
         return {
           ...token,
           userId: user.id,
+          // email: user.email,
         };
       }
       return token;

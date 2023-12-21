@@ -1,7 +1,7 @@
 import Sidebar from "@/components/Layouts/sidebar";
 import prisma from "@/lib/prisma";
 import React from "react";
-import { auth } from "../auth";
+import { auth } from "@/app/auth";
 
 const Dashboardlayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
