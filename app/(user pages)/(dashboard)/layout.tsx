@@ -4,21 +4,27 @@ import React from "react";
 import { auth } from "@/app/auth";
 import ProfileCover from "@/public/assets/profileCover.png";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 const Dashboardlayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
+
+  if (!session) {
+    redirect("/login");
+  }
 
   async function getUserData() {
     // console.log("getUserData Called")
     const data = await prisma.user.findUnique({
       where: {
-        id: session?.user?.id,
+        email: session?.user?.email!,
       },
     });
     return data;
   }
 
   const data = await getUserData();
+
 
   return (
     <main className="container relative mx-auto my-10 flex min-h-screen flex-grow flex-col overflow-hidden rounded-xl">
