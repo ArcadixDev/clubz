@@ -26,61 +26,13 @@ const SortAndFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlParams = new URLSearchParams(searchParams.toString());
-  const [alcohol, setAlcohol] = useState<string>(
-    searchParams.get("alcohol") === "true" ? "alcohol" : "noAlcohol",
-  );
+
   const [input, setInput] = useState<string>(searchParams.get("q") ?? "");
   const [people, setPeople] = useState<string>(
     searchParams.get("people") ?? "",
   );
 
-  const AlcoholToggelGroup = useCallback(() => {
-    console.log("alcohol => ", alcohol);
-    return (
-      <ToggleGroup
-        type="single"
-        variant={"outline"}
-        className="space-x-5 hover:bg-none data-[state=on]:bg-none"
-        defaultValue={alcohol}
-        onValueChange={toggelAlcohol}
-      >
-        <ToggleGroupItem
-          value="alcohol"
-          aria-label="Toggle Alcohol"
-          className="hover:bg-transparent"
-        >
-          <span>Alcohol</span>
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="noAlcohol"
-          aria-label="Toggle noAlcohol"
-          className="hover:bg-transparent"
-        >
-          <span>No Alcohol</span>
-        </ToggleGroupItem>
-      </ToggleGroup>
-    );
-  }, [alcohol]);
-
-  //   console.log(
-  //     "state alcohol => ",
-  //     alcohol,
-  //     typeof searchParams.get("alcohol"),
-  //     searchParams.get("alcohol") === "true",
-  //   );
   const [price, setPrice] = useState<string>(searchParams.get("price") ?? "");
-  //   console.log("values => ", { price, people, type });
-  const toggelAlcohol = (value: string) => {
-    if (value === "alcohol") {
-      urlParams.set("alcohol", "true");
-    } else if (!value) {
-      urlParams.delete("alcohol");
-    } else {
-      urlParams.set("alcohol", "false");
-    }
-    router.push(createUrl("/search", urlParams));
-  };
-
   const toggleFilters = (values: string[]) => {
     console.log("values => ", values);
     if (values.includes("open")) {
@@ -91,14 +43,6 @@ const SortAndFilters = () => {
       urlParams.set("rating", "4-above");
     } else urlParams.delete("rating");
 
-    // alcohol logic
-    // if (value === "alcohol") {
-    //   AlcoholParams.set("alcohol", "true");
-    // } else if (!value) {
-    //   AlcoholParams.delete("alcohol");
-    // } else {
-    //   AlcoholParams.set("alcohol", "false");
-    // }
     router.push(createUrl("/search", urlParams));
   };
 
@@ -149,12 +93,12 @@ const SortAndFilters = () => {
             <PopoverContent sideOffset={10} align={`start`} className="w-fit">
               <RadioGroup defaultValue="comfortable" className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="default" id="r1" />
-                  <Label htmlFor="r1">Relavance: Low to High</Label>
+                  <RadioGroupItem value="relevancelh" id="rlh" />
+                  <Label htmlFor="rlh">Relavance: Low to High</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="default" id="r1" />
-                  <Label htmlFor="r1">Relavance: Low to High</Label>
+                  <RadioGroupItem value="relevancehl" id="rhl" />
+                  <Label htmlFor="rhl">Relavance: High to Low</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="pricelh" id="plh" />
@@ -169,7 +113,6 @@ const SortAndFilters = () => {
           </Popover>
         </div>
         <div className="flex flex-grow justify-end space-x-5">
-          <AlcoholToggelGroup />
           <ToggleGroup
             type="multiple"
             onValueChange={toggleFilters}

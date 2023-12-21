@@ -25,7 +25,6 @@ const Dashboardlayout = async ({ children }: { children: React.ReactNode }) => {
 
   const data = await getUserData();
 
-
   return (
     <main className="container relative mx-auto my-10 flex min-h-screen flex-grow flex-col overflow-hidden rounded-xl">
       <div className="h-56 w-full overflow-hidden rounded-t-2xl">

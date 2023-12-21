@@ -1,5 +1,4 @@
 import React from "react";
-import { LoginFormDemo } from "../login/login-form";
 import Image from "next/image";
 import { SignupFormDemo } from "./signup-form";
 import { auth } from "@/app/auth";

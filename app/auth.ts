@@ -11,14 +11,9 @@ declare module "next-auth" {
     user: {
       /** The user's postal address. */
       id: string;
-      // email: string;
       role: "user" | "club";
     } & User;
   }
-
-  //   interface User {
-  //     role: "user" | "club";
-  //   }
 }
 
 declare module "@auth/core/jwt" {

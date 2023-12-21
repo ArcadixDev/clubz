@@ -1,9 +1,11 @@
 import { User } from "@prisma/client";
 import prisma from "../prisma";
 
-export const getUserRole = async (email: User["email"]) => {
+export const getUserRole = async (
+  email: User["email"],
+): Promise<"user" | "club" | null> => {
   if (!email) {
-    return "Role is not found for an invalid email";
+    return null;
   }
   const data = await prisma.user.findUnique({
     where: {
@@ -12,8 +14,8 @@ export const getUserRole = async (email: User["email"]) => {
   });
 
   if (data) {
-    return data.role;
+    return data.role === "club" ? "club" : "user";
   } else {
-    return "No user found.";
+    return null;
   }
 };
