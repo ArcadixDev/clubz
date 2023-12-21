@@ -17,9 +17,10 @@ const page = async () => {
 
   async function getUserData() {
     // console.log("getUserData Called")
+    
     const data = await prisma.user.findUnique({
       where: {
-        id: session?.user?.id,
+        email: session?.user?.email!,
       },
     });
     return data;
@@ -35,7 +36,7 @@ const page = async () => {
           This is how others will see you on the site.
         </p>
       </div> */}
-      {/* <Separator /> */}
+      <Separator />
       <ProfileForm data={data!} />
     </div>
   );

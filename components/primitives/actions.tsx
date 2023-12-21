@@ -39,7 +39,7 @@ import { createUrl } from "@/lib/utils";
 import { Session } from "next-auth";
 
 const Filters = () => {
-  const [type, setType] = useState("alcohol");
+  // const [type, setType] = useState("alcohol");
   const [price, setPrice] = useState([500]);
   const [people, setPeople] = useState(1);
 
@@ -48,7 +48,7 @@ const Filters = () => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("values => ", { price, people, type });
+    console.log("values => ", { price, people });
     const urlParams = new URLSearchParams(searchParams.toString());
 
     if (price[0]) {
@@ -59,9 +59,9 @@ const Filters = () => {
       urlParams.set("people", people.toString());
     }
 
-    if (type === "alcohol") {
-      urlParams.set("alcohol", "true");
-    } else urlParams.set("alcohol", "false");
+    // if (type === "alcohol") {
+    //   urlParams.set("alcohol", "true");
+    // } else urlParams.set("alcohol", "false");
 
     router.push(createUrl("/search", urlParams));
   };
@@ -80,7 +80,7 @@ const Filters = () => {
               <FaFilter />
             </div>
             <hr className="mb-4 mt-2" />
-            <div className="mb-4 ">
+            {/* <div className="mb-4 ">
               <div className="mb-2">Type</div>
               <div>
                 <ToggleGroup
@@ -98,7 +98,7 @@ const Filters = () => {
                   </ToggleGroupItem>
                 </ToggleGroup>
               </div>
-            </div>
+            </div> */}
             <div className="mb-4 ">
               <div className="mb-2">No of People</div>
               <div>
@@ -151,13 +151,14 @@ const Filters = () => {
                 <Slider
                   defaultValue={price}
                   max={20000}
+                  min={500}
                   step={500}
                   onValueChange={setPrice}
                 />
               </div>
             </div>
             <div className="my-2 ">
-              <Button type="submit" variant={"ghost"} className="w-full">
+              <Button type="submit" variant={"outline"} className="w-full">
                 Filter Search
               </Button>
             </div>
