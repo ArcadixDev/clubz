@@ -26,41 +26,41 @@ const SortAndFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlParams = new URLSearchParams(searchParams.toString());
-  const [alcohol, setAlcohol] = useState<string>(
-    searchParams.get("alcohol") === "true" ? "alcohol" : "noAlcohol",
-  );
+  // const [alcohol, setAlcohol] = useState<string>(
+  //   searchParams.get("alcohol") === "true" ? "alcohol" : "noAlcohol",
+  // );
   const [input, setInput] = useState<string>(searchParams.get("q") ?? "");
   const [people, setPeople] = useState<string>(
     searchParams.get("people") ?? "",
   );
 
-  const AlcoholToggelGroup = useCallback(() => {
-    console.log("alcohol => ", alcohol);
-    return (
-      <ToggleGroup
-        type="single"
-        variant={"outline"}
-        className="space-x-5 hover:bg-none data-[state=on]:bg-none"
-        defaultValue={alcohol}
-        onValueChange={toggelAlcohol}
-      >
-        <ToggleGroupItem
-          value="alcohol"
-          aria-label="Toggle Alcohol"
-          className="hover:bg-transparent"
-        >
-          <span>Alcohol</span>
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="noAlcohol"
-          aria-label="Toggle noAlcohol"
-          className="hover:bg-transparent"
-        >
-          <span>No Alcohol</span>
-        </ToggleGroupItem>
-      </ToggleGroup>
-    );
-  }, [alcohol]);
+  // const AlcoholToggelGroup = useCallback(() => {
+  //   console.log("alcohol => ", alcohol);
+  //   return (
+  //     <ToggleGroup
+  //       type="single"
+  //       variant={"outline"}
+  //       className="space-x-5 hover:bg-none data-[state=on]:bg-none"
+  //       defaultValue={alcohol}
+  //       onValueChange={toggelAlcohol}
+  //     >
+  //       <ToggleGroupItem
+  //         value="alcohol"
+  //         aria-label="Toggle Alcohol"
+  //         className="hover:bg-transparent"
+  //       >
+  //         <span>Alcohol</span>
+  //       </ToggleGroupItem>
+  //       <ToggleGroupItem
+  //         value="noAlcohol"
+  //         aria-label="Toggle noAlcohol"
+  //         className="hover:bg-transparent"
+  //       >
+  //         <span>No Alcohol</span>
+  //       </ToggleGroupItem>
+  //     </ToggleGroup>
+  //   );
+  // }, [alcohol]);
 
   //   console.log(
   //     "state alcohol => ",
@@ -70,16 +70,16 @@ const SortAndFilters = () => {
   //   );
   const [price, setPrice] = useState<string>(searchParams.get("price") ?? "");
   //   console.log("values => ", { price, people, type });
-  const toggelAlcohol = (value: string) => {
-    if (value === "alcohol") {
-      urlParams.set("alcohol", "true");
-    } else if (!value) {
-      urlParams.delete("alcohol");
-    } else {
-      urlParams.set("alcohol", "false");
-    }
-    router.push(createUrl("/search", urlParams));
-  };
+  // const toggelAlcohol = (value: string) => {
+  //   if (value === "alcohol") {
+  //     urlParams.set("alcohol", "true");
+  //   } else if (!value) {
+  //     urlParams.delete("alcohol");
+  //   } else {
+  //     urlParams.set("alcohol", "false");
+  //   }
+  //   router.push(createUrl("/search", urlParams));
+  // };
 
   const toggleFilters = (values: string[]) => {
     console.log("values => ", values);
@@ -169,7 +169,7 @@ const SortAndFilters = () => {
           </Popover>
         </div>
         <div className="flex flex-grow justify-end space-x-5">
-          <AlcoholToggelGroup />
+          {/* <AlcoholToggelGroup /> */}
           <ToggleGroup
             type="multiple"
             onValueChange={toggleFilters}
