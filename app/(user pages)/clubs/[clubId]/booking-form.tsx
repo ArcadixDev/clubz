@@ -62,6 +62,12 @@ const BookingForm = ({
     },
   });
 
+  const disabledDays = [
+    {  }
+  ];
+
+  console.log("disabledDays => ", disabledDays);
+  console.log("date => ", new Date());
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -170,7 +176,7 @@ const BookingForm = ({
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}
-                  disabled={(date) => date < new Date()}
+                  disabled={[{before: new Date(2023, 12, 1)}]}
                   {...field}
                   classNames={{
                     months: "",
