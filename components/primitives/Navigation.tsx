@@ -22,32 +22,48 @@ import {
 import { getUserRole } from "@/lib/db/user";
 import { useEffect, useState } from "react";
 import { Session } from "next-auth";
+import { atom, useRecoilState } from "recoil";
+import { locationState } from "@/atoms/location";
 
 const Location = () => {
-  const [location, setLocation] = useState<
-    Record<"latitude" | "longitude", string | number>
-  >({
-    latitude: "",
-    longitude: "",
-  });
-  console.log("location => ", location);
+  // const [location, setLocation] = useState<
+  //   Record<"latitude" | "longitude", string | number>
+  // >({
+  //   latitude: "",
+  //   longitude: "",
+  // });
+  // console.log("location => ", location);
   const [error, setError] = useState<string | null>(null);
+
+  // const locationState = atom({
+  //   key: "locationState",
+  //   default: { latitude: 0, longitude: 0 },
+  // });
+
+  
+  const [locationAtom, setLocationAtom] = useRecoilState(locationState);
+  console.log("locationAtom => ", locationAtom);
 
   useEffect(() => {
     // Request location permission if not already granted
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLocation({
+          // setLocation({
+          //   latitude: position.coords.latitude,
+          //   longitude: position.coords.longitude,
+          // });
+          setLocationAtom({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
         },
+
         (error) => {
           setError(error.message);
         },
         {
-          enableHighAccuracy: true, // Optional for more accurate results
+          // enableHighAccuracy: true, // Optional for more accurate results
           timeout: 5000, // Timeout after 5 seconds
           maximumAge: 0, // Use the most recent position
         },

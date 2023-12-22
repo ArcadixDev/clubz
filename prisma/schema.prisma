@@ -85,7 +85,7 @@ model Ticket {
   userId        String   @db.VarChar(255)
   date          DateTime
   price         Float
-  paymentStatus String
+  paymentStatus Boolean
   club          Club     @relation(fields: [clubId], references: [id])
   user          User     @relation(fields: [userId], references: [id])
 }

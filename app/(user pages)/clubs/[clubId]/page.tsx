@@ -1,9 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import img from "@/public/assets/section1Image.png";
-import map from "@/public/assets/map.png";
+// import map from "@/public/assets/map.png";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import  Map  from "@/components/primitives/Map";
 import { Overview, Photos } from "../tabs";
 import {
   Accordion,
@@ -15,12 +16,21 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
+
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import BookingForm from "./booking-form";
 import { auth } from "@/app/auth";
 import { Session } from "next-auth/types";
 import { clubs as res } from "@/data/data";
+import { text } from "stream/consumers";
 
 export default async function page({ params }: { params: { clubId: string } }) {
   //   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -39,6 +49,7 @@ export default async function page({ params }: { params: { clubId: string } }) {
   //   );
   //   const res = await data.json();
   console.log(res);
+  
 
   return (
     <div className="w-full flex-grow py-20">
@@ -155,7 +166,7 @@ export default async function page({ params }: { params: { clubId: string } }) {
                 </div>
               </div>
 
-              <AspectRatio ratio={16 / 9}>
+              {/* <AspectRatio ratio={16 / 9}>
                 <iframe
                   width="450"
                   height="250"
@@ -165,7 +176,10 @@ export default async function page({ params }: { params: { clubId: string } }) {
                   src="https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS"
                   allowFullScreen
                 ></iframe>
-              </AspectRatio>
+              </AspectRatio> */}
+              <div className="w-[450px] h-[250px]">
+                <Map position={[22.518,88.3832]}/>
+              </div>
             </div>
           </div>
         </div>
