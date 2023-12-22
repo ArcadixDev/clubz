@@ -2,7 +2,7 @@ import NextAuth, { User } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import { authConfig } from "./auth.config";
-
+import { JWT } from "@auth/core/jwt";
 declare module "next-auth" {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context

@@ -28,7 +28,7 @@ import { User } from "@prisma/client";
 import { Calendar } from "@/components/ui/calendar";
 import { Session } from "next-auth";
 import { redirect, useRouter } from "next/navigation";
-
+import { Matcher } from "react-day-picker";
 
 const formSchema = z.object({
   name: z
@@ -41,7 +41,6 @@ const formSchema = z.object({
   date: z.coerce.date(),
 });
 
-
 const BookingForm = ({
   name,
   email,
@@ -52,37 +51,30 @@ const BookingForm = ({
   tickets: number;
 }) => {
   const route = useRouter();
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: name ?? "",
       email: email ?? "",
       people: 1,
+      date: new Date(),
     },
   });
 
-  const disabledDays = [
-    {  }
-  ];
-
-  console.log("disabledDays => ", disabledDays);
-  console.log("date => ", new Date());
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    if(!name && !email){
+    if (!name && !email) {
       route.push("/login");
     }
   }
 
-  console.log("tickets available => ", tickets);
   return (
     <Form {...form}>
       <form
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-3"
+        className="space-y-5"
       >
         <FormField
           control={form.control}
@@ -176,8 +168,9 @@ const BookingForm = ({
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}
-                  disabled={[{before: new Date(2023, 12, 1)}]}
                   {...field}
+                  disabled={{ before: new Date() }}
+                  fromDate={new Date()}
                   classNames={{
                     months: "",
                     tbody: "justify-around",
@@ -193,59 +186,8 @@ const BookingForm = ({
           )}
         />
 
-        {/* <FormField
-                  control={form.control}
-                  name="date"
-                  render={({ field }) => (
-                    <FormItem className="relative flex flex-col">
-                      <FormLabel>Date of birth</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground",
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-full p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        Your date of birth is used to calculate your age.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
-
-        {/* <Button
-          className="w-1full mt-5 text-white bg-gradient-to-t from-red-800 to-red-400 capitalize"
-          type="submit"
-        >
-          Book ticket
-        </Button> */}
         <Button
-          className="mt-5 w-full bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
+          className="mt-12 w-full bg-gradient-to-t from-red-800 to-red-400 capitalize text-white"
           type="submit"
           disabled={tickets <= 0}
         >
