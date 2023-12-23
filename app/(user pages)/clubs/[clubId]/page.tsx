@@ -16,13 +16,6 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -30,7 +23,6 @@ import BookingForm from "./booking-form";
 import { auth } from "@/app/auth";
 import { Session } from "next-auth/types";
 import { clubs as res } from "@/data/data";
-import { text } from "stream/consumers";
 
 export default async function page({ params }: { params: { clubId: string } }) {
   //   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -48,7 +40,6 @@ export default async function page({ params }: { params: { clubId: string } }) {
   //     },
   //   );
   //   const res = await data.json();
-  console.log(res);
   
 
   return (
@@ -137,7 +128,7 @@ export default async function page({ params }: { params: { clubId: string } }) {
             <h1 className="mb-10 font-serif text-4xl text-red-500">
               <span className="font-bold">Bookings</span> & Contact
             </h1>
-            <BookingForm name={name} email={email} tickets={res[0].ticket} />
+            <BookingForm clubId={params.clubId} name={name} email={email} tickets={res[0].ticket} />
 
             {/* Contact Info */}
             <div>

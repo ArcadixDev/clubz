@@ -73,14 +73,14 @@ const Location = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("location => ", location);
-  }, [location]);
+  // useEffect(() => {
+  //   console.log("location => ", location);
+  // }, [location]);
 
   // Function to handle button click
   const handleGetLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      setLocation({
+      setLocationAtom({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
