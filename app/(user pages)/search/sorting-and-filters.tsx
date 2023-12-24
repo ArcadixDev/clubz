@@ -49,7 +49,7 @@ const SortAndFilters = () => {
     setInput(e.target.value);
 
     urlParams.set("q", e.target.value);
-    console.log("value to be added to the q params", input);
+    // console.log("value to be added to the q params", input);
     router.push(createUrl("/search", urlParams));
   };
 
@@ -86,9 +86,7 @@ const SortAndFilters = () => {
       <div className="flex items-center justify-between space-x-6">
         <div>
           <Popover>
-            <PopoverTrigger>
-              <Button variant={"outline"}>Sort</Button>
-            </PopoverTrigger>
+            <PopoverTrigger>Sort</PopoverTrigger>
             <PopoverContent sideOffset={10} align={`start`} className="w-fit">
               <RadioGroup defaultValue="comfortable" className="space-y-2">
                 <div className="flex items-center space-x-2">

@@ -1,28 +1,41 @@
+"use client";
+
 import cover from "../../../../public/assets/club3.jpg";
 import profile from "../../../../public/assets/club1.jpg";
 import Image from "next/image";
 import EditForm from "./edit-form";
+import { useSession } from "next-auth/react";
+import { Skeleton } from "@/components/ui/skeleton";
+
 export default function editClub() {
+  const { data: session, status } = useSession();
+
   return (
-    <div className="relative mx-10">
+    <div className="container relative mx-auto">
       <div className="h-56 overflow-hidden">
         <Image src={cover} alt="Cover Image" />
       </div>
-      
-      <Image
-        className="absolute top-36 left-5 z-50 w-36 h-36 rounded-full"
-        src={profile}
-        alt="Profile Picture"
-      />
-      <span className="absolute top-48 left-44 z-50 text-xl font-bold">
-        Club Owner Name
-      </span>
 
-      <span className="absolute top-56 left-44 text-xl font-bold underline">
-        Club Name
-      </span>
-
-      <div className="w-full bg-muted min-h-screen pt-24 pb-20 px-10">
+      <div className="min-h-screen w-full bg-muted px-10 pb-20">
+        <div className="flex -translate-y-1/2 items-center gap-x-6 px-5">
+          <Image
+            className="h-36 w-36 rounded-full"
+            src={profile}
+            alt="Profile Picture"
+          />
+          <div className="space-y-2">
+            {status === "loading" ? (
+              <Skeleton className="h-4 w-[250px] bg-muted-foreground  text-xl" />
+            ) : (
+              <h1 className="text-xl font-bold">{session?.user.name}</h1>
+            )}
+            {status === "loading" ? (
+              <Skeleton className="h-4 w-[175px] bg-muted-foreground text-xl" />
+            ) : (
+              <h1 className="text-xl font-bold underline">Club Name</h1>
+            )}
+          </div>
+        </div>
         <h1 className="text-2xl font-bold">Edit Club Details</h1>
         <EditForm />
       </div>

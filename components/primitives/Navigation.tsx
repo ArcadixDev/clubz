@@ -8,7 +8,7 @@ import { MdLocationOn } from "react-icons/md";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { auth } from "@/app/auth";
-import { Filters, ProfileSection } from "./actions";
+import { AdminProfile, Filters, UserProfile } from "./actions";
 
 import club_image from "../../public/assets/club3.jpg";
 
@@ -150,16 +150,16 @@ const Navigation = ({
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            <Link
+            {/* <Link
               href={""}
               className="flex items-center gap-x-2 rounded-lg border border-white px-3 py-2"
             >
               <Image className="h-6 w-6" alt="club Images" src={club_image} />
               <span>Club Name</span>
-            </Link>
+            </Link> */}
 
             <div>
-              <ProfileSection user={session?.user!} />
+              <AdminProfile user={session?.user!} />
             </div>
           </div>
         </div>
@@ -215,7 +215,7 @@ const Navigation = ({
               )}
               {isLoggedIn && (
                 <div>
-                  <ProfileSection user={session?.user!} />
+                  <UserProfile user={session?.user!} />
                 </div>
               )}
             </div>

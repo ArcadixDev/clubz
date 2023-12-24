@@ -48,22 +48,23 @@ const EditForm = () => {
       <form
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-10 space-y-5 flex flex-col"
+        className="mt-10 flex flex-col space-y-5"
       >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Name</FormLabel>
+            <FormItem className="flex  items-center">
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Name
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
-                  placeholder=""
+                  placeholder="Name..."
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
@@ -74,15 +75,16 @@ const EditForm = () => {
           name="clubname"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Club Name</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Club Name
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
-                  placeholder=""
+                  placeholder="Club Name..."
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
@@ -94,15 +96,16 @@ const EditForm = () => {
           name="phone"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Mobile No.</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Mobile No.
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
-                  placeholder=""
+                  placeholder="Phone..."
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
@@ -114,15 +117,16 @@ const EditForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Email</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Email
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
-                  placeholder=""
+                  placeholder="example@gmail.com"
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
@@ -134,15 +138,16 @@ const EditForm = () => {
           name="location"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Club Location</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Club Location
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
-                  placeholder=""
+                  placeholder="Main Street, Your County, or Anytown."
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
@@ -154,23 +159,25 @@ const EditForm = () => {
           name="timing"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Club Timings</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Club Timings
+              </FormLabel>
               <FormControl>
-                <Input
-                  type="time"
-                  className="-mx-5 w-1/4 border border-white"
-                  placeholder=""
-                  {...field}
-                />
-              </FormControl>
-              <FormLabel className="mx-10 text-lg">To</FormLabel>
-              <FormControl>
-                <Input
-                  type="time"
-                  className="-mx-5 w-1/4 border border-white"
-                  placeholder=""
-                  {...field}
-                />
+                <div className="flex w-full items-center">
+                  <Input
+                    type="time"
+                    className="w-full flex-grow border border-white"
+                    placeholder=""
+                    {...field}
+                  />
+                  <FormLabel className="mx-10 w-fit text-lg">To</FormLabel>
+                  <Input
+                    type="time"
+                    className="w-full flex-grow border border-white"
+                    placeholder=""
+                    {...field}
+                  />
+                </div>
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />
@@ -183,7 +190,9 @@ const EditForm = () => {
           name="services"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Services Provided</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Services Provided
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
@@ -191,7 +200,6 @@ const EditForm = () => {
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
@@ -203,7 +211,9 @@ const EditForm = () => {
           name="details"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Details about Club</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Details about Club
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
@@ -211,7 +221,6 @@ const EditForm = () => {
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
@@ -223,7 +232,9 @@ const EditForm = () => {
           name="url"
           render={({ field }) => (
             <FormItem className="flex items-center">
-              <FormLabel className="w-48 text-lg">Location Url</FormLabel>
+              <FormLabel className="w-full max-w-[250px] text-lg">
+                Location Url
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border border-white"
@@ -231,31 +242,37 @@ const EditForm = () => {
                   {...field}
                 />
               </FormControl>
-              <RiPencilFill className="ml-5 h-6 w-6 text-red-600" />
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <div className="flex">
-        <span className="text-xl mt-3 w-48">Pictures</span>
-        <label
-          htmlFor="image-upload"
-          className="w-2/3 p-5 h-[300px] mr-10 bg-black ml-auto flex flex-col justify-center items-center"
-        >
-            <span className="py-2 px-5 text-md border rounded-lg cursor-pointer">Add Photos +</span>
-        </label>
-        <input
-          className="hidden"
-          id="image-upload"
-          type="file"
-          multiple
-          accept=".png,.jpeg,.jpg"
-          name="image"
-        />
+          <span className="mt-3 w-full max-w-[250px] text-xl">Pictures</span>
+          <label
+            htmlFor="image-upload"
+            className="ml-auto mr-10 flex h-[300px] w-2/3 flex-col items-center justify-center bg-black p-5"
+          >
+            <span className="text-md cursor-pointer rounded-lg border px-5 py-2">
+              Add Photos +
+            </span>
+          </label>
+          <input
+            className="hidden"
+            id="image-upload"
+            type="file"
+            multiple
+            accept=".png,.jpeg,.jpg"
+            name="image"
+          />
         </div>
 
-        <Button type="submit" className="px-5 w-40 mx-auto mt-5 text-white bg-gradient-to-t from-red-800 to-red-400 capitalize">Save Changes</Button>
+        <Button
+          type="submit"
+          className="mx-auto mt-5 w-40 bg-gradient-to-t from-red-800 to-red-400 px-5 capitalize text-white"
+        >
+          Save Changes
+        </Button>
       </form>
     </Form>
   );

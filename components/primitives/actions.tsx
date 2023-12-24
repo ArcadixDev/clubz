@@ -169,7 +169,7 @@ const Filters = () => {
   );
 };
 
-const ProfileSection = ({
+const UserProfile = ({
   user: { name, email, image, role, id },
 }: {
   user: Session["user"];
@@ -246,6 +246,96 @@ const ProfileSection = ({
   );
 };
 
+const AdminProfile = ({
+  user: { name, email, image, role, id },
+}: {
+  user: Session["user"];
+}) => {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <div className="flex items-center gap-x-2 rounded-lg border border-white px-3 py-2">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={image ?? ""} className="h-6 w-6" />
+            <AvatarFallback className="h-8 w-8">
+              {name?.substring(0, 2)}
+            </AvatarFallback>
+          </Avatar>
+          <div>{name?.split(" ")[0]}</div>
+        </div>
+      </PopoverTrigger>
+      <PopoverContent
+        sideOffset={50}
+        align={`end`}
+        className={`overflow-hidden rounded-xl bg-zinc-900 p-0`}
+      >
+        <div>
+          <div className="relative">
+            <Image
+              src={profileBg}
+              alt={`Profile Background h-[100px] bg-cover bg-no-repeat`}
+            />
+            <div className="flex -translate-y-1/2 items-center justify-center">
+              <Image
+                src={profileBg}
+                alt={`Profile Picture`}
+                className={`h-20 w-20 rounded-full`}
+              />
+            </div>
+          </div>
+          <div className="-translate-y-8 pt-3">
+            <div className="mx-2 flex flex-col">
+              <Link href={`/dashboard/edit-club`} className="p-1">
+                <Button
+                  className="my-px w-full justify-start space-x-2 shadow-custom"
+                  variant={"ghost"}
+                >
+                  <FiUser />
+                  <span>Edit Profile</span>
+                </Button>
+              </Link>
+              <Link href={`/dashboard/notifications`} className="p-1">
+                <Button
+                  className="my-px w-full justify-start space-x-2 shadow-custom"
+                  variant={"ghost"}
+                >
+                  <GiTicket />
+                  <span>Notifications</span>
+                </Button>
+              </Link>
+              <Link href={`/dashboard/profile`} className="p-1">
+                <Button
+                  className="my-px w-full justify-start space-x-2 shadow-custom"
+                  variant={"ghost"}
+                >
+                  <GiTicket />
+                  <span>Profile</span>
+                </Button>
+              </Link>
+              <Link href={`/dashboard/settings`} className="p-1">
+                <Button
+                  className="my-px w-full justify-start space-x-2 shadow-custom"
+                  variant={"ghost"}
+                >
+                  <FiSettings />
+                  <span>Settings</span>
+                </Button>
+              </Link>
+              <LogoutButton />
+            </div>
+            <div className="mx-auto mt-3">
+              <div className="flex items-center justify-center space-x-2 text-xs">
+                <Link href={"#"}>Privacy Policy</Link>
+                <DotIcon />
+                <Link href={"#"}>Terms & Conditions</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+};
 const LogoutButton = () => {
   return (
     <Button
@@ -259,4 +349,4 @@ const LogoutButton = () => {
   );
 };
 
-export { LogoutButton, Filters, ProfileSection };
+export { LogoutButton, Filters, UserProfile, AdminProfile };
