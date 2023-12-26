@@ -23,6 +23,65 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const signupPageMetadata: Metadata = {
+  metadataBase: new URL("https://clubz.tech"),
+  title: {
+    default: "Clubz - Sign Up",
+    template: "%s | Clubz - Sign Up",
+  },
+  description:
+    "Sign up for Clubz and unlock a world of exclusive nightlife experiences. Join now and get access to the hottest parties and club events.",
+  openGraph: {
+    title: "Clubz - Sign Up",
+    description:
+      "Join Clubz and explore exclusive nightlife experiences. Sign up now for access to the hottest parties and club events.",
+    url: "https://clubz.tech/signup",
+    siteName: "Clubz",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://clubz.tech/signup-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Sign Up",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Clubz",
+    title: "Clubz - Sign Up",
+    description:
+      "Join Clubz and explore exclusive nightlife experiences. Sign up now for access to the hottest parties and club events.",
+    images: [
+      {
+        url: "https://clubz.tech/signup-twitter-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Sign Up",
+      },
+    ],
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+  },
+};
+
 
 const page = () => {
   redirect("/search");

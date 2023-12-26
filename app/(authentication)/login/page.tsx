@@ -3,6 +3,62 @@ import { LoginFormDemo } from "./login-form";
 import Image from "next/image";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const loginPageMetadata: Metadata = {
+  metadataBase: new URL('https://clubz.tech'),
+  title: {
+    default: 'Clubz - Log In',
+    template: '%s | Clubz - Log In',
+  },
+  description: 'Log in to your Clubz account and experience the best of nightlife. Get digital passes, reserve tables, and stay updated on the hottest events in your city.',
+  openGraph: {
+    title: 'Clubz - Log In',
+    description: 'Log in to Clubz and access the ultimate nightlife experiences. Get digital passes, reserve tables, and stay updated on the hottest events.',
+    url: 'https://clubz.tech/login',
+    siteName: 'Clubz',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: 'https://clubz.tech/login-og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Clubz Log In',
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@Clubz',
+    title: 'Clubz - Log In',
+    description: 'Log in to Clubz and access the ultimate nightlife experiences. Get digital passes, reserve tables, and stay updated on the hottest events.',
+    images: [
+      {
+        url: 'https://clubz.tech/login-twitter-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Clubz Log In',
+      },
+    ],
+  },
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+  },
+};
+
 
 const Page = async () => {
   const session = await auth();
