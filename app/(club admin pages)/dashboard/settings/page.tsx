@@ -3,6 +3,62 @@ import { IoShieldCheckmarkOutline, IoHelpCircleOutline,IoTrashBinOutline, IoBugO
 import { MdThumbsUpDown } from "react-icons/md";
 
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const settingsPageMetadata: Metadata = {
+  metadataBase: new URL('https://clubz.tech/admin'),
+  title: {
+    default: 'Clubz Admin - Settings',
+    template: '%s | Clubz Admin - Settings',
+  },
+  description: 'Configure and customize settings in the Clubz Admin. Manage notifications, preferences, and account details.',
+  openGraph: {
+    title: 'Clubz Admin - Settings',
+    description: 'Administer settings in Clubz. Manage notifications, preferences, and account details effortlessly.',
+    url: 'https://clubz.tech/admin/settings',
+    siteName: 'Clubz Admin',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: 'https://clubz.tech/admin/settings-og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Clubz Admin Settings',
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@ClubzAdmin',
+    title: 'Clubz Admin - Settings',
+    description: 'Administer settings in Clubz. Manage notifications, preferences, and account details effortlessly.',
+    images: [
+      {
+        url: 'https://clubz.tech/admin/settings-twitter-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Clubz Admin Settings',
+      },
+    ],
+  },
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+  },
+};
+
 
 export default function settings() {
     const general_links= [

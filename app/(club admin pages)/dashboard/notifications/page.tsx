@@ -6,6 +6,65 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const notificationPageMetadata: Metadata = {
+  metadataBase: new URL("https://clubz.tech/admin"),
+  title: {
+    default: "Clubz Admin - Notifications",
+    template: "%s | Clubz Admin - Notifications",
+  },
+  description:
+    "Manage notifications in the Clubz Admin. Stay informed about important updates and events.",
+  openGraph: {
+    title: "Clubz Admin - Notifications",
+    description:
+      "Administer notifications in Clubz. Stay informed about important updates and events.",
+    url: "https://clubz.tech/admin/notifications",
+    siteName: "Clubz Admin",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://clubz.tech/admin/notifications-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Admin Notifications",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@ClubzAdmin",
+    title: "Clubz Admin - Notifications",
+    description:
+      "Administer notifications in Clubz. Stay informed about important updates and events.",
+    images: [
+      {
+        url: "https://clubz.tech/admin/notifications-twitter-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Admin Notifications",
+      },
+    ],
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+  },
+};
+
 
 export default function notifications() {
   return (
