@@ -2,7 +2,66 @@ import { ProfileForm } from "./profile-form";
 import { auth } from "@/app/auth";
 import { Separator } from "@/components/ui/separator";
 import prisma from "@/lib/prisma";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const profilePageMetadata: Metadata = {
+  metadataBase: new URL("https://clubz.tech"),
+  title: {
+    default: "Clubz - Your Profile",
+    template: "%s | Clubz - Your Profile",
+  },
+  description:
+    "Manage your Clubz profile. Update your information, preferences, and view your activity.",
+  openGraph: {
+    title: "Clubz - Your Profile",
+    description:
+      "Manage your Clubz profile. Update your information, preferences, and view your activity.",
+    url: "https://clubz.tech/profile",
+    siteName: "Clubz",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://clubz.tech/profile-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Profile",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Clubz",
+    title: "Clubz - Your Profile",
+    description:
+      "Manage your Clubz profile. Update your information, preferences, and view your activity.",
+    images: [
+      {
+        url: "https://clubz.tech/profile-twitter-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Profile",
+      },
+    ],
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+  },
+};
+
 
 const page = async () => {
   const session = await auth();

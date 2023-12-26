@@ -21,6 +21,65 @@ import BookingForm from "./booking-form";
 import { auth } from "@/app/auth";
 import { Session } from "next-auth/types";
 import { clubs as res } from "@/data/data";
+import { Metadata } from "next";
+
+export const clubPageMetadata: Metadata = {
+  metadataBase: new URL("https://clubz.tech"),
+  title: {
+    default: "Clubz - [Club Name]",
+    template: "%s | Clubz - [Club Name]",
+  },
+  description:
+    "Explore the details and events of [Club Name] on Clubz. Get exclusive passes and updates on upcoming parties.",
+  openGraph: {
+    title: "Clubz - [Club Name]",
+    description:
+      "Discover the details and events of [Club Name] on Clubz. Get exclusive passes and updates on upcoming parties.",
+    url: "https://clubz.tech/club/your-club-id",
+    siteName: "Clubz",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://clubz.tech/club-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "[Club Name] on Clubz",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Clubz",
+    title: "Clubz - [Club Name]",
+    description:
+      "Explore the details and events of [Club Name] on Clubz. Get exclusive passes and updates on upcoming parties.",
+    images: [
+      {
+        url: "https://clubz.tech/club-twitter-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "[Club Name] on Clubz",
+      },
+    ],
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+  },
+};
+
 
 export default async function page({ params }: { params: { clubId: string } }) {
   //   const [date, setDate] = React.useState<Date | undefined>(new Date());

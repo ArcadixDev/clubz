@@ -5,6 +5,65 @@ import { auth } from "@/app/auth";
 import ProfileCover from "@/public/assets/profileCover.png";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const settingsPageMetadata: Metadata = {
+  metadataBase: new URL("https://clubz.tech"),
+  title: {
+    default: "Clubz - Dashboard",
+    template: "%s | Clubz - Dashboard",
+  },
+  description:
+    "Customize your Clubz experience with personalized settings. Manage notifications, preferences, and account details.",
+  openGraph: {
+    title: "Clubz - Settings",
+    description:
+      "Adjust your Clubz settings to tailor your nightlife experience. Manage preferences and account details effortlessly.",
+    url: "https://clubz.tech/settings",
+    siteName: "Clubz",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://clubz.tech/settings-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Settings",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Clubz",
+    title: "Clubz - Settings",
+    description:
+      "Customize your Clubz experience with personalized settings. Manage notifications, preferences, and account details.",
+    images: [
+      {
+        url: "https://clubz.tech/settings-twitter-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Settings",
+      },
+    ],
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+  },
+};
+
 
 const Dashboardlayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();

@@ -1,4 +1,5 @@
 import BookingHistoryTable from '@/components/Layouts/booking-history-table'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import React from 'react'
 import { FaTicketAlt, FaUserFriends } from 'react-icons/fa'
@@ -6,6 +7,64 @@ import { FaLocationArrow } from 'react-icons/fa6'
 import { IoLocate } from 'react-icons/io5'
 
 type Props = {}
+
+export const bookingsPageMetadata: Metadata = {
+  metadataBase: new URL("https://clubz.tech"),
+  title: {
+    default: "Clubz - Bookings",
+    template: "%s | Clubz - Bookings",
+  },
+  description:
+    "View and manage your bookings on Clubz. Keep track of your reservations and upcoming events.",
+  openGraph: {
+    title: "Clubz - Bookings",
+    description:
+      "Explore and manage your bookings on Clubz. Keep track of reservations and upcoming events effortlessly.",
+    url: "https://clubz.tech/bookings",
+    siteName: "Clubz",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://clubz.tech/bookings-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Bookings",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Clubz",
+    title: "Clubz - Bookings",
+    description:
+      "View and manage your bookings on Clubz. Keep track of your reservations and upcoming events.",
+    images: [
+      {
+        url: "https://clubz.tech/bookings-twitter-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Clubz Bookings",
+      },
+    ],
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+  },
+};
+
 
 const Bookinsgpage = (props: Props) => {
   const bookingData = [

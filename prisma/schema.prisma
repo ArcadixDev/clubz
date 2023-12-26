@@ -67,10 +67,10 @@ model Club {
   name             String   @unique
   description      String?
   websiteUrl       String?
-  uniqueUrl			String?
+  uniqueUrl        String?
   phone            String?  @unique
   availableTickets Int?
-  minAge 			Int?
+  minAge           Int?
   ticketPrice      Float?
   openingHours     Json?    @db.Json
   location         Json?    @db.Json
