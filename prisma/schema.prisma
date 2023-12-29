@@ -43,6 +43,7 @@ model User {
   phone         String?   @unique
   emailVerified DateTime?
   role          String?
+  clubs         String[]
   password      String?
   image         String?
   pincode       String?
@@ -52,6 +53,7 @@ model User {
   sessions      Session[]
   tickets       Ticket[]
   reviews       Review[]
+  Club          Club[]
 }
 
 model VerificationToken {
@@ -67,16 +69,18 @@ model Club {
   name             String   @unique
   description      String?
   websiteUrl       String?
-  uniqueUrl			String?
+  uniqueUrl        String?
   phone            String?  @unique
   availableTickets Int?
-  minAge 			Int?
+  minAge           Int?
   ticketPrice      Float?
   openingHours     Json?    @db.Json
   location         Json?    @db.Json
   images           String[] @db.VarChar(255)
   tickets          Ticket[]
   reviews          Review[]
+  User             User?    @relation(fields: [userId], references: [id])
+  userId           String?
 }
 
 model Ticket {

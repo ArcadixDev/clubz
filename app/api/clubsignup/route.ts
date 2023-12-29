@@ -15,12 +15,6 @@ export async function POST(request: Request) {
       },
     );
   }
-
-  //   const exist = await db
-  //     .selectFrom("User")
-  //     .selectAll()
-  //     .where("User.email", "=", email)
-  //     .execute();
   const exist = await prisma.user.findUnique({
     where: {
       email: email,

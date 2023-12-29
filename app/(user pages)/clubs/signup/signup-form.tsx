@@ -76,7 +76,7 @@ export function ClubSignup() {
     // ✅ This will be type-safe and validated.
     console.log(values);
 
-    const response = await fetch("/api/signup", {
+    const response = await fetch("/api/clubsignup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
