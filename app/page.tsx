@@ -23,7 +23,7 @@ import ellipse1 from "../public/assets/ellipse1.png";
 
 import { Noto_Serif } from "next/font/google";
 const noto_serif = Noto_Serif({
-  weight: ["700"],
+  weight: ["400","700"],
   subsets: ["latin"],
 });
 
@@ -43,7 +43,7 @@ export default async function Home() {
           />
           {/* <Image src={ellipse2} alt="Ellipse 2" className="absolute right-0 top-10" /> */}
           {/* <h1
-            className={`${noto_serif.className} tracking-wider text-9xl`}
+            className={`${noto_serif.className} tracking-wider text-9xl font-thin`}
           >
             Liquid <br /> Artistry
           </h1> */}

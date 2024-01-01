@@ -8,7 +8,7 @@ import { MdLocationOn } from "react-icons/md";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { auth } from "@/app/auth";
-import { Filters, ProfileSection } from "./actions";
+import { Filters, ProfileSection, AdminProfileSection } from "./actions";
 
 import { GoChevronDown } from "react-icons/go";
 import { IoAdd } from "react-icons/io5";
@@ -159,14 +159,7 @@ const Navigation = ({
               </DropdownMenu>
             </div>
             <div className="flex items-center gap-x-3">
-            <Link
-              href={""}
-              className="flex items-center gap-x-2 rounded-lg px-3 py-2 bg-gradient-to-r from-slate-600 to-slate-900"
-            >
-              <Image className="h-8 w-8 rounded-full" alt="club Images" src={club_image} />
-              <span>Club Name</span>
-            </Link>
-            <ProfileSection user={session?.user!} />
+            <AdminProfileSection user={session?.user!} />
             </div>
           </div>
         </div>
