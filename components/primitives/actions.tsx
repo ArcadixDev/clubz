@@ -257,7 +257,6 @@ const AdminProfileSection = ({
     <Popover>
       <PopoverTrigger>
       <div
-              href={""}
               className="flex items-center gap-x-2 rounded-lg px-3 py-2 bg-gradient-to-r from-slate-600 to-slate-900"
             >
               <Image className="h-8 w-8 rounded-full" alt="club Images" src={club_image} />
