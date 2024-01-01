@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/public/logo.png";
+// import logo from "@/public/logo.png";
 import { PlusIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,12 @@ import { Input } from "../ui/input";
 import { auth } from "@/app/auth";
 import { Filters, ProfileSection } from "./actions";
 
+import { GoChevronDown } from "react-icons/go";
+import { IoAdd } from "react-icons/io5";
+
 import club_image from "../../public/assets/club3.jpg";
+import logo from "../../public/assets/logo.png";
+import logo_text from "../../public/assets/logo_text.png";
 
 import {
   DropdownMenu,
@@ -22,31 +27,48 @@ import {
 import { getUserRole } from "@/lib/db/user";
 import { useEffect, useState } from "react";
 import { Session } from "next-auth";
+import { atom, useRecoilState } from "recoil";
+import { locationState } from "@/atoms/location";
+import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 
 const Location = () => {
-  const [location, setLocation] = useState<
-    Record<"latitude" | "longitude", string | number>
-  >({
-    latitude: "",
-    longitude: "",
-  });
+  // const [location, setLocation] = useState<
+  //   Record<"latitude" | "longitude", string | number>
+  // >({
+  //   latitude: "",
+  //   longitude: "",
+  // });
+  // console.log("location => ", location);
   const [error, setError] = useState<string | null>(null);
+
+  // const locationState = atom({
+  //   key: "locationState",
+  //   default: { latitude: 0, longitude: 0 },
+  // });
+
+  const [locationAtom, setLocationAtom] = useRecoilState(locationState);
+  console.log("locationAtom => ", locationAtom);
 
   useEffect(() => {
     // Request location permission if not already granted
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLocation({
+          // setLocation({
+          //   latitude: position.coords.latitude,
+          //   longitude: position.coords.longitude,
+          // });
+          setLocationAtom({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
         },
+
         (error) => {
           setError(error.message);
         },
         {
-          enableHighAccuracy: true, // Optional for more accurate results
+          // enableHighAccuracy: true, // Optional for more accurate results
           timeout: 5000, // Timeout after 5 seconds
           maximumAge: 0, // Use the most recent position
         },
@@ -56,14 +78,14 @@ const Location = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("location => ", location);
-  }, [location]);
+  // useEffect(() => {
+  //   console.log("location => ", location);
+  // }, [location]);
 
   // Function to handle button click
   const handleGetLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      setLocation({
+      setLocationAtom({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
@@ -88,32 +110,18 @@ const Navigation = ({
 }) => {
   const isLoggedIn = !!(session && session.user);
 
-  //   const [isLoggedIn, role] = [!!session?.user, session?.user.role];
-  //   const session = {
-  //     user: {
-  //       id: 123,
-  //     },
-  //   };
-
-  //   if (session && session.user) {
-  //     console.log("session from navigation -> ", session);
-  //   }
-  //   const role = "clubAdmin";
-
   console.log("role => ", role, isLoggedIn);
+  console.log("session from Nav => ", session);
 
   if (role === "club") {
     return (
-      <div className="relative h-fit bg-transparent/30">
+      <div className="relative z-50 h-fit bg-black bg-opacity-80">
         <div className="h-20"></div>
         <div className="absolute top-0 h-full w-full px-8 py-4">
           <div className="flex items-center justify-between">
-            <Link href={"/"}>
-              <Image
-                src={logo}
-                alt="logo..."
-                className="h-12 w-auto rounded-md"
-              />
+            <Link className="flex items-center gap-x-1" href={"/"}>
+              <Image src={logo} alt="logo..." className="h-8 w-auto" />
+              <Image src={logo_text} alt="logo..." className="h-5 w-auto" />
             </Link>
             <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
               <Link className="p-3" href={"/search"}>
@@ -129,7 +137,7 @@ const Navigation = ({
                 Add Event
               </Link>
               <DropdownMenu>
-                <DropdownMenuTrigger>{"Manage Clubs"}</DropdownMenuTrigger>
+                <DropdownMenuTrigger className="flex items-center gap-x-2">{"Manage Clubs"}<GoChevronDown /></DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 rounded-lg">
                   <DropdownMenuGroup>
                     <DropdownMenuItem className="px-3 py-2">
@@ -140,26 +148,25 @@ const Navigation = ({
                     </DropdownMenuItem>
                     <DropdownMenuItem className="px-3 py-2">
                       <Link
-                        className="mx-auto rounded-lg border border-white px-3 py-2"
+                        className="flex items-center gap-x-3"
                         href={""}
                       >
-                        + Add Club
+                        {"Add Club"}<IoAdd/>
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
+            <div className="flex items-center gap-x-3">
             <Link
               href={""}
-              className="flex items-center gap-x-2 rounded-lg border border-white px-3 py-2"
+              className="flex items-center gap-x-2 rounded-lg px-3 py-2 bg-gradient-to-r from-slate-600 to-slate-900"
             >
-              <Image className="h-6 w-6" alt="club Images" src={club_image} />
+              <Image className="h-8 w-8 rounded-full" alt="club Images" src={club_image} />
               <span>Club Name</span>
             </Link>
-
-            <div>
-              <ProfileSection user={session?.user!} />
+            <ProfileSection user={session?.user!} />
             </div>
           </div>
         </div>
@@ -167,16 +174,13 @@ const Navigation = ({
     );
   } else {
     return (
-      <div className="relative h-fit bg-transparent/30">
+      <div className="relative z-50 h-fit bg-black bg-opacity-80">
         <div className="h-20"></div>
         <div className="absolute top-0 h-full w-full px-8 py-4">
           <div className="flex items-center justify-between">
-            <Link href={"/"}>
-              <Image
-                src={logo}
-                alt="logo..."
-                className="h-12 w-auto rounded-md"
-              />
+            <Link className="flex items-center gap-x-1" href={"/"}>
+              <Image src={logo} alt="logo..." className="h-8 w-auto" />
+              <Image src={logo_text} alt="logo..." className="h-5 w-auto" />
             </Link>
             <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
               {!isLoggedIn && (
@@ -209,7 +213,7 @@ const Navigation = ({
               {!isLoggedIn && (
                 <Link href={"/login"} className="shadow-custom">
                   <Button variant={"ghost"} className="rounded-lg">
-                    login
+                    Login
                   </Button>
                 </Link>
               )}
@@ -224,6 +228,77 @@ const Navigation = ({
       </div>
     );
   }
+
+  // return (
+  //   <div className="relative h-fit bg-transparent/30">
+  //     <div className="h-20"></div>
+  //     <div className="absolute top-0 h-full w-full px-8 py-4">
+  //       <div className="flex items-center justify-between">
+  //         <Link href={"/"}>
+  //           <Image
+  //             src={logo}
+  //             alt="logo..."
+  //             className="h-12 w-auto rounded-md"
+  //           />
+  //         </Link>
+  //         <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
+  //         <Link className="p-3" href={"/search"}>
+  //             Add Clubs
+  //           </Link>
+  //           <Link className="p-3" href={"/search"}>
+  //             About Us
+  //           </Link>
+  //           <Link className="p-3" href={"/search"}>
+  //             Community
+  //           </Link>
+  //           <Link className="p-3" href={"/search"}>
+  //             Contact Us
+  //           </Link>
+  //           <Link className="p-3" href={"/search"}>
+  //             Add Event
+  //           </Link>
+  //           <DropdownMenu>
+  //             <DropdownMenuTrigger className="flex items-center gap-x-2">
+  //               {"Manage Clubs"}
+  //               <GoChevronDown />
+  //             </DropdownMenuTrigger>
+  //             <DropdownMenuContent className="w-56 rounded-lg">
+  //               <DropdownMenuGroup>
+  //                 <DropdownMenuItem className="px-3 py-2">
+  //                   Club 1
+  //                 </DropdownMenuItem>
+  //                 <DropdownMenuItem className="px-3 py-2">
+  //                   Club 2
+  //                 </DropdownMenuItem>
+  //                 <DropdownMenuSeparator />
+  //                 <DropdownMenuItem className="px-3 py-2">
+  //                   <Link
+  //                     className="flex items-center gap-x-3"
+  //                     href={""}
+  //                   >
+  //                     {"Add Club"} <IoAdd/>
+  //                   </Link>
+  //                 </DropdownMenuItem>
+  //               </DropdownMenuGroup>
+
+  //             </DropdownMenuContent>
+  //           </DropdownMenu>
+  //         </div>
+  //         <Link
+  //           href={""}
+  //           className="flex items-center gap-x-2 rounded-lg border border-white px-3 py-2"
+  //         >
+  //           <Image className="h-6 w-6" alt="club Images" src={club_image} />
+  //           <span>Club Name</span>
+  //         </Link>
+
+  //         {/* <div>
+  //           <ProfileSection user={session?.user!} />
+  //         </div> */}
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   //   if (role === "user") {
   //     return (

@@ -17,10 +17,13 @@ import club2 from "../public/assets/club2.jpg";
 import club3 from "../public/assets/club3.jpg";
 import club4 from "../public/assets/club4.jpg";
 import club5 from "../public/assets/club5.jpg";
+import liquid_artistry from "../public/assets/Liquid Artistry.png";
+import line1 from "../public/assets/line1.png";
+import ellipse1 from "../public/assets/ellipse1.png";
 
 import { Noto_Serif } from "next/font/google";
 const noto_serif = Noto_Serif({
-  weight: ["400", "500", "700", "900"],
+  weight: ["700"],
   subsets: ["latin"],
 });
 
@@ -30,21 +33,36 @@ export default async function Home() {
   return (
     <div className="mb-24 flex-grow">
       {/* <Image src={stars_bg} alt="Bg" className="absolute w-full bg-cover" /> */}
-      <div className="bg-starsBg relative min-h-screen w-full bg-cover bg-bottom bg-no-repeat">
+      <div className="relative min-h-screen w-full bg-starsBg bg-cover bg-bottom bg-no-repeat">
         <div className="absolute h-full w-full bg-waves bg-cover bg-top bg-no-repeat"></div>
-        <div className="relative pl-72 pt-44">
+        <div className="relative pl-72 pt-40">
           <Image
-            className="absolute left-[650px] top-[80px] rotate-6"
+            className="absolute left-[700px] top-[80px] rotate-6"
             src={note}
             alt="Note"
           />
           {/* <Image src={ellipse2} alt="Ellipse 2" className="absolute right-0 top-10" /> */}
-          <h1
-            className={`${noto_serif.className} text-8xl font-bold tracking-wider`}
+          {/* <h1
+            className={`${noto_serif.className} tracking-wider text-9xl`}
           >
             Liquid <br /> Artistry
-          </h1>
-          <p className="mt-5 text-lg">
+          </h1> */}
+          <Image
+            className="left-[700px] top-[80px]"
+            src={liquid_artistry}
+            alt="Note"
+          />
+          <Image
+            className="absolute left-0 top-[60px] w-screen"
+            src={line1}
+            alt="Line 1"
+          />
+          <Image
+            className="absolute -right-10 -top-10 rotate-[20deg]"
+            src={ellipse1}
+            alt="Ellipse 1"
+          />
+          <p className={` mt-5 text-lg `}>
             Step into a world of extraordinary flavors <br /> and unrivaled
             mixology expertise
           </p>
@@ -52,7 +70,7 @@ export default async function Home() {
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
           <Button
             variant={`outline`}
-            className="rounded-lg px-8 py-6 text-xl font-bold tracking-widest"
+            className="rounded-lg border border-white px-8 py-6 text-xl font-bold tracking-widest"
           >
             Explore
           </Button>

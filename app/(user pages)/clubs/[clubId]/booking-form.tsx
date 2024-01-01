@@ -29,6 +29,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Session } from "next-auth";
 import { redirect, useRouter } from "next/navigation";
 import { Matcher } from "react-day-picker";
+import { PrismaClient, Prisma } from '@prisma/client'
 
 const formSchema = z.object({
   name: z
@@ -41,14 +42,18 @@ const formSchema = z.object({
   date: z.coerce.date(),
 });
 
+const prisma = new PrismaClient();
+
 const BookingForm = ({
   name,
   email,
   tickets,
+  clubId
 }: {
   name: string | null | undefined;
   email: string | null | undefined;
   tickets: number;
+  clubId: string;
 }) => {
   const route = useRouter();
 
@@ -62,11 +67,32 @@ const BookingForm = ({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     if (!name && !email) {
       route.push("/login");
     }
+    const bookTicket = await fetch("/api/bookTicket", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: "knanda3001@gmail.com",
+        clubId: "1", // Hardcoded for now
+        date: values.date,
+        price: 100, // Hardcoded for now
+        paymentStatus: true,
+      })
+    });
+    try {
+      const res = await bookTicket.json();
+      console.log("Response from booking-form ==>",res);
+    } catch (error) {
+      return error;
+    }
+    
+    
   }
 
   return (
