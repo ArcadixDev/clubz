@@ -66,28 +66,21 @@ const Photos = () => {
       <h1 className="mb-3 text-3xl">Photos</h1>
       <div className="flex justify-between">
         <Image
-          className="aspect-square rounded-full"
+          className="aspect-square h-20 w-20 md:h-60 md:w-60 rounded-full"
           height={200}
           width={200}
           src={photoImage}
           alt="image alternative for photos"
         />
         <Image
-          className="aspect-square rounded-full"
+          className="aspect-square h-20 w-20 md:h-60 md:w-60 rounded-full"
           height={200}
           width={200}
           src={photoImage}
           alt="image alternative for photos"
         />
         <Image
-          className="aspect-square rounded-full"
-          height={200}
-          width={200}
-          src={photoImage}
-          alt="image alternative for photos"
-        />
-        <Image
-          className="aspect-square rounded-full"
+          className="aspect-square h-20 w-20 md:h-60 md:w-60 rounded-full"
           height={200}
           width={200}
           src={photoImage}

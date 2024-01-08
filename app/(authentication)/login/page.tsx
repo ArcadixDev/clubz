@@ -31,7 +31,7 @@ const Page = async () => {
         <Image src="/assets/Ellipse 2.png" alt="" width={250} height={250} />
       </div>
 
-      <div className="relative w-full md:w-1/2">
+      <div className="relative mx-5 md:mx-0 w-full md:w-1/2">
         <LoginFormDemo />
         <Image
           src="/assets/note.png"

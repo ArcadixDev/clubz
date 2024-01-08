@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const BookingCardRight = () => {
   return (
-    <div className="flex w-[500px] space-x-8 justify-self-start rounded-lg border border-white bg-zinc-900/70 p-4 shadow-custom">
+    <div className="flex md:w-[500px] space-x-8 justify-self-start rounded-xl border border-white bg-zinc-900/70 p-4 shadow-custom">
       <div className="mx-3 aspect-square h-[125px] w-[125px] rounded-full  bg-red-600">
         <Image className="h-[125px] w-[125px] object-cover rounded-full" alt="Club3" src={club3}/>
       </div>
@@ -26,7 +26,7 @@ const BookingCardRight = () => {
 
 const BookingCardLeft = () => {
   return (
-    <div className="flex w-[500px] space-x-11 justify-self-end rounded-xl border border-white bg-zinc-900/70 p-4 shadow-custom">
+    <div className="flex md:w-[500px] space-x-11 justify-self-end rounded-xl border border-white bg-zinc-900/70 p-4 shadow-custom">
       <div className="space-y-4 text-right">
         <div className="text-4xl font-semibold">Title</div>
         <div>

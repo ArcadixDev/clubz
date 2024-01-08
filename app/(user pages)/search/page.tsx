@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MdLocationPin } from "react-icons/md";
-import { PopularSearchCard, RelevantSearches } from "./Cards";
+import { PopularSearchCard, RelevantSearches, TrendingPlaceCard } from "./Cards";
 import SortAndFilters from "./sorting-and-filters";
 import { Club } from "@prisma/client";
 import { clubs } from "@/data/data";
