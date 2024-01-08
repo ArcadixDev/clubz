@@ -12,6 +12,9 @@ import { Filters, ProfileSection, AdminProfileSection } from "./actions";
 
 import { GoChevronDown } from "react-icons/go";
 import { IoAdd } from "react-icons/io5";
+import { RiMenu4Line } from "react-icons/ri";
+import { FaFilter } from "react-icons/fa";
+import { IoSearchSharp } from "react-icons/io5";
 
 import club_image from "../../public/assets/club3.jpg";
 import logo from "../../public/assets/logo.png";
@@ -115,304 +118,173 @@ const Navigation = ({
 
   if (role === "club") {
     return (
-      <div className="relative z-50 h-fit bg-black bg-opacity-80">
-        <div className="h-20"></div>
-        <div className="absolute top-0 h-full w-full px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link className="flex items-center gap-x-1" href={"/"}>
-              <Image src={logo} alt="logo..." className="h-8 w-auto" />
-              <Image src={logo_text} alt="logo..." className="h-5 w-auto" />
-            </Link>
-            <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
-              <Link className="p-3" href={"/search"}>
-                About Us
+      <>
+        <div className="relative z-50 hidden h-fit bg-black bg-opacity-80 md:block">
+          <div className="h-20"></div>
+          <div className="absolute top-0 h-full w-full px-8 py-4">
+            <div className="flex items-center justify-between">
+              <Link className="flex items-center gap-x-1" href={"/"}>
+                <Image src={logo} alt="logo..." className="h-8 w-auto" />
+                <Image src={logo_text} alt="logo..." className="h-5 w-auto" />
               </Link>
-              <Link className="p-3" href={"/search"}>
-                Community
-              </Link>
-              <Link className="p-3" href={"/search"}>
-                Contact Us
-              </Link>
-              <Link className="p-3" href={"/search"}>
-                Add Event
-              </Link>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-x-2">{"Manage Clubs"}<GoChevronDown /></DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 rounded-lg">
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem className="px-3 py-2">
-                      Club 1
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="px-3 py-2">
-                      Club 2
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="px-3 py-2">
-                      <Link
-                        className="flex items-center gap-x-3"
-                        href={""}
-                      >
-                        {"Add Club"}<IoAdd/>
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            <div className="flex items-center gap-x-3">
-            <AdminProfileSection user={session?.user!} />
+              <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
+                <Link className="p-3" href={"/search"}>
+                  About Us
+                </Link>
+                <Link className="p-3" href={"/search"}>
+                  Community
+                </Link>
+                <Link className="p-3" href={"/search"}>
+                  Contact Us
+                </Link>
+                <Link className="p-3" href={"/search"}>
+                  Add Event
+                </Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center gap-x-2">
+                    {"Manage Clubs"}
+                    <GoChevronDown />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56 rounded-lg">
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem className="px-3 py-2">
+                        Club 1
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="px-3 py-2">
+                        Club 2
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="px-3 py-2">
+                        <Link className="flex items-center gap-x-3" href={""}>
+                          {"Add Club"}
+                          <IoAdd />
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div className="flex items-center gap-x-3">
+                <AdminProfileSection user={session?.user!} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        {/* Mobile Nav */}
+
+        <div className="flex w-screen justify-between p-4 md:hidden">
+          <div className="flex items-center">
+            <div className="flex items-center gap-x-4">
+              <RiMenu4Line className="h-6 w-6" />
+              <Link className="flex items-center gap-x-1" href={"/"}>
+                <Image src={logo} alt="logo..." className="h-8 w-auto" />
+                <Image src={logo_text} alt="logo..." className="h-5 w-auto" />
+              </Link>
+            </div>
+            <div className="ml-20 flex items-center gap-x-3">
+              <AdminProfileSection user={session?.user!} />
+            </div>
+            {!isLoggedIn && (
+              <Link
+                href={"/clubs/signup"}
+                className="flex items-center space-x-1"
+              >
+                <Button
+                  variant={"link"}
+                  className="flex items-center space-x-1"
+                >
+                  <PlusIcon className="h-5 w-5 font-bold text-foreground" />
+                  <span>Add Club</span>
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
+      </>
     );
   } else {
     return (
-      <div className="relative z-50 h-fit bg-black bg-opacity-80">
-        <div className="h-20"></div>
-        <div className="absolute top-0 h-full w-full px-8 py-4">
-          <div className="flex items-center justify-between">
+      <>
+        <div className="relative z-50 hidden h-fit bg-black bg-opacity-80 md:block">
+          <div className="h-20"></div>
+          <div className="absolute top-0 h-full w-full px-8 py-4">
+            <div className="flex items-center justify-between">
+              <Link className="flex items-center gap-x-1" href={"/"}>
+                <Image src={logo} alt="logo..." className="h-8 w-auto" />
+                <Image src={logo_text} alt="logo..." className="h-5 w-auto" />
+              </Link>
+              <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
+                {!isLoggedIn && (
+                  <Link
+                    href={"/clubs/signup"}
+                    className="flex items-center space-x-1"
+                  >
+                    <Button
+                      variant={"link"}
+                      className="flex items-center space-x-1"
+                    >
+                      <PlusIcon className="h-5 w-5 font-bold text-foreground" />
+                      <span>Add Club</span>
+                    </Button>
+                  </Link>
+                )}
+                <Link className="p-3" href={"/search"}>
+                  Search
+                </Link>
+                <Filters />
+                <div className="flex flex-grow items-center justify-center">
+                  <div className="flex h-full w-full flex-grow items-center space-x-2">
+                    <Location />
+                    <Input
+                      placeholder="Search Location"
+                      className="w-full rounded-none border-transparent px-px focus:outline-none focus-visible:border-b-foreground focus-visible:ring-0"
+                    />
+                  </div>
+                </div>
+                {!isLoggedIn && (
+                  <Link href={"/login"} className="shadow-custom">
+                    <Button variant={"ghost"} className="rounded-lg">
+                      Login
+                    </Button>
+                  </Link>
+                )}
+                {isLoggedIn && (
+                  <div>
+                    <ProfileSection user={session?.user!} />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Nav */}
+
+        <div className="relative z-50 flex items-center justify-between bg-black bg-opacity-80 p-4 md:hidden">
+          <div className="flex items-center gap-x-2">
+            <RiMenu4Line className="h-6 w-6" />
             <Link className="flex items-center gap-x-1" href={"/"}>
               <Image src={logo} alt="logo..." className="h-8 w-auto" />
               <Image src={logo_text} alt="logo..." className="h-5 w-auto" />
             </Link>
-            <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
-              {!isLoggedIn && (
-                <Link
-                  href={"/clubs/signup"}
-                  className="flex items-center space-x-1"
-                >
-                  <Button
-                    variant={"link"}
-                    className="flex items-center space-x-1"
-                  >
-                    <PlusIcon className="h-5 w-5 font-bold text-foreground" />
-                    <span>Add Club</span>
-                  </Button>
-                </Link>
-              )}
-              <Link className="p-3" href={"/search"}>
-                Search
-              </Link>
-              <Filters />
-              <div className="flex flex-grow items-center justify-center">
-                <div className="flex h-full w-full flex-grow items-center space-x-2">
-                  <Location />
-                  <Input
-                    placeholder="Search Location"
-                    className="w-full rounded-none border-transparent px-px focus:outline-none focus-visible:border-b-foreground focus-visible:ring-0"
-                  />
-                </div>
-              </div>
-              {!isLoggedIn && (
-                <Link href={"/login"} className="shadow-custom">
-                  <Button variant={"ghost"} className="rounded-lg">
-                    Login
-                  </Button>
-                </Link>
-              )}
-              {isLoggedIn && (
-                <div>
-                  <ProfileSection user={session?.user!} />
-                </div>
-              )}
-            </div>
           </div>
+          {isLoggedIn && (
+            <div className="flex items-center gap-x-3">
+              <FaFilter className="h-6 w-6" />
+              <Link href={"/search"}><IoSearchSharp className="h-6 w-6" /></Link>
+              <ProfileSection user={session?.user!} />
+            </div>
+          )}
+          {!isLoggedIn && (
+            <div className="flex items-center gap-x-2 font-semibold">
+              <Link href={"/login"}>Login</Link>
+              {"|"}
+              <Link href={"/signup"}>Signup</Link>
+            </div>
+          )}
         </div>
-      </div>
+      </>
     );
   }
-
-  // return (
-  //   <div className="relative h-fit bg-transparent/30">
-  //     <div className="h-20"></div>
-  //     <div className="absolute top-0 h-full w-full px-8 py-4">
-  //       <div className="flex items-center justify-between">
-  //         <Link href={"/"}>
-  //           <Image
-  //             src={logo}
-  //             alt="logo..."
-  //             className="h-12 w-auto rounded-md"
-  //           />
-  //         </Link>
-  //         <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
-  //         <Link className="p-3" href={"/search"}>
-  //             Add Clubs
-  //           </Link>
-  //           <Link className="p-3" href={"/search"}>
-  //             About Us
-  //           </Link>
-  //           <Link className="p-3" href={"/search"}>
-  //             Community
-  //           </Link>
-  //           <Link className="p-3" href={"/search"}>
-  //             Contact Us
-  //           </Link>
-  //           <Link className="p-3" href={"/search"}>
-  //             Add Event
-  //           </Link>
-  //           <DropdownMenu>
-  //             <DropdownMenuTrigger className="flex items-center gap-x-2">
-  //               {"Manage Clubs"}
-  //               <GoChevronDown />
-  //             </DropdownMenuTrigger>
-  //             <DropdownMenuContent className="w-56 rounded-lg">
-  //               <DropdownMenuGroup>
-  //                 <DropdownMenuItem className="px-3 py-2">
-  //                   Club 1
-  //                 </DropdownMenuItem>
-  //                 <DropdownMenuItem className="px-3 py-2">
-  //                   Club 2
-  //                 </DropdownMenuItem>
-  //                 <DropdownMenuSeparator />
-  //                 <DropdownMenuItem className="px-3 py-2">
-  //                   <Link
-  //                     className="flex items-center gap-x-3"
-  //                     href={""}
-  //                   >
-  //                     {"Add Club"} <IoAdd/>
-  //                   </Link>
-  //                 </DropdownMenuItem>
-  //               </DropdownMenuGroup>
-
-  //             </DropdownMenuContent>
-  //           </DropdownMenu>
-  //         </div>
-  //         <Link
-  //           href={""}
-  //           className="flex items-center gap-x-2 rounded-lg border border-white px-3 py-2"
-  //         >
-  //           <Image className="h-6 w-6" alt="club Images" src={club_image} />
-  //           <span>Club Name</span>
-  //         </Link>
-
-  //         {/* <div>
-  //           <ProfileSection user={session?.user!} />
-  //         </div> */}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
-  //   if (role === "user") {
-  //     return (
-  //       <div className="relative h-fit bg-transparent/30">
-  //         <div className="h-20"></div>
-  //         <div className="absolute top-0 h-full w-full px-8 py-4">
-  //           <div className="flex items-center justify-between">
-  //             <Link href={"/"}>
-  //               <Image
-  //                 src={logo}
-  //                 alt="logo..."
-  //                 className="h-12 w-auto rounded-md"
-  //               />
-  //             </Link>
-  //             <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
-  //               {!isLoggedIn && (
-  //                 <Link
-  //                   href={"/clubs/signup"}
-  //                   className="flex items-center space-x-1"
-  //                 >
-  //                   <Button
-  //                     variant={"link"}
-  //                     className="flex items-center space-x-1"
-  //                   >
-  //                     <PlusIcon className="h-5 w-5 font-bold text-foreground" />
-  //                     <span>Add Club</span>
-  //                   </Button>
-  //                 </Link>
-  //               )}
-  //               <Link className="p-3" href={"/search"}>
-  //                 Search
-  //               </Link>
-  //               <Filters />
-  //               <div className="flex flex-grow items-center justify-center">
-  //                 <div className="flex h-full w-full flex-grow items-center space-x-2">
-  //                   <MdLocationOn
-  //                     className={`h-full w-5 text-secondary-foreground`}
-  //                   />
-  //                   <Input
-  //                     placeholder="Search Location"
-  //                     className="w-full rounded-none border-transparent px-px focus:outline-none focus-visible:border-b-foreground focus-visible:ring-0"
-  //                   />
-  //                 </div>
-  //               </div>
-  //               {!isLoggedIn && (
-  //                 <Link href={"/login"} className="shadow-custom">
-  //                   <Button variant={"ghost"} className="rounded-lg">
-  //                     login
-  //                   </Button>
-  //                 </Link>
-  //               )}
-  //               {isLoggedIn && (
-  //                 <div>
-  //                   <ProfileSection user={session?.user!} />
-  //                 </div>
-  //               )}
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //   } else if (role === "club") {
-  //     return (
-  //       <div className="relative h-fit bg-transparent/30">
-  //         <div className="h-20"></div>
-  //         <div className="absolute top-0 h-full w-full px-8 py-4">
-  //           <div className="flex items-center justify-between">
-  //             <Link href={"/"}>
-  //               <Image
-  //                 src={logo}
-  //                 alt="logo..."
-  //                 className="h-12 w-auto rounded-md"
-  //               />
-  //             </Link>
-  //             <div className="flex items-center justify-center space-x-5 place-self-center justify-self-end">
-  //               <Link className="p-3" href={"/search"}>
-  //                 About Us
-  //               </Link>
-  //               <Link className="p-3" href={"/search"}>
-  //                 Community
-  //               </Link>
-  //               <Link className="p-3" href={"/search"}>
-  //                 Contact Us
-  //               </Link>
-  //               <Link className="p-3" href={"/search"}>
-  //                 Add Event
-  //               </Link>
-  //               <DropdownMenu>
-  //                 <DropdownMenuTrigger>{"Manage Clubs"}</DropdownMenuTrigger>
-  //                 <DropdownMenuContent className="w-56 rounded-lg">
-  //                   <DropdownMenuGroup>
-  //                     <DropdownMenuItem className="px-3 py-2">
-  //                       Club 1
-  //                     </DropdownMenuItem>
-  //                     <DropdownMenuItem className="px-3 py-2">
-  //                       Club 2
-  //                     </DropdownMenuItem>
-  //                     <DropdownMenuItem className="px-3 py-2">
-  //                       <Link
-  //                         className="mx-auto rounded-lg border border-white px-3 py-2"
-  //                         href={""}
-  //                       >
-  //                         + Add Club
-  //                       </Link>
-  //                     </DropdownMenuItem>
-  //                   </DropdownMenuGroup>
-  //                 </DropdownMenuContent>
-  //               </DropdownMenu>
-  //             </div>
-  //             <Link
-  //               href={""}
-  //               className="flex items-center gap-x-2 rounded-lg border border-white px-3 py-2"
-  //             >
-  //               <Image className="h-6 w-6" alt="club Images" src={club_image} />
-  //               <span>Club Name</span>
-  //             </Link>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
 };
 
 export default Navigation;

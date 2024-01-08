@@ -11,7 +11,7 @@ const Page = async () => {
     redirect("/");
   }
   return (
-    <section className="relative flex h-screen w-full flex-row items-center justify-center">
+    <section className="relative flex h-screen bg-starsBg bg-cover w-full flex-row items-center justify-center">
       <div className="relative hidden items-center justify-center md:flex md:w-1/2">
         <Image
           src="/assets/Smart People 1.png"
@@ -20,17 +20,17 @@ const Page = async () => {
           alt=""
         />
       </div>
-      <div className="absolute left-72 top-0 -z-10 hidden md:flex">
+      <div className="absolute left-72 top-0 z-50 hidden md:flex">
         <Image src="/assets/Vector 14.png" alt="" width={800} height={800} />
       </div>
-      <div className="absolute left-0 top-0 -z-10 hidden md:flex">
+      <div className="absolute left-0 top-0 z-50 hidden md:flex">
         <Image src="/assets/Vector 15.png" alt="" width={500} height={500} />
       </div>
       <div className="absolute bottom-60 left-0 hidden md:flex">
         <Image src="/assets/Ellipse 2.png" alt="" width={250} height={250} />
       </div>
 
-      <div className="w-full md:w-1/2">
+      <div className="w-full mx-5 md:mx-0 md:w-1/2">
         <SignupFormDemo />
       </div>
       <Image

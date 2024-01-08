@@ -45,7 +45,7 @@ export default async function page({ params }: { params: { clubId: string } }) {
   return (
     <div className="w-full flex-grow py-20">
       <div className="container mx-auto ">
-        <div className="mb-10 grid w-full grid-cols-3 gap-6">
+        <div className="mb-10 grid w-full grid-cols-1 md:grid-cols-3 gap-6">
           <div className="col-span-2 w-full">
             <AspectRatio ratio={16 / 9}>
               <Image
@@ -88,7 +88,7 @@ export default async function page({ params }: { params: { clubId: string } }) {
                 </TabsContent>
               </Tabs>
             </div>
-            <div className="mb-10 space-y-4">
+            <div className="hidden md:block mb-10 space-y-4">
               <div className="text-2xl font-semibold capitalize text-secondary-foreground">
                 FAQs
               </div>
@@ -125,17 +125,18 @@ export default async function page({ params }: { params: { clubId: string } }) {
           {/* Right Pane  */}
           <div>
             {/* Booking and Contact Section */}
-            <h1 className="mb-10 font-serif text-4xl text-red-500">
+            <h1 className="mb-10 font-serif text-center md:text-left text-2xl md:text-4xl text-red-500">
               <span className="font-bold">Bookings</span> & Contact
             </h1>
             <BookingForm clubId={params.clubId} name={name} email={email} tickets={res[0].ticket} />
 
             {/* Contact Info */}
             <div>
-              <h1 className="mt-10 font-serif text-3xl text-red-500">
+              <h1 className="m-10 text-center font-serif text-3xl text-red-500">
                 Contact Info
               </h1>
-              <div className="mb-10 flex flex-col gap-y-3">
+              <div className="grid grid-cols-2 md:grid-cols-1 gap-x-5">
+              <div className="mb-10 flex justify-between flex-col gap-y-3">
                 <div>
                   <h2>Phone</h2>
                   <Link
@@ -152,25 +153,47 @@ export default async function page({ params }: { params: { clubId: string } }) {
                     href={"mailto:"}
                     className=" underline underline-offset-4"
                   >
-                    {res[0].email}
+                    {"mail@google.com"}
                   </Link>
                 </div>
               </div>
-
-              {/* <AspectRatio ratio={16 / 9}>
-                <iframe
-                  width="450"
-                  height="250"
-                  frameBorder="0"
-                  style={{ border: "0px" }}
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src="https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS"
-                  allowFullScreen
-                ></iframe>
-              </AspectRatio> */}
-              <div className="w-[450px] h-[250px]">
+              <div className="w-full h-auto md:w-[450px] md:h-[250px]">
                 <Map position={[22.518,88.3832]}/>
               </div>
+              </div>
+              <div className="mb-10 space-y-4 md:hidden mt-10">
+              <div className="text-2xl text-center font-semibold capitalize text-secondary-foreground">
+                FAQs
+              </div>
+              <div>
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                    <AccordionContent>
+                      Yes. It adheres to the WAI-ARIA design pattern.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-2">
+                    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                    <AccordionContent>
+                      Yes. It adheres to the WAI-ARIA design pattern.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-3">
+                    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                    <AccordionContent>
+                      Yes. It adheres to the WAI-ARIA design pattern.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-4">
+                    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                    <AccordionContent>
+                      Yes. It adheres to the WAI-ARIA design pattern.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </div>
             </div>
           </div>
         </div>
